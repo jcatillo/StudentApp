@@ -105,9 +105,6 @@ private fun StudentAppRoot() {
                 selectedNavItemId = "finance",
                 onBottomNavSelected = { item ->
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
-                },
-                onBackClick = {
-                    currentRoute = AppDestination.Dashboard.route
                 }
             )
         }
