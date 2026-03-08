@@ -5,6 +5,10 @@ import androidx.compose.ui.graphics.Color
 val Gold = Color(0xFFF8A824)
 val DarkGreen = Color(0xFF1F5C23)
 val BackgroundGreen = Color(0xFF141E15)
+val BackgroundLight = Color(0xFFF8FAF8)
+val BorderLight = Color(0xFFE2E8F0)
+val TextMuted = Color(0xFF64748B)
+val PrimaryTint = Color(0x331F5C23)
 
 val LightYellow = Color(0xFFF2E160)
 val White = Color(0xFFFFFFFF)

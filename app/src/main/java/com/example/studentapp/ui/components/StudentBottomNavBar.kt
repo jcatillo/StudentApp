@@ -1,0 +1,108 @@
+package com.example.studentapp.ui.components
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.studentapp.ui.theme.BorderLight
+import com.example.studentapp.ui.theme.DarkGreen
+import com.example.studentapp.ui.theme.TextMuted
+import com.example.studentapp.ui.theme.White
+
+@Immutable
+data class StudentBottomNavItem(
+    val id: String,
+    val label: String,
+    val icon: ImageVector
+)
+
+@Composable
+fun StudentBottomNavBar(
+    items: List<StudentBottomNavItem>,
+    selectedItemId: String,
+    onItemSelected: (StudentBottomNavItem) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = White
+    ) {
+        Column {
+            HorizontalDivider(color = BorderLight)
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .padding(horizontal = 24.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                items.forEach { item ->
+                    BottomNavItemButton(
+                        item = item,
+                        isSelected = item.id == selectedItemId,
+                        onClick = { onItemSelected(item) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun BottomNavItemButton(
+    item: StudentBottomNavItem,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    val itemColor = if (isSelected) {
+        DarkGreen
+    } else {
+        TextMuted
+    }
+
+    val itemWeight = if (isSelected) {
+        FontWeight.Bold
+    } else {
+        FontWeight.Medium
+    }
+
+    Column(
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Icon(
+            imageVector = item.icon,
+            contentDescription = item.label,
+            tint = itemColor
+        )
+
+        Text(
+            text = item.label,
+            color = itemColor,
+            fontSize = 10.sp,
+            fontWeight = itemWeight,
+            style = MaterialTheme.typography.labelSmall
+        )
+    }
+}
