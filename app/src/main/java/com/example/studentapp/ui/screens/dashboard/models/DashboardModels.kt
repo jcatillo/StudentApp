@@ -2,15 +2,10 @@ package com.example.studentapp.ui.screens.dashboard.models
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Widgets
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.studentapp.ui.components.StudentBottomNavItem
 
 @Immutable
 data class DashboardUiState(
@@ -18,8 +13,7 @@ data class DashboardUiState(
     val studentId: String,
     val stats: List<DashboardStat>,
     val courses: List<CourseSnapshot>,
-    val requestStatus: ServiceRequestStatus,
-    val navigationItems: List<StudentBottomNavItem>
+    val requestStatus: ServiceRequestStatus
 )
 
 @Immutable
@@ -86,33 +80,6 @@ fun buildDashboardUiState(): DashboardUiState {
             statusLabel = "PROCESSING",
             progress = 0.65f,
             estimatedCompletion = "2 Days"
-        ),
-        navigationItems = listOf(
-            StudentBottomNavItem(
-                id = "home",
-                label = "Home",
-                icon = Icons.Filled.Home
-            ),
-            StudentBottomNavItem(
-                id = "academic",
-                label = "Academic",
-                icon = Icons.Filled.School
-            ),
-            StudentBottomNavItem(
-                id = "finance",
-                label = "Finance",
-                icon = Icons.Filled.AccountBalanceWallet
-            ),
-            StudentBottomNavItem(
-                id = "services",
-                label = "Services",
-                icon = Icons.Filled.Widgets
-            ),
-            StudentBottomNavItem(
-                id = "profile",
-                label = "Profile",
-                icon = Icons.Filled.Person
-            )
         )
     )
 }

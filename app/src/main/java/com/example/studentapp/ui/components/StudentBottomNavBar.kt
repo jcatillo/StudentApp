@@ -7,6 +7,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.School
+import androidx.compose.material.icons.filled.Widgets
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +37,36 @@ data class StudentBottomNavItem(
     val label: String,
     val icon: ImageVector
 )
+
+fun buildPrimaryBottomNavItems(): List<StudentBottomNavItem> {
+    return listOf(
+        StudentBottomNavItem(
+            id = "home",
+            label = "Home",
+            icon = Icons.Filled.Home
+        ),
+        StudentBottomNavItem(
+            id = "academic",
+            label = "Academic",
+            icon = Icons.Filled.School
+        ),
+        StudentBottomNavItem(
+            id = "finance",
+            label = "Finance",
+            icon = Icons.Filled.AccountBalanceWallet
+        ),
+        StudentBottomNavItem(
+            id = "services",
+            label = "Services",
+            icon = Icons.Filled.Widgets
+        ),
+        StudentBottomNavItem(
+            id = "profile",
+            label = "Profile",
+            icon = Icons.Filled.Person
+        )
+    )
+}
 
 @Composable
 fun StudentBottomNavBar(

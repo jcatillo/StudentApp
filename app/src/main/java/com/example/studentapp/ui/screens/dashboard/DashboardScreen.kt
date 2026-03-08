@@ -40,10 +40,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +50,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.ViewScheduleAction
+import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.dashboard.models.CourseSnapshot
 import com.example.studentapp.ui.screens.dashboard.models.DashboardStat
 import com.example.studentapp.ui.screens.dashboard.models.DashboardUiState
@@ -73,12 +71,11 @@ import com.example.studentapp.ui.theme.White
 fun DashboardScreen(
     modifier: Modifier = Modifier,
     state: DashboardUiState = buildDashboardUiState(),
+    navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
+    selectedNavItemId: String = "home",
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onViewScheduleClick: () -> Unit = {}
 ) {
-    var selectedNavItemId by rememberSaveable {
-        mutableStateOf(state.navigationItems.first().id)
-    }
-
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = BackgroundLight,
@@ -90,11 +87,9 @@ fun DashboardScreen(
         },
         bottomBar = {
             StudentBottomNavBar(
-                items = state.navigationItems,
+                items = navigationItems,
                 selectedItemId = selectedNavItemId,
-                onItemSelected = { item ->
-                    selectedNavItemId = item.id
-                }
+                onItemSelected = onBottomNavSelected
             )
         }
     ) { innerPadding ->
@@ -346,7 +341,7 @@ private fun CampusDigitalIdCard(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
 //                    Icon(
-//                        imageVector = BadgeIcon,
+//                        imageVector = null,
 //                        contentDescription = "Campus digital ID",
 //                        tint = DarkGreen,
 //                        modifier = Modifier.size(40.dp)

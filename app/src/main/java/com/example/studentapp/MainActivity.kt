@@ -10,11 +10,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.example.studentapp.domain.usecase.GetAcademicOverviewUseCase
 import com.example.studentapp.domain.usecase.AuthenticateStudentUseCase
 import com.example.studentapp.navigation.AppDestination
+import com.example.studentapp.ui.components.StudentBottomNavItem
+import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
+import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
+import com.example.studentapp.ui.screens.academic.models.toUiState
 import com.example.studentapp.ui.theme.StudentAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +44,14 @@ private fun StudentAppRoot() {
         AuthenticateStudentUseCase()
     }
 
+    val academicOverview = remember {
+        GetAcademicOverviewUseCase().invoke().toUiState()
+    }
+
+    val primaryBottomNavItems = remember {
+        buildPrimaryBottomNavItems()
+    }
+
     when (currentRoute) {
         AppDestination.Login.route -> {
             LoginScreen(
@@ -51,9 +64,30 @@ private fun StudentAppRoot() {
 
         AppDestination.Dashboard.route -> {
             DashboardScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "home",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onViewScheduleClick = {
                     currentRoute = AppDestination.Schedule.route
                 }
+            )
+        }
+
+        AppDestination.Academic.route -> {
+            AcademicScreen(
+                state = academicOverview,
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Dashboard.route
+                },
+                onViewAllClick = {},
+                onContactSupportClick = {}
             )
         }
 
@@ -64,5 +98,16 @@ private fun StudentAppRoot() {
                 }
             )
         }
+    }
+}
+
+private fun resolvePrimaryRoute(
+    item: StudentBottomNavItem,
+    currentRoute: String
+): String {
+    return when (item.id) {
+        "home" -> AppDestination.Dashboard.route
+        "academic" -> AppDestination.Academic.route
+        else -> currentRoute
     }
 }
