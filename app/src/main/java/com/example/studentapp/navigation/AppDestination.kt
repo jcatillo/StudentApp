@@ -6,4 +6,5 @@ sealed class AppDestination(val route: String) {
     data object Academic : AppDestination("academic")
     data object Schedule : AppDestination("schedule")
     data object Finance : AppDestination("finance")
+    data object Profile : AppDestination("profile")
 }
