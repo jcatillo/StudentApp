@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -55,6 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.ViewScheduleAction
 import com.example.studentapp.ui.screens.dashboard.models.CourseSnapshot
 import com.example.studentapp.ui.screens.dashboard.models.DashboardStat
 import com.example.studentapp.ui.screens.dashboard.models.DashboardUiState
@@ -72,7 +72,8 @@ import com.example.studentapp.ui.theme.White
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
-    state: DashboardUiState = buildDashboardUiState()
+    state: DashboardUiState = buildDashboardUiState(),
+    onViewScheduleClick: () -> Unit = {}
 ) {
     var selectedNavItemId by rememberSaveable {
         mutableStateOf(state.navigationItems.first().id)
@@ -119,7 +120,10 @@ fun DashboardScreen(
             }
 
             item {
-                StudyLoadSection(courses = state.courses)
+                StudyLoadSection(
+                    courses = state.courses,
+                    onViewScheduleClick = onViewScheduleClick
+                )
             }
 
             item {
@@ -398,7 +402,10 @@ private fun CampusDigitalIdCard(
 }
 
 @Composable
-private fun StudyLoadSection(courses: List<CourseSnapshot>) {
+private fun StudyLoadSection(
+    courses: List<CourseSnapshot>,
+    onViewScheduleClick: () -> Unit
+) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -411,11 +418,8 @@ private fun StudyLoadSection(courses: List<CourseSnapshot>) {
                 fontSize = 20.sp
             )
 
-            Text(
-                text = "View Schedule",
-                color = Gold,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
+            ViewScheduleAction(
+                onClick = onViewScheduleClick
             )
         }
 

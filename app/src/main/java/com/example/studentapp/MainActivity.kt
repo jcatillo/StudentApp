@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import com.example.studentapp.domain.usecase.AuthenticateStudentUseCase
+import com.example.studentapp.navigation.AppDestination
+import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
+import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.theme.StudentAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,24 +23,46 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             StudentAppTheme {
-                LoginScreen()
+                StudentAppRoot()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+private fun StudentAppRoot() {
+    var currentRoute by rememberSaveable {
+        mutableStateOf(AppDestination.Login.route)
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    StudentAppTheme {
-        Greeting("Android")
+    val authenticateStudent = remember {
+        AuthenticateStudentUseCase()
+    }
+
+    when (currentRoute) {
+        AppDestination.Login.route -> {
+            LoginScreen(
+                authenticate = authenticateStudent::invoke,
+                onLoginSuccess = {
+                    currentRoute = AppDestination.Dashboard.route
+                }
+            )
+        }
+
+        AppDestination.Dashboard.route -> {
+            DashboardScreen(
+                onViewScheduleClick = {
+                    currentRoute = AppDestination.Schedule.route
+                }
+            )
+        }
+
+        AppDestination.Schedule.route -> {
+            ScheduleScreen(
+                onBackClick = {
+                    currentRoute = AppDestination.Dashboard.route
+                }
+            )
+        }
     }
 }
