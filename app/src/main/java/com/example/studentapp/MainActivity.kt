@@ -18,6 +18,7 @@ import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
+import com.example.studentapp.ui.screens.finance.FinanceScreen
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.academic.models.toUiState
 import com.example.studentapp.ui.theme.StudentAppTheme
@@ -91,6 +92,19 @@ private fun StudentAppRoot() {
             )
         }
 
+        AppDestination.Finance.route -> {
+            FinanceScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "finance",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Dashboard.route
+                }
+            )
+        }
+
         AppDestination.Schedule.route -> {
             ScheduleScreen(
                 onBackClick = {
@@ -108,6 +122,7 @@ private fun resolvePrimaryRoute(
     return when (item.id) {
         "home" -> AppDestination.Dashboard.route
         "academic" -> AppDestination.Academic.route
+        "finance" -> AppDestination.Finance.route
         else -> currentRoute
     }
 }
