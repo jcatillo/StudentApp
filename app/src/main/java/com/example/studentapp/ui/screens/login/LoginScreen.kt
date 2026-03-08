@@ -1,7 +1,6 @@
 package com.example.studentapp.ui.screens.login
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +49,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.domain.usecase.AuthenticationResult
-import com.example.studentapp.ui.theme.BackgroundGreen
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
 
@@ -69,9 +67,7 @@ fun LoginScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                if (isSystemInDarkTheme()) BackgroundGreen else Color(0xFFF6F8F6)
-            )
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -81,7 +77,7 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .widthIn(max = 480.dp),
             shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(
@@ -113,7 +109,7 @@ fun LoginScreen(
                 Text(
                     text = "Sign in to your student account",
                     fontSize = 14.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -123,7 +119,7 @@ fun LoginScreen(
                         text = "STUDENT ID",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     OutlinedTextField(
@@ -143,14 +139,14 @@ fun LoginScreen(
                             Icon(
                                 imageVector = Icons.Default.Badge,
                                 contentDescription = null,
-                                tint = Color.Gray
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = DarkGreen,
-                            unfocusedBorderColor = Color(0xFFE2E8F0)
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
                         )
                     )
                 }
@@ -166,14 +162,7 @@ fun LoginScreen(
                             text = "PASSWORD",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Gray
-                        )
-
-                        Text(
-                            text = "Forgot password?",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = DarkGreen
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
 
@@ -194,7 +183,7 @@ fun LoginScreen(
                             Icon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = null,
-                                tint = Color.Gray
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         trailingIcon = {
@@ -210,7 +199,7 @@ fun LoginScreen(
                                         Icons.Default.VisibilityOff
                                     },
                                     contentDescription = null,
-                                    tint = Color.Gray
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         },
@@ -226,7 +215,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = DarkGreen,
-                            unfocusedBorderColor = Color(0xFFE2E8F0)
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
                         )
                     )
                 }
@@ -246,7 +235,7 @@ fun LoginScreen(
                     Text(
                         text = "Keep me logged in",
                         fontSize = 14.sp,
-                        color = Color(0xFF475569)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -302,7 +291,7 @@ fun LoginScreen(
                 Text(
                     text = "Use any student ID and a password with at least 6 characters.",
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -311,7 +300,7 @@ fun LoginScreen(
                     Text(
                         text = "Don't have an account? ",
                         fontSize = 14.sp,
-                        color = Color.Gray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     Text(
@@ -331,11 +320,11 @@ fun LoginScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Privacy Policy", fontSize = 12.sp, color = Color.Gray)
-            Text(" | ", color = Color.LightGray, modifier = Modifier.padding(horizontal = 8.dp))
-            Text("Terms of Service", fontSize = 12.sp, color = Color.Gray)
-            Text(" | ", color = Color.LightGray, modifier = Modifier.padding(horizontal = 8.dp))
-            Text("Help Center", fontSize = 12.sp, color = Color.Gray)
+            Text("Privacy Policy", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(" | ", color = MaterialTheme.colorScheme.outlineVariant, modifier = Modifier.padding(horizontal = 8.dp))
+            Text("Terms of Service", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(" | ", color = MaterialTheme.colorScheme.outlineVariant, modifier = Modifier.padding(horizontal = 8.dp))
+            Text("Help Center", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

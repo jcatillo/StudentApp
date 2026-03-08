@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -27,9 +28,9 @@ import com.example.studentapp.ui.theme.DarkGreen
 @Composable
 fun TransactionHistoryHeader(onViewAllClick: () -> Unit = {}) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
     ) {
         Text("Transaction History", fontWeight = FontWeight.Bold, fontSize = 16.sp)
         TextButton(onClick = onViewAllClick) {
@@ -41,44 +42,41 @@ fun TransactionHistoryHeader(onViewAllClick: () -> Unit = {}) {
 @Composable
 fun TransactionItem(transaction: Transaction) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        color = Color(0xFFF8F9FA),
-        border = BorderStroke(1.dp, Color(0xFFF1F5F9))
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             Surface(
-                modifier = Modifier.size(48.dp),
-                shape = RoundedCornerShape(8.dp),
-                color = transaction.iconBg
+                    modifier = Modifier.size(48.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    color = transaction.iconBg
             ) {
                 Icon(
-                    transaction.icon,
-                    contentDescription = null,
-                    tint = transaction.iconTint,
-                    modifier = Modifier.padding(12.dp)
+                        transaction.icon,
+                        contentDescription = null,
+                        tint = transaction.iconTint,
+                        modifier = Modifier.padding(12.dp)
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(transaction.title, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                Text(transaction.date, color = Color.Gray, fontSize = 12.sp)
+                Text(transaction.date, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(transaction.amount, fontWeight = FontWeight.Bold, fontSize = 14.sp)
                 Surface(
-                    color = if (transaction.isPaid) Color(0xFFD1FAE5) else Color(0xFFFEF3C7),
-                    shape = RoundedCornerShape(4.dp)
+                        color = if (transaction.isPaid) Color(0xFFD1FAE5) else Color(0xFFFEF3C7),
+                        shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(
-                        if (transaction.isPaid) "PAID" else "PENDING",
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = if (transaction.isPaid) Color(0xFF047857) else Color(0xFFB45309)
+                            if (transaction.isPaid) "PAID" else "PENDING",
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (transaction.isPaid) Color(0xFF047857) else Color(0xFFB45309)
                     )
                 }
             }

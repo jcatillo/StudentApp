@@ -13,3 +13,10 @@ val PrimaryTint = Color(0x331F5C23)
 val LightYellow = Color(0xFFF2E160)
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
+
+// Dark mode semantic colors
+val DarkSurface = Color(0xFF1C2B1E)
+val DarkSurfaceVariant = Color(0xFF243326)
+val DarkOutlineVariant = Color(0xFF2D4030)
+val OnDarkSurface = Color(0xFFFFFFFF)
+val OnDarkMuted = Color(0xFFE0E0E0)

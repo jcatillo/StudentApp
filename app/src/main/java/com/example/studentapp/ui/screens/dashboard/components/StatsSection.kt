@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,11 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.screens.dashboard.models.DashboardStat
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun StatsSection(stats: List<DashboardStat>) {
@@ -39,10 +37,10 @@ fun StatsSection(stats: List<DashboardStat>) {
 
 @Composable
 private fun StatCard(stat: DashboardStat) {
-    val containerColor = if (stat.isHighlighted) DarkGreen else White
-    val borderColor = if (stat.isHighlighted) DarkGreen else BorderLight
-    val valueColor = if (stat.isHighlighted) White else Color(0xFF0F172A)
-    val labelColor = if (stat.isHighlighted) White.copy(alpha = 0.8f) else TextMuted
+    val containerColor = if (stat.isHighlighted) DarkGreen else MaterialTheme.colorScheme.surface
+    val borderColor = if (stat.isHighlighted) DarkGreen else MaterialTheme.colorScheme.outlineVariant
+    val valueColor = if (stat.isHighlighted) Color.White else MaterialTheme.colorScheme.onSurface
+    val labelColor = if (stat.isHighlighted) Color.White.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
 
     Card(
         modifier = Modifier.width(160.dp),

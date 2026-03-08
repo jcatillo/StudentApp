@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.studentapp.ui.components.StudentBottomNavBar
+import androidx.compose.material3.MaterialTheme
 import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.dashboard.components.CampusDigitalIdCard
@@ -19,7 +20,6 @@ import com.example.studentapp.ui.screens.dashboard.components.StatsSection
 import com.example.studentapp.ui.screens.dashboard.components.StudyLoadSection
 import com.example.studentapp.ui.screens.dashboard.models.DashboardUiState
 import com.example.studentapp.ui.screens.dashboard.models.buildDashboardUiState
-import com.example.studentapp.ui.theme.BackgroundLight
 import com.example.studentapp.ui.theme.StudentAppTheme
 
 @Composable
@@ -33,7 +33,7 @@ fun DashboardScreen(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             DashboardHeader(
                 studentName = state.studentName,
@@ -52,7 +52,7 @@ fun DashboardScreen(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
                 start = 24.dp,
-                top = innerPadding.calculateTopPadding() + 16.dp,
+                top = innerPadding.calculateTopPadding() + 24.dp,
                 end = 24.dp,
                 bottom = innerPadding.calculateBottomPadding() + 24.dp
             ),

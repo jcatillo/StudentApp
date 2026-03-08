@@ -13,6 +13,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -35,36 +36,43 @@ import com.example.studentapp.ui.theme.DarkGreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FinanceScreen(
-    navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
-    selectedNavItemId: String = "finance",
-    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
+        navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
+        selectedNavItemId: String = "finance",
+        onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
 ) {
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Finance", fontSize = 18.sp, fontWeight = FontWeight.Bold) },
-                actions = {
-                    IconButton(onClick = { /* Handle notifications */ }) {
-                        Icon(Icons.Default.Notifications, contentDescription = "Notifications", tint = DarkGreen)
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.White)
-            )
-        },
-        bottomBar = {
-            StudentBottomNavBar(
-                items = navigationItems,
-                selectedItemId = selectedNavItemId,
-                onItemSelected = onBottomNavSelected
-            )
-        }
+            topBar = {
+                CenterAlignedTopAppBar(
+                        title = { Text("Finance", fontSize = 18.sp, fontWeight = FontWeight.Bold) },
+                        actions = {
+                            IconButton(onClick = { /* Handle notifications */}) {
+                                Icon(
+                                        Icons.Default.Notifications,
+                                        contentDescription = "Notifications",
+                                        tint = DarkGreen
+                                )
+                            }
+                        },
+                        colors =
+                                TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                        containerColor = MaterialTheme.colorScheme.surface
+                                )
+                )
+            },
+            bottomBar = {
+                StudentBottomNavBar(
+                        items = navigationItems,
+                        selectedItemId = selectedNavItemId,
+                        onItemSelected = onBottomNavSelected
+                )
+            }
     ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(Color.White)
-                .padding(horizontal = 16.dp)
+                modifier =
+                        Modifier.fillMaxSize()
+                                .padding(paddingValues)
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(horizontal = 16.dp)
         ) {
             item {
                 Spacer(modifier = Modifier.height(8.dp))

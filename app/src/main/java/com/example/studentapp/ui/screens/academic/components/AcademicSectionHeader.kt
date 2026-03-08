@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.components.ViewAllAction
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun AcademicSectionHeader(
@@ -24,7 +25,7 @@ fun AcademicSectionHeader(
     ) {
         Text(
             text = title,
-            color = Color(0xFF0F172A),
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )

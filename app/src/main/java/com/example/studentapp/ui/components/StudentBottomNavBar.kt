@@ -26,10 +26,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Immutable
 data class StudentBottomNavItem(
@@ -77,10 +74,10 @@ fun StudentBottomNavBar(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = White
+        color = MaterialTheme.colorScheme.surface
     ) {
         Column {
-            HorizontalDivider(color = BorderLight)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
             Row(
                 modifier = Modifier
@@ -111,7 +108,7 @@ private fun BottomNavItemButton(
     val itemColor = if (isSelected) {
         DarkGreen
     } else {
-        TextMuted
+        MaterialTheme.colorScheme.onSurfaceVariant
     }
 
     val itemWeight = if (isSelected) {

@@ -32,58 +32,51 @@ fun BalanceCard() {
     val darkGreen = Color(0xFF1F5C23)
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = gold)
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = gold)
     ) {
         Box(modifier = Modifier.padding(24.dp)) {
             // Simulated Glow effect
             Surface(
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Alignment.TopEnd)
-                    .offset(x = 20.dp, y = (-20).dp),
-                color = Color.White.copy(alpha = 0.2f),
-                shape = CircleShape
+                    modifier =
+                            Modifier.size(100.dp)
+                                    .align(Alignment.TopEnd)
+                                    .offset(x = 20.dp, y = (-20).dp),
+                    color = Color.White.copy(alpha = 0.2f),
+                    shape = CircleShape
             ) {}
 
             Column {
                 Text(
-                    "Total Outstanding Balance",
-                    color = darkGreen.copy(alpha = 0.7f),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
+                        "Total Outstanding Balance",
+                        color = darkGreen.copy(alpha = 0.7f),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium
                 )
-                Text(
-                    "$2,450.00",
-                    color = darkGreen,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                Text("$2,450.00", color = darkGreen, fontSize = 36.sp, fontWeight = FontWeight.Bold)
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.Bottom
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Bottom
                 ) {
                     Column {
                         Text(
-                            "DUE DATE",
-                            color = darkGreen.copy(alpha = 0.6f),
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold
+                                "DUE DATE",
+                                color = darkGreen.copy(alpha = 0.6f),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
                         )
                         Text("Oct 15, 2023", color = darkGreen, fontWeight = FontWeight.Bold)
                     }
                     Button(
-                        onClick = { /* Pay */ },
-                        colors = ButtonDefaults.buttonColors(containerColor = darkGreen),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text("Pay Now", fontWeight = FontWeight.Bold)
-                    }
+                            onClick = { /* Pay */},
+                            colors = ButtonDefaults.buttonColors(containerColor = darkGreen),
+                            shape = RoundedCornerShape(8.dp)
+                    ) { Text("Pay Now", fontWeight = FontWeight.Bold) }
                 }
             }
         }

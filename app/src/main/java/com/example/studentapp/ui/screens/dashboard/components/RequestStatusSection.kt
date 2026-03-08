@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,11 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.screens.dashboard.models.ServiceRequestStatus
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun RequestStatusSection(requestStatus: ServiceRequestStatus) {
@@ -45,8 +43,8 @@ fun RequestStatusSection(requestStatus: ServiceRequestStatus) {
 
         Card(
             shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = White),
-            border = BorderStroke(1.dp, BorderLight),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(
@@ -86,7 +84,7 @@ fun RequestStatusSection(requestStatus: ServiceRequestStatus) {
 
                             Text(
                                 text = "Reference: ${requestStatus.reference}",
-                                color = TextMuted,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 12.sp
                             )
                         }
@@ -98,7 +96,7 @@ fun RequestStatusSection(requestStatus: ServiceRequestStatus) {
                     ) {
                         Text(
                             text = requestStatus.statusLabel,
-                            color = White,
+                            color = Color.White,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
@@ -113,12 +111,12 @@ fun RequestStatusSection(requestStatus: ServiceRequestStatus) {
                         .height(6.dp)
                         .clip(RoundedCornerShape(999.dp)),
                     color = DarkGreen,
-                    trackColor = Color(0xFFE2E8F0)
+                    trackColor = MaterialTheme.colorScheme.outlineVariant
                 )
 
                 Text(
                     text = "Estimated Completion: ${requestStatus.estimatedCompletion}",
-                    color = Color(0xFF94A3B8),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp,

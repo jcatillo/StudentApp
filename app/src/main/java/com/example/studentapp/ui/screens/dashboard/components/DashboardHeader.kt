@@ -30,15 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun DashboardHeader(
     studentName: String,
     hasUnreadNotifications: Boolean
 ) {
-    Surface(color = White) {
+    Surface(color = MaterialTheme.colorScheme.surface) {
         Column {
             Row(
                 modifier = Modifier
@@ -56,13 +54,13 @@ fun DashboardHeader(
                     Column {
                         Text(
                             text = "Welcome back,",
-                            color = TextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp
                         )
 
                         Text(
                             text = studentName,
-                            color = Color(0xFF0F172A),
+                            color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -72,7 +70,7 @@ fun DashboardHeader(
                 NotificationButton(hasUnreadNotifications = hasUnreadNotifications)
             }
 
-            HorizontalDivider(color = Color(0xFFF1F5F9))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
@@ -92,7 +90,7 @@ private fun AvatarPlaceholder(initials: String) {
             .size(48.dp)
             .clip(CircleShape)
             .border(width = 2.dp, color = Gold, shape = CircleShape)
-            .background(Color(0xFFFFF7E8)),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -108,7 +106,7 @@ private fun NotificationButton(hasUnreadNotifications: Boolean) {
     Surface(
         modifier = Modifier.size(44.dp),
         shape = CircleShape,
-        color = Color(0xFFF8FAFC),
+        color = MaterialTheme.colorScheme.surfaceVariant,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp
     ) {
@@ -130,7 +128,7 @@ private fun NotificationButton(hasUnreadNotifications: Boolean) {
                 Icon(
                     imageVector = Icons.Filled.Notifications,
                     contentDescription = "Notifications",
-                    tint = TextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

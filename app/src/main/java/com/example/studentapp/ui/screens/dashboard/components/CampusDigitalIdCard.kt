@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,11 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun CampusDigitalIdCard(
@@ -43,8 +41,8 @@ fun CampusDigitalIdCard(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = White),
-        border = BorderStroke(1.dp, BorderLight),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
@@ -61,7 +59,7 @@ fun CampusDigitalIdCard(
                 Text(
                     text = "Campus Digital ID",
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF0F172A)
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Surface(
@@ -83,8 +81,8 @@ fun CampusDigitalIdCard(
             Box(
                 modifier = Modifier
                     .size(128.dp)
-                    .background(White, RoundedCornerShape(12.dp))
-                    .border(1.dp, Color(0xFFF1F5F9), RoundedCornerShape(12.dp)),
+                    .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
+                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -93,7 +91,7 @@ fun CampusDigitalIdCard(
                 ) {
                     Text(
                         text = "QR ID",
-                        color = TextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -105,12 +103,12 @@ fun CampusDigitalIdCard(
             Text(
                 text = studentName,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF0F172A)
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "ID: $studentId",
-                color = TextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
 
@@ -125,14 +123,14 @@ fun CampusDigitalIdCard(
                 Icon(
                     imageVector = Icons.Filled.Fullscreen,
                     contentDescription = null,
-                    tint = White
+                    tint = Color.White
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = "Tap to View Full ID",
-                    color = White,
+                    color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
             }

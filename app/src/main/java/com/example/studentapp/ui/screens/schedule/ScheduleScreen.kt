@@ -40,14 +40,10 @@ import com.example.studentapp.ui.screens.schedule.models.ScheduleDaySection
 import com.example.studentapp.ui.screens.schedule.models.ScheduleEntry
 import com.example.studentapp.ui.screens.schedule.models.ScheduleUiState
 import com.example.studentapp.ui.screens.schedule.models.buildScheduleUiState
-import com.example.studentapp.ui.theme.BackgroundLight
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
 import com.example.studentapp.ui.theme.PrimaryTint
 import com.example.studentapp.ui.theme.StudentAppTheme
-import com.example.studentapp.ui.theme.TextMuted
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun ScheduleScreen(
@@ -57,7 +53,7 @@ fun ScheduleScreen(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             ScheduleHeader(
                 studentName = state.studentName,
@@ -87,7 +83,7 @@ private fun ScheduleHeader(
     studentName: String,
     onBackClick: () -> Unit
 ) {
-    Surface(color = White) {
+    Surface(color = MaterialTheme.colorScheme.surface) {
         Column {
             Row(
                 modifier = Modifier
@@ -110,18 +106,18 @@ private fun ScheduleHeader(
                         text = "Class Schedule",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF0F172A)
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     Text(
                         text = studentName,
-                        color = TextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
                     )
                 }
             }
 
-            HorizontalDivider(color = Color(0xFFF1F5F9))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
@@ -133,7 +129,7 @@ private fun ScheduleDaySectionCard(section: ScheduleDaySection) {
             text = section.dayLabel,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
-            color = Color(0xFF0F172A)
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -148,8 +144,8 @@ private fun ScheduleDaySectionCard(section: ScheduleDaySection) {
 private fun ScheduleEntryCard(entry: ScheduleEntry) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = White),
-        border = BorderStroke(1.dp, BorderLight),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(
@@ -185,7 +181,7 @@ private fun ScheduleEntryCard(entry: ScheduleEntry) {
                         text = entry.courseTitle,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
-                        color = Color(0xFF0F172A)
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     Text(
@@ -214,20 +210,20 @@ private fun ScheduleMetaRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFF8FAFC), RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
             .padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = label,
-            color = TextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp
         )
 
         Text(
             text = value,
-            color = Color(0xFF0F172A),
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
         )

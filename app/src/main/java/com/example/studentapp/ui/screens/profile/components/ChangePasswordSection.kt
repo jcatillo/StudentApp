@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.screens.profile.state.PasswordFormState
 import com.example.studentapp.ui.screens.profile.utils.PasswordFormErrors
 import com.example.studentapp.ui.theme.DarkGreen
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun ChangePasswordSection(
@@ -79,7 +80,7 @@ fun ChangePasswordSection(
 
             Text(
                 text = "Use at least 8 characters with a mix of letters and numbers.",
-                color = Color(0xFF475569),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 lineHeight = 18.sp
             )

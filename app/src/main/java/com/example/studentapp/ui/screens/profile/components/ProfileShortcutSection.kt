@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.screens.profile.models.ProfileSectionDestination
 import com.example.studentapp.ui.theme.DarkGreen
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun ProfileShortcutSection(
@@ -54,7 +55,7 @@ private fun ProfileShortcutRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = Color(0xFFF8FAF8),
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable(onClick = onClick)
@@ -68,14 +69,14 @@ private fun ProfileShortcutRow(
         ) {
             Text(
                 text = destination.title,
-                color = Color(0xFF0F172A),
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
             Text(
                 text = destination.description,
-                color = Color(0xFF475569),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 lineHeight = 18.sp
             )

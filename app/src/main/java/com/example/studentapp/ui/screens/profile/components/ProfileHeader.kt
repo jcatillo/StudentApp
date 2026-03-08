@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,9 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
-import com.example.studentapp.ui.theme.White
 
 @Composable
 fun ProfileHeader(
@@ -30,7 +29,7 @@ fun ProfileHeader(
 ) {
     Surface(
         modifier = modifier,
-        color = White
+        color = MaterialTheme.colorScheme.surface
     ) {
         Column {
             Row(
@@ -47,7 +46,7 @@ fun ProfileHeader(
 
                 Text(
                     text = title,
-                    color = Color(0xFF0F172A),
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -58,7 +57,7 @@ fun ProfileHeader(
                 )
             }
 
-            HorizontalDivider(color = BorderLight)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
@@ -71,7 +70,7 @@ private fun HeaderAction(
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(999.dp),
-        color = Color(0xFFF7FAF7)
+        color = MaterialTheme.colorScheme.surfaceVariant
     ) {
         Text(
             text = label,

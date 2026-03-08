@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,7 +37,6 @@ import com.example.studentapp.ui.screens.profile.models.buildProfileShortcutDest
 import com.example.studentapp.ui.screens.profile.models.buildProfileAvatarInitials
 import com.example.studentapp.ui.screens.profile.models.toUiState
 import com.example.studentapp.ui.screens.profile.state.rememberProfileScreenState
-import com.example.studentapp.ui.theme.BackgroundLight
 import com.example.studentapp.ui.theme.StudentAppTheme
 
 @Composable
@@ -65,7 +65,7 @@ fun ProfileScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             ProfileHeader(
                 onBackClick = {

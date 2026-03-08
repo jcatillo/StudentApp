@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -17,9 +18,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.theme.BorderLight
 import com.example.studentapp.ui.theme.DarkGreen
-import com.example.studentapp.ui.theme.TextMuted
 
 @Composable
 fun ProfileTextField(
@@ -40,7 +39,7 @@ fun ProfileTextField(
     ) {
         Text(
             text = label.uppercase(),
-            color = TextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold
         )
@@ -82,11 +81,11 @@ fun ProfileTextField(
             },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = DarkGreen,
-                unfocusedBorderColor = BorderLight,
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                 errorBorderColor = Color(0xFFDC2626),
-                errorContainerColor = Color.White
+                errorContainerColor = MaterialTheme.colorScheme.surface
             )
         )
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +24,6 @@ import com.example.studentapp.ui.screens.academic.components.AcademicSectionHead
 import com.example.studentapp.ui.screens.academic.components.SupportCard
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
 import com.example.studentapp.ui.screens.academic.models.toUiState
-import com.example.studentapp.ui.theme.BackgroundLight
 import com.example.studentapp.ui.theme.StudentAppTheme
 
 @Composable
@@ -39,7 +39,7 @@ fun AcademicScreen(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             AcademicHeader(
                 onBackClick = onBackClick

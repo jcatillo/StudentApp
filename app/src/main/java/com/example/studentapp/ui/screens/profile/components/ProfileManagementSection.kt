@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.screens.profile.utils.ProfileManagementErrors
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun ProfileManagementSection(
@@ -81,7 +82,7 @@ fun ProfileManagementSection(
 
                 Text(
                     text = "Account label: $accountLabel",
-                    color = Color(0xFF475569),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp
                 )
 
