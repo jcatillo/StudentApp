@@ -16,6 +16,7 @@ import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.academic.models.toUiState
 import com.example.studentapp.ui.screens.courses.CoursesScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
+import com.example.studentapp.ui.screens.enrollment.EnrollmentScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
@@ -80,6 +81,9 @@ fun AppNavGraph() {
                 onCoursesClick = {
                     currentRoute = AppDestination.Courses.route
                 },
+                onEnrollmentClick = {
+                    currentRoute = AppDestination.Enrollment.route
+                },
                 onProgramsClick = {
                     currentRoute = AppDestination.Programs.route
                 }
@@ -114,6 +118,17 @@ fun AppNavGraph() {
                 onBottomNavSelected = { item ->
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
                 },
+                onBackClick = {
+                    currentRoute = AppDestination.Academic.route
+                }
+            )
+        }
+
+        AppDestination.Enrollment.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            EnrollmentScreen(
                 onBackClick = {
                     currentRoute = AppDestination.Academic.route
                 }
