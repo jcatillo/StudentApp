@@ -19,6 +19,7 @@ data class AcademicDashboardMenuItem(
 
 const val ACADEMIC_MENU_PROGRAMS = "programs"
 const val ACADEMIC_MENU_COURSES = "courses"
+const val ACADEMIC_MENU_ENROLLMENT = "enrollment"
 
 fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
     return listOf(
@@ -33,7 +34,7 @@ fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
             icon = Icons.Outlined.MenuBook
         ),
         AcademicDashboardMenuItem(
-            id = "enrollment",
+            id = ACADEMIC_MENU_ENROLLMENT,
             label = "Enrollment",
             // Material Icons does not expose `person_add_alt`; `PersonAddAlt1` is the closest official equivalent.
             icon = Icons.Outlined.PersonAddAlt1

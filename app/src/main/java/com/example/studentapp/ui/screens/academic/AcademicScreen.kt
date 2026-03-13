@@ -24,6 +24,7 @@ import com.example.studentapp.ui.screens.academic.components.AcademicHeaderSecti
 import com.example.studentapp.ui.screens.academic.components.AcademicHeroCard
 import com.example.studentapp.ui.screens.academic.components.AcademicSupportSection
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_COURSES
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_ENROLLMENT
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_PROGRAMS
 import com.example.studentapp.ui.screens.academic.models.AcademicDashboardMenuItem
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
@@ -41,6 +42,7 @@ fun AcademicScreen(
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
     onCoursesClick: () -> Unit,
+    onEnrollmentClick: () -> Unit,
     onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -53,6 +55,7 @@ fun AcademicScreen(
         onViewAllClick = onViewAllClick,
         onContactSupportClick = onContactSupportClick,
         onCoursesClick = onCoursesClick,
+        onEnrollmentClick = onEnrollmentClick,
         onProgramsClick = onProgramsClick,
         modifier = modifier
     )
@@ -68,6 +71,7 @@ fun AcademicServicesScreen(
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
     onCoursesClick: () -> Unit,
+    onEnrollmentClick: () -> Unit,
     onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -103,6 +107,7 @@ fun AcademicServicesScreen(
                 when (item.id) {
                     ACADEMIC_MENU_PROGRAMS -> onProgramsClick()
                     ACADEMIC_MENU_COURSES -> onCoursesClick()
+                    ACADEMIC_MENU_ENROLLMENT -> onEnrollmentClick()
                 }
             }
         )
@@ -163,6 +168,7 @@ fun AcademicScreenPreview() {
             onViewAllClick = {},
             onContactSupportClick = {},
             onCoursesClick = {},
+            onEnrollmentClick = {},
             onProgramsClick = {}
         )
     }
