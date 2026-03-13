@@ -8,4 +8,7 @@ sealed class AppDestination(val route: String) {
     data object Finance : AppDestination("finance")
     data object Services : AppDestination("services")
     data object Profile : AppDestination("profile")
+    data object Library : AppDestination("library/{tab}") {
+        fun createRoute(tab: String) = "library/$tab"
+    }
 }
