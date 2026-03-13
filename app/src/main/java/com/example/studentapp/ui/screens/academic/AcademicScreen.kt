@@ -23,6 +23,7 @@ import com.example.studentapp.ui.screens.academic.components.AcademicDashboardSe
 import com.example.studentapp.ui.screens.academic.components.AcademicHeaderSection
 import com.example.studentapp.ui.screens.academic.components.AcademicHeroCard
 import com.example.studentapp.ui.screens.academic.components.AcademicSupportSection
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_COURSES
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_PROGRAMS
 import com.example.studentapp.ui.screens.academic.models.AcademicDashboardMenuItem
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
@@ -39,6 +40,7 @@ fun AcademicScreen(
     onBackClick: () -> Unit,
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
+    onCoursesClick: () -> Unit,
     onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -50,6 +52,7 @@ fun AcademicScreen(
         onBackClick = onBackClick,
         onViewAllClick = onViewAllClick,
         onContactSupportClick = onContactSupportClick,
+        onCoursesClick = onCoursesClick,
         onProgramsClick = onProgramsClick,
         modifier = modifier
     )
@@ -64,6 +67,7 @@ fun AcademicServicesScreen(
     onBackClick: () -> Unit,
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
+    onCoursesClick: () -> Unit,
     onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -96,8 +100,9 @@ fun AcademicServicesScreen(
             onViewAllClick = onViewAllClick,
             onContactSupportClick = onContactSupportClick,
             onDashboardItemClick = { item ->
-                if (item.id == ACADEMIC_MENU_PROGRAMS) {
-                    onProgramsClick()
+                when (item.id) {
+                    ACADEMIC_MENU_PROGRAMS -> onProgramsClick()
+                    ACADEMIC_MENU_COURSES -> onCoursesClick()
                 }
             }
         )
@@ -157,6 +162,7 @@ fun AcademicScreenPreview() {
             onBackClick = {},
             onViewAllClick = {},
             onContactSupportClick = {},
+            onCoursesClick = {},
             onProgramsClick = {}
         )
     }

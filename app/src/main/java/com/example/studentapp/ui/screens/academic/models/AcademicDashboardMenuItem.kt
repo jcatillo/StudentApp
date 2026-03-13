@@ -18,6 +18,7 @@ data class AcademicDashboardMenuItem(
 )
 
 const val ACADEMIC_MENU_PROGRAMS = "programs"
+const val ACADEMIC_MENU_COURSES = "courses"
 
 fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
     return listOf(
@@ -27,7 +28,7 @@ fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
             icon = Icons.Outlined.School
         ),
         AcademicDashboardMenuItem(
-            id = "courses",
+            id = ACADEMIC_MENU_COURSES,
             label = "Courses",
             icon = Icons.Outlined.MenuBook
         ),
