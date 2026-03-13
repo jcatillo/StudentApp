@@ -2,10 +2,10 @@ package com.example.studentapp.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.studentapp.domain.usecase.AuthenticateStudentUseCase
 import com.example.studentapp.domain.usecase.GetAcademicOverviewUseCase
@@ -19,6 +19,7 @@ import com.example.studentapp.ui.screens.finance.FinanceScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
+import com.example.studentapp.ui.screens.programs.ProgramsScreen
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.services.ServicesScreen
 
@@ -74,8 +75,18 @@ fun AppNavGraph() {
                     currentRoute = AppDestination.Dashboard.route
                 },
                 onViewAllClick = {},
-                onContactSupportClick = {}
+                onContactSupportClick = {},
+                onProgramsClick = {
+                    currentRoute = AppDestination.Programs.route
+                }
             )
+        }
+
+        AppDestination.Programs.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            ProgramsScreen()
         }
 
         AppDestination.Finance.route -> {

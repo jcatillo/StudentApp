@@ -7,8 +7,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,8 +19,8 @@ import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.academic.components.AcademicHeader
 import com.example.studentapp.ui.screens.academic.components.AcademicHeroCard
-import com.example.studentapp.ui.screens.academic.components.AcademicServiceCard
 import com.example.studentapp.ui.screens.academic.components.AcademicSectionHeader
+import com.example.studentapp.ui.screens.academic.components.AcademicServiceCard
 import com.example.studentapp.ui.screens.academic.components.SupportCard
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
 import com.example.studentapp.ui.screens.academic.models.toUiState
@@ -35,6 +35,7 @@ fun AcademicScreen(
     onBackClick: () -> Unit,
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
+    onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -80,7 +81,14 @@ fun AcademicScreen(
             }
 
             items(state.services) { service ->
-                AcademicServiceCard(service = service)
+                AcademicServiceCard(
+                    service = service,
+                    onClick = {
+                        when (service.code) {
+                            "PR" -> onProgramsClick()
+                        }
+                    }
+                )
             }
 
             item(span = { GridItemSpan(maxLineSpan) }) {
@@ -106,7 +114,8 @@ fun AcademicScreenPreview() {
             onBottomNavSelected = {},
             onBackClick = {},
             onViewAllClick = {},
-            onContactSupportClick = {}
+            onContactSupportClick = {},
+            onProgramsClick = {}
         )
     }
 }
