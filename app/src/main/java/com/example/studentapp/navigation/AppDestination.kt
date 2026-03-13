@@ -11,4 +11,5 @@ sealed class AppDestination(val route: String) {
     data object Library : AppDestination("library/{tab}") {
         fun createRoute(tab: String) = "library/$tab"
     }
+    data object TOR : AppDestination("tor")
 }
