@@ -43,7 +43,8 @@ fun ServicesScreen(
     selectedNavItemId: String = "services",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
-    onLibraryClick: (LibraryTab) -> Unit = {}
+    onLibraryClick: (LibraryTab) -> Unit = {},
+    onTORClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -85,7 +86,14 @@ fun ServicesScreen(
 
             // Document Type Quick Actions
             item {
-                DocumentTypeGrid(documentTypes = sampleDocumentTypes)
+                DocumentTypeGrid(
+                    documentTypes = sampleDocumentTypes,
+                    onDocumentTypeClick = { docType ->
+                        if (docType.label == "TOR") {
+                            onTORClick()
+                        }
+                    }
+                )
             }
 
             // Library Services

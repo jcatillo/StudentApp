@@ -23,6 +23,7 @@ import com.example.studentapp.ui.screens.profile.ProfileScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.services.ServicesScreen
+import com.example.studentapp.ui.screens.tor.TORScreen
 
 @Composable
 fun AppNavGraph() {
@@ -108,6 +109,9 @@ fun AppNavGraph() {
                 },
                 onLibraryClick = { tab ->
                     currentRoute = AppDestination.Library.createRoute(tab.name)
+                },
+                onTORClick = {
+                    currentRoute = AppDestination.TOR.route
                 }
             )
         }
@@ -121,6 +125,22 @@ fun AppNavGraph() {
             }
             LibraryScreen(
                 initialTab = initialTab,
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.TOR.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+            TORScreen(
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "services",
                 onBottomNavSelected = { item ->

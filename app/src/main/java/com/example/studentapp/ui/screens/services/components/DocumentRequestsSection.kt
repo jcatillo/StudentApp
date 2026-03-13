@@ -1,6 +1,7 @@
 package com.example.studentapp.ui.screens.services.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -131,10 +132,6 @@ private fun TimelineStep(
                         .width(2.dp)
                         .height(32.dp)
                         .padding(vertical = 4.dp)
-                        .then(
-                            Modifier
-                                .size(width = 2.dp, height = 32.dp)
-                        )
                 ) {
                     Divider(
                         modifier = Modifier
@@ -168,7 +165,10 @@ private fun TimelineStep(
 }
 
 @Composable
-fun DocumentTypeGrid(documentTypes: List<DocumentType>) {
+fun DocumentTypeGrid(
+    documentTypes: List<DocumentType>,
+    onDocumentTypeClick: (DocumentType) -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,6 +178,7 @@ fun DocumentTypeGrid(documentTypes: List<DocumentType>) {
         documentTypes.forEach { docType ->
             DocumentTypeCard(
                 docType = docType,
+                onClick = { onDocumentTypeClick(docType) },
                 modifier = Modifier.weight(1f)
             )
         }
@@ -185,9 +186,13 @@ fun DocumentTypeGrid(documentTypes: List<DocumentType>) {
 }
 
 @Composable
-private fun DocumentTypeCard(docType: DocumentType, modifier: Modifier = Modifier) {
+private fun DocumentTypeCard(
+    docType: DocumentType,
+    onClick: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     Surface(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
