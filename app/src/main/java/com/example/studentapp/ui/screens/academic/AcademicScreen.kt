@@ -2,27 +2,31 @@ package com.example.studentapp.ui.screens.academic
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.studentapp.domain.usecase.GetAcademicOverviewUseCase
-import com.example.studentapp.ui.components.StudentBottomNavBar
 import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
-import com.example.studentapp.ui.screens.academic.components.AcademicHeader
+import com.example.studentapp.ui.screens.academic.components.AcademicBottomNavBar
+import com.example.studentapp.ui.screens.academic.components.AcademicDashboardMenuCard
+import com.example.studentapp.ui.screens.academic.components.AcademicDashboardSectionHeader
+import com.example.studentapp.ui.screens.academic.components.AcademicHeaderSection
 import com.example.studentapp.ui.screens.academic.components.AcademicHeroCard
-import com.example.studentapp.ui.screens.academic.components.AcademicServiceCard
-import com.example.studentapp.ui.screens.academic.components.AcademicSectionHeader
-import com.example.studentapp.ui.screens.academic.components.SupportCard
+import com.example.studentapp.ui.screens.academic.components.AcademicSupportSection
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_PROGRAMS
+import com.example.studentapp.ui.screens.academic.models.AcademicDashboardMenuItem
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
+import com.example.studentapp.ui.screens.academic.models.buildAcademicDashboardMenuItems
 import com.example.studentapp.ui.screens.academic.models.toUiState
 import com.example.studentapp.ui.theme.StudentAppTheme
 
@@ -35,62 +39,108 @@ fun AcademicScreen(
     onBackClick: () -> Unit,
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
+    onProgramsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    AcademicServicesScreen(
+        state = state,
+        navigationItems = navigationItems,
+        selectedNavItemId = selectedNavItemId,
+        onBottomNavSelected = onBottomNavSelected,
+        onBackClick = onBackClick,
+        onViewAllClick = onViewAllClick,
+        onContactSupportClick = onContactSupportClick,
+        onProgramsClick = onProgramsClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun AcademicServicesScreen(
+    state: AcademicUiState,
+    navigationItems: List<StudentBottomNavItem>,
+    selectedNavItemId: String,
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit,
+    onBackClick: () -> Unit,
+    onViewAllClick: () -> Unit,
+    onContactSupportClick: () -> Unit,
+    onProgramsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val dashboardItems = remember { buildAcademicDashboardMenuItems() }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = AcademicScreenColors.BackgroundLight,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
-            AcademicHeader(
-                onBackClick = onBackClick
-            )
+            AcademicHeaderSection(onBackClick = onBackClick)
         },
         bottomBar = {
-            StudentBottomNavBar(
+            AcademicBottomNavBar(
                 items = navigationItems,
-                selectedItemId = selectedNavItemId,
+                selectedNavItemId = selectedNavItemId,
                 onItemSelected = onBottomNavSelected
             )
         }
     ) { innerPadding ->
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 148.dp),
-            modifier = Modifier.fillMaxSize(),
+        AcademicServicesContent(
+            state = state,
+            dashboardItems = dashboardItems,
             contentPadding = PaddingValues(
                 start = 16.dp,
-                top = innerPadding.calculateTopPadding() + 16.dp,
+                top = innerPadding.calculateTopPadding() + 24.dp,
                 end = 16.dp,
                 bottom = innerPadding.calculateBottomPadding() + 24.dp
             ),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                AcademicHeroCard(
-                    studentName = state.studentName,
-                    programSummary = state.programSummary
-                )
+            onViewAllClick = onViewAllClick,
+            onContactSupportClick = onContactSupportClick,
+            onDashboardItemClick = { item ->
+                if (item.id == ACADEMIC_MENU_PROGRAMS) {
+                    onProgramsClick()
+                }
             }
+        )
+    }
+}
 
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                AcademicSectionHeader(
-                    title = "Student Dashboard",
-                    onViewAllClick = onViewAllClick
-                )
-            }
+@Composable
+fun AcademicServicesContent(
+    state: AcademicUiState,
+    dashboardItems: List<AcademicDashboardMenuItem>,
+    contentPadding: PaddingValues,
+    onViewAllClick: () -> Unit,
+    onContactSupportClick: () -> Unit,
+    onDashboardItemClick: (AcademicDashboardMenuItem) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = modifier.fillMaxSize(),
+        contentPadding = contentPadding,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            AcademicHeroCard(
+                studentName = state.studentName,
+                programSummary = state.programSummary.replace("\u00E2\u20AC\u00A2", "\u2022")
+            )
+        }
 
-            items(state.services) { service ->
-                AcademicServiceCard(service = service)
-            }
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            AcademicDashboardSectionHeader(onViewAllClick = onViewAllClick)
+        }
 
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                SupportCard(
-                    title = state.supportCard.title,
-                    description = state.supportCard.description,
-                    actionLabel = state.supportCard.actionLabel,
-                    onContactSupportClick = onContactSupportClick
-                )
-            }
+        items(dashboardItems) { item ->
+            AcademicDashboardMenuCard(
+                item = item,
+                onClick = { onDashboardItemClick(item) }
+            )
+        }
+
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            AcademicSupportSection(onContactSupportClick = onContactSupportClick)
         }
     }
 }
@@ -106,7 +156,8 @@ fun AcademicScreenPreview() {
             onBottomNavSelected = {},
             onBackClick = {},
             onViewAllClick = {},
-            onContactSupportClick = {}
+            onContactSupportClick = {},
+            onProgramsClick = {}
         )
     }
 }

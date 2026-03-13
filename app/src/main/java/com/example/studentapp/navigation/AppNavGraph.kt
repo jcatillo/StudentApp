@@ -18,6 +18,7 @@ import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
 import com.example.studentapp.ui.screens.login.LoginScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
+import com.example.studentapp.ui.screens.programs.ProgramsScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.services.ServicesScreen
@@ -74,7 +75,28 @@ fun AppNavGraph() {
                     currentRoute = AppDestination.Dashboard.route
                 },
                 onViewAllClick = {},
-                onContactSupportClick = {}
+                onContactSupportClick = {},
+                onProgramsClick = {
+                    currentRoute = AppDestination.Programs.route
+                }
+            )
+        }
+
+        AppDestination.Programs.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            ProgramsScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Academic.route
+                },
+                onDownloadProspectusClick = {},
+                onViewProgramClick = {}
             )
         }
 
