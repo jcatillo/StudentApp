@@ -93,7 +93,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Programs.route -> {
+        currentRoute == AppDestination.Programs.route -> {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
@@ -111,7 +111,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Courses.route -> {
+        currentRoute == AppDestination.Courses.route -> {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
@@ -127,7 +127,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Enrollment.route -> {
+        currentRoute == AppDestination.Enrollment.route -> {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
