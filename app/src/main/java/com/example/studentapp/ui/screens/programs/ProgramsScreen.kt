@@ -23,9 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.studentapp.ui.components.StudentBottomNavItem
+import com.example.studentapp.ui.components.StudentBottomNavBar
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.programs.components.ProgramCard
-import com.example.studentapp.ui.screens.programs.components.ProgramsBottomNavBar
 import com.example.studentapp.ui.screens.programs.components.ProgramsHeaderSection
 import com.example.studentapp.ui.screens.programs.models.ProgramEntry
 import com.example.studentapp.ui.screens.programs.models.ProgramsTab
@@ -88,9 +88,9 @@ fun ProgramsScreen(
                     )
                 },
                 bottomBar = {
-                    ProgramsBottomNavBar(
+                    StudentBottomNavBar(
                         items = navigationItems,
-                        selectedNavItemId = selectedNavItemId,
+                        selectedItemId = selectedNavItemId,
                         onItemSelected = onBottomNavSelected
                     )
                 }
