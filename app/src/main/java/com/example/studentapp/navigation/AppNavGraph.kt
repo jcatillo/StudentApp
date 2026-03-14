@@ -14,13 +14,16 @@ import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.academic.models.toUiState
+import com.example.studentapp.ui.screens.coe.COEScreen
 import com.example.studentapp.ui.screens.courses.CoursesScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.enrollment.EnrollmentScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
+import com.example.studentapp.ui.screens.goodmoral.GoodMoralScreen
 import com.example.studentapp.ui.screens.library.LibraryScreen
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.login.LoginScreen
+import com.example.studentapp.ui.screens.payment.PaymentQueueScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
 import com.example.studentapp.ui.screens.programs.ProgramsScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
@@ -69,6 +72,11 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
+
+            val goToDashboard = {
+                currentRoute = AppDestination.Dashboard.route
+            }
+
             AcademicScreen(
                 state = academicOverview,
                 navigationItems = primaryBottomNavItems,
@@ -76,11 +84,9 @@ fun AppNavGraph() {
                 onBottomNavSelected = { item ->
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
                 },
-                onBackClick = {
-                    currentRoute = AppDestination.Dashboard.route
-                },
-                onViewAllClick = {},
-                onContactSupportClick = {},
+                onBackClick = goToDashboard,
+                onViewAllClick = goToDashboard,
+                onContactSupportClick = goToDashboard,
                 onCoursesClick = {
                     currentRoute = AppDestination.Courses.route
                 },
@@ -97,6 +103,7 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
+
             ProgramsScreen(
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "academic",
@@ -115,6 +122,7 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
+
             CoursesScreen(
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "academic",
@@ -131,8 +139,15 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Academic.route
             }
+
             EnrollmentScreen(
                 onBackClick = {
+                    currentRoute = AppDestination.Academic.route
+                },
+                onHomeClick = {
+                    currentRoute = AppDestination.Dashboard.route
+                },
+                onAdjustmentClick = {
                     currentRoute = AppDestination.Academic.route
                 }
             )
@@ -147,6 +162,9 @@ fun AppNavGraph() {
                 selectedNavItemId = "finance",
                 onBottomNavSelected = { item ->
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onPayNowClick = {
+                    currentRoute = AppDestination.PaymentQueue.route
                 }
             )
         }
@@ -169,6 +187,12 @@ fun AppNavGraph() {
                 },
                 onTORClick = {
                     currentRoute = AppDestination.TOR.route
+                },
+                onCOEClick = {
+                    currentRoute = AppDestination.COE.route
+                },
+                onGoodMoralClick = {
+                    currentRoute = AppDestination.GoodMoral.route
                 }
             )
         }
@@ -193,6 +217,40 @@ fun AppNavGraph() {
             )
         }
 
+        currentRoute == AppDestination.COE.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+
+            COEScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.GoodMoral.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+
+            GoodMoralScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
         currentRoute == AppDestination.TOR.route -> {
             BackHandler {
                 currentRoute = AppDestination.Services.route
@@ -205,6 +263,23 @@ fun AppNavGraph() {
                 },
                 onBackClick = {
                     currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.PaymentQueue.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Finance.route
+            }
+
+            PaymentQueueScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "finance",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Finance.route
                 }
             )
         }
