@@ -12,6 +12,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
+import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.enrollment.components.EnrollmentBottomSheet
 import com.example.studentapp.ui.screens.enrollment.components.EnrollmentConfirmationStepContent
 import com.example.studentapp.ui.screens.enrollment.components.EnrollmentCourseStepContent
@@ -39,6 +43,9 @@ import com.example.studentapp.ui.theme.StudentAppTheme
 
 @Composable
 fun EnrollmentScreen(
+    navigationItems: List<StudentBottomNavItem>,
+    selectedNavItemId: String,
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit,
     onBackClick: () -> Unit,
     onDownloadReceiptClick: () -> Unit = {},
     onHomeClick: () -> Unit = {},
@@ -103,20 +110,28 @@ fun EnrollmentScreen(
             }
         },
         bottomBar = {
-            AnimatedVisibility(
-                visible = currentStep == EnrollmentStep.Courses,
-                enter = fadeIn(animationSpec = tween(220)) +
-                    slideInVertically(animationSpec = tween(280)) { it / 3 },
-                exit = fadeOut(animationSpec = tween(180)) +
-                    slideOutVertically(animationSpec = tween(220)) { it / 3 }
-            ) {
-                EnrollmentBottomSheet(
-                    selectedCredits = selectedCredits,
-                    maxCredits = 18,
-                    estimatedTuition = estimatedTuition,
-                    onNextClick = {
-                        currentStep = EnrollmentStep.PersonalInfo
-                    }
+            Column {
+                AnimatedVisibility(
+                    visible = currentStep == EnrollmentStep.Courses,
+                    enter = fadeIn(animationSpec = tween(220)) +
+                        slideInVertically(animationSpec = tween(280)) { it / 3 },
+                    exit = fadeOut(animationSpec = tween(180)) +
+                        slideOutVertically(animationSpec = tween(220)) { it / 3 }
+                ) {
+                    EnrollmentBottomSheet(
+                        selectedCredits = selectedCredits,
+                        maxCredits = 18,
+                        estimatedTuition = estimatedTuition,
+                        onNextClick = {
+                            currentStep = EnrollmentStep.PersonalInfo
+                        }
+                    )
+                }
+
+                StudentBottomNavBar(
+                    items = navigationItems,
+                    selectedItemId = selectedNavItemId,
+                    onItemSelected = onBottomNavSelected
                 )
             }
         }
@@ -181,7 +196,7 @@ fun EnrollmentScreen(
                             start = 24.dp,
                             top = innerPadding.calculateTopPadding() + 24.dp,
                             end = 24.dp,
-                            bottom = 32.dp
+                            bottom = innerPadding.calculateBottomPadding() + 32.dp
                         ),
                         onFullNameChange = { fullName = it },
                         onStudentIdChange = { studentId = it },
@@ -210,7 +225,7 @@ fun EnrollmentScreen(
                             start = 24.dp,
                             top = innerPadding.calculateTopPadding() + 24.dp,
                             end = 24.dp,
-                            bottom = 32.dp
+                            bottom = innerPadding.calculateBottomPadding() + 32.dp
                         ),
                         onConfirmClick = { currentStep = EnrollmentStep.Confirmation }
                     )
@@ -223,7 +238,7 @@ fun EnrollmentScreen(
                             start = 16.dp,
                             top = 16.dp,
                             end = 16.dp,
-                            bottom = 32.dp
+                            bottom = innerPadding.calculateBottomPadding() + 32.dp
                         ),
                         onBackClick = { currentStep = EnrollmentStep.Payment },
                         onDownloadReceiptClick = onDownloadReceiptClick,
@@ -249,6 +264,11 @@ private fun previousEnrollmentStep(step: EnrollmentStep): EnrollmentStep? {
 @Composable
 fun EnrollmentScreenPreview() {
     StudentAppTheme(dynamicColor = false) {
-        EnrollmentScreen(onBackClick = {})
+        EnrollmentScreen(
+            navigationItems = buildPrimaryBottomNavItems(),
+            selectedNavItemId = "academic",
+            onBottomNavSelected = {},
+            onBackClick = {}
+        )
     }
 }

@@ -141,6 +141,11 @@ fun AppNavGraph() {
             }
 
             EnrollmentScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Academic.route
                 },
