@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.components.StudentBottomNavBar
 import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
-import com.example.studentapp.ui.screens.goodmoral.components.COEHeader
+import com.example.studentapp.ui.screens.goodmoral.components.GoodMoralHeader
 import com.example.studentapp.ui.screens.goodmoral.components.NewRequestSection
 import com.example.studentapp.ui.screens.goodmoral.components.RequestHistorySection
 
@@ -40,7 +40,7 @@ fun GoodMoralScreen(
     Scaffold(
         modifier = Modifier.statusBarsPadding(), // This pushes the TopBar below the notch
         topBar = {
-            COEHeader(onBackClick = onBackClick)
+            GoodMoralHeader(onBackClick = onBackClick)
         },
         bottomBar = {
             StudentBottomNavBar(

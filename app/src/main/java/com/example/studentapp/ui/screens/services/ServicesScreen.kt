@@ -45,17 +45,18 @@ fun ServicesScreen(
     onBackClick: () -> Unit = {},
     onLibraryClick: (LibraryTab) -> Unit = {},
     onTORClick: () -> Unit = {},
-    onCOEClick: () -> Unit = {}
+    onCOEClick: () -> Unit = {},
+    onGoodMoralClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Services", fontSize = 18.sp, fontWeight = FontWeight.Bold) },
-//                navigationIcon = {
-//                    IconButton(onClick = onBackClick) {
-//                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = DarkGreen)
-//                    }
-//                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = DarkGreen)
+                    }
+                },
                 actions = {
                     IconButton(onClick = { /* Handle notifications */ }) {
                         Icon(Icons.Default.Notifications, contentDescription = "Notifications", tint = DarkGreen)
@@ -92,7 +93,8 @@ fun ServicesScreen(
                     onDocumentTypeClick = { docType ->
                         when (docType.label) {
                             "TOR" -> onTORClick()
-                            "Good Moral", "COE" -> onCOEClick()
+                            "Good Moral" -> onGoodMoralClick()
+                            "COE" -> onCOEClick()
                         }
                     }
                 )
