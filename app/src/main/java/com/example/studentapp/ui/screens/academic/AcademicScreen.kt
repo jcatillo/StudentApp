@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.studentapp.domain.usecase.GetAcademicOverviewUseCase
 import com.example.studentapp.ui.components.StudentBottomNavItem
+import com.example.studentapp.ui.components.StudentBottomNavBar
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
-import com.example.studentapp.ui.screens.academic.components.AcademicBottomNavBar
 import com.example.studentapp.ui.screens.academic.components.AcademicDashboardMenuCard
 import com.example.studentapp.ui.screens.academic.components.AcademicDashboardSectionHeader
 import com.example.studentapp.ui.screens.academic.components.AcademicHeaderSection
@@ -85,9 +85,9 @@ fun AcademicServicesScreen(
             AcademicHeaderSection(onBackClick = onBackClick)
         },
         bottomBar = {
-            AcademicBottomNavBar(
+            StudentBottomNavBar(
                 items = navigationItems,
-                selectedNavItemId = selectedNavItemId,
+                selectedItemId = selectedNavItemId,
                 onItemSelected = onBottomNavSelected
             )
         }
