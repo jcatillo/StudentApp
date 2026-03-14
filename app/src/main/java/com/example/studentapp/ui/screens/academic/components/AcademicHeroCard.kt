@@ -1,104 +1,77 @@
 package com.example.studentapp.ui.screens.academic.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.theme.DarkGreen
-import com.example.studentapp.ui.theme.Gold
-import com.example.studentapp.ui.theme.White
+import com.example.studentapp.ui.screens.academic.AcademicScreenColors
 
 @Composable
 fun AcademicHeroCard(
     studentName: String,
-    programSummary: String
+    programSummary: String,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(164.dp)
-            .background(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        DarkGreen,
-                        Color(0xFF2B7A31)
-                    )
-                ),
-                shape = RoundedCornerShape(20.dp)
-            )
-            .padding(20.dp)
+            .height(160.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(AcademicScreenColors.Primary)
     ) {
-        HeroBackdrop()
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    Brush.linearGradient(
+                        colors = listOf(
+                            AcademicScreenColors.Primary,
+                            AcademicScreenColors.Primary.copy(alpha = 0.40f)
+                        )
+                    )
+                )
+        )
 
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(20.dp)
         ) {
             Text(
                 text = "Welcome back",
-                color = Gold,
+                color = AcademicScreenColors.Accent,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 1.sp
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.8.sp
             )
-
             Text(
                 text = studentName,
-                color = White,
+                modifier = Modifier.padding(top = 4.dp),
+                color = Color.White,
                 fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                lineHeight = 28.sp
             )
-
             Text(
                 text = programSummary,
-                color = White.copy(alpha = 0.82f),
-                fontSize = 13.sp
+                modifier = Modifier.padding(top = 4.dp),
+                color = Color(0xE2E8F0E6),
+                fontSize = 14.sp,
+                lineHeight = 20.sp
             )
         }
-    }
-}
-
-@Composable
-private fun HeroBackdrop() {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .size(120.dp)
-                .background(
-                    color = White.copy(alpha = 0.08f),
-                    shape = CircleShape
-                )
-        )
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .width(96.dp)
-                .height(56.dp)
-                .background(
-                    color = White.copy(alpha = 0.06f),
-                    shape = RoundedCornerShape(18.dp)
-                )
-        )
     }
 }
