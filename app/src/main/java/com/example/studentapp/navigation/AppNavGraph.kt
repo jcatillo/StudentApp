@@ -14,8 +14,10 @@ import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.academic.models.toUiState
+import com.example.studentapp.ui.screens.coe.COEScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
+import com.example.studentapp.ui.screens.goodmoral.GoodMoralScreen
 import com.example.studentapp.ui.screens.library.LibraryScreen
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.login.LoginScreen
@@ -112,6 +114,12 @@ fun AppNavGraph() {
                 },
                 onTORClick = {
                     currentRoute = AppDestination.TOR.route
+                },
+                onCOEClick = {
+                    currentRoute = AppDestination.COE.route
+                },
+                onGoodMoralClick = {
+                    currentRoute = AppDestination.GoodMoral.route
                 }
             )
         }
@@ -141,6 +149,38 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Services.route
             }
             TORScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.COE.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+            COEScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.GoodMoral.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+            GoodMoralScreen(
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "services",
                 onBottomNavSelected = { item ->

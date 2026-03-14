@@ -44,7 +44,9 @@ fun ServicesScreen(
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
     onLibraryClick: (LibraryTab) -> Unit = {},
-    onTORClick: () -> Unit = {}
+    onTORClick: () -> Unit = {},
+    onCOEClick: () -> Unit = {},
+    onGoodMoralClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -89,8 +91,10 @@ fun ServicesScreen(
                 DocumentTypeGrid(
                     documentTypes = sampleDocumentTypes,
                     onDocumentTypeClick = { docType ->
-                        if (docType.label == "TOR") {
-                            onTORClick()
+                        when (docType.label) {
+                            "TOR" -> onTORClick()
+                            "Good Moral" -> onGoodMoralClick()
+                            "COE" -> onCOEClick()
                         }
                     }
                 )
