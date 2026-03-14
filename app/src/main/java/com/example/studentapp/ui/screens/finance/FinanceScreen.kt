@@ -39,6 +39,7 @@ fun FinanceScreen(
         navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
         selectedNavItemId: String = "finance",
         onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
+        onPayNowClick: () -> Unit = {}
 ) {
     Scaffold(
             topBar = {
@@ -76,7 +77,7 @@ fun FinanceScreen(
         ) {
             item {
                 Spacer(modifier = Modifier.height(8.dp))
-                BalanceCard()
+                BalanceCard(onPayNowClick = onPayNowClick)
             }
 
             item {

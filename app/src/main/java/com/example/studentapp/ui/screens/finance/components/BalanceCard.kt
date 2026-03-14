@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun BalanceCard() {
+fun BalanceCard(
+    onPayNowClick: () -> Unit = {}
+) {
     val gold = Color(0xFFF8A824)
     val darkGreen = Color(0xFF1F5C23)
 
@@ -73,7 +75,7 @@ fun BalanceCard() {
                         Text("Oct 15, 2023", color = darkGreen, fontWeight = FontWeight.Bold)
                     }
                     Button(
-                            onClick = { /* Pay */},
+                            onClick = onPayNowClick,
                             colors = ButtonDefaults.buttonColors(containerColor = darkGreen),
                             shape = RoundedCornerShape(8.dp)
                     ) { Text("Pay Now", fontWeight = FontWeight.Bold) }
