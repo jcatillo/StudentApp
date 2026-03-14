@@ -1,5 +1,8 @@
 package com.example.studentapp.ui.screens.enrollment.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,6 +53,21 @@ fun EnrollmentCourseCard(
     }
     val alpha = if (course.isLocked) 0.60f else 1f
     val cardShape = RoundedCornerShape(12.dp)
+    val animatedBorderColor = animateColorAsState(
+        targetValue = borderColor,
+        animationSpec = tween(durationMillis = 220),
+        label = "enrollment_card_border"
+    )
+    val animatedBackgroundColor = animateColorAsState(
+        targetValue = backgroundColor,
+        animationSpec = tween(durationMillis = 220),
+        label = "enrollment_card_background"
+    )
+    val animatedAlpha = animateFloatAsState(
+        targetValue = alpha,
+        animationSpec = tween(durationMillis = 220),
+        label = "enrollment_card_alpha"
+    )
 
     Box(
         modifier = modifier
@@ -60,10 +78,10 @@ fun EnrollmentCourseCard(
                 clip = false
             )
             .clip(cardShape)
-            .background(backgroundColor)
+            .background(animatedBackgroundColor.value)
             .border(
                 width = 2.dp,
-                color = borderColor,
+                color = animatedBorderColor.value,
                 shape = cardShape
             )
             .clickable(
@@ -143,7 +161,7 @@ fun EnrollmentCourseCard(
                 EnrollmentCourseStatusIcon(
                     isSelected = isSelected,
                     isLocked = course.isLocked,
-                    modifier = Modifier.alpha(alpha)
+                    modifier = Modifier.alpha(animatedAlpha.value)
                 )
             }
         }

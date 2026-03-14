@@ -1,5 +1,7 @@
 package com.example.studentapp.ui.screens.enrollment.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -123,6 +125,12 @@ fun EnrollmentProgressBar(
     progressFraction: Float,
     modifier: Modifier = Modifier
 ) {
+    val animatedProgress = animateFloatAsState(
+        targetValue = progressFraction,
+        animationSpec = tween(durationMillis = 420),
+        label = "enrollment_progress"
+    )
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -132,7 +140,7 @@ fun EnrollmentProgressBar(
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(progressFraction)
+                .fillMaxWidth(animatedProgress.value)
                 .height(6.dp)
                 .clip(CircleShape)
                 .background(EnrollmentScreenColors.Highlight)

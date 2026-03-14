@@ -1,5 +1,7 @@
 package com.example.studentapp.ui.screens.enrollment.components
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +40,9 @@ fun EnrollmentBottomSheet(
         shadowElevation = 10.dp
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .animateContentSize(animationSpec = tween(durationMillis = 220))
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(
