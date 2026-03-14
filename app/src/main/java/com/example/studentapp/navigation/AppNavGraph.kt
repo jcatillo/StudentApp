@@ -21,6 +21,7 @@ import com.example.studentapp.ui.screens.goodmoral.GoodMoralScreen
 import com.example.studentapp.ui.screens.library.LibraryScreen
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.login.LoginScreen
+import com.example.studentapp.ui.screens.payment.PaymentQueueScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
@@ -92,6 +93,25 @@ fun AppNavGraph() {
                 selectedNavItemId = "finance",
                 onBottomNavSelected = { item ->
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onPayNowClick = {
+                    currentRoute = AppDestination.PaymentQueue.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.PaymentQueue.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Finance.route
+            }
+            PaymentQueueScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "finance",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Finance.route
                 }
             )
         }
