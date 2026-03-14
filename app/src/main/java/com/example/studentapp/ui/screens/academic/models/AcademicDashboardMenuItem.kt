@@ -45,7 +45,7 @@ fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
             icon = Icons.Outlined.BarChart
         ),
         AcademicDashboardMenuItem(
-            id = "evaluations",
+            id = "com/example/studentapp/ui/screens/evaluations",
             label = "Evaluations",
             icon = Icons.Outlined.AssignmentTurnedIn
         ),
