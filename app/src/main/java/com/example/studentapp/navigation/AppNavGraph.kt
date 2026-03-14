@@ -18,12 +18,15 @@ import com.example.studentapp.ui.screens.courses.CoursesScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.enrollment.EnrollmentScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
+import com.example.studentapp.ui.screens.library.LibraryScreen
+import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.login.LoginScreen
 import com.example.studentapp.ui.screens.profile.ProfileScreen
 import com.example.studentapp.ui.screens.programs.ProgramsScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.services.ServicesScreen
+import com.example.studentapp.ui.screens.tor.TORScreen
 
 @Composable
 fun AppNavGraph() {
@@ -36,8 +39,8 @@ fun AppNavGraph() {
     val profileOverview = remember { GetProfileOverviewUseCase().invoke().toProfileUiState() }
     val primaryBottomNavItems = remember { buildPrimaryBottomNavItems() }
 
-    when (currentRoute) {
-        AppDestination.Login.route -> {
+    when {
+        currentRoute == AppDestination.Login.route -> {
             LoginScreen(
                 authenticate = authenticateStudent::invoke,
                 onLoginSuccess = {
@@ -46,7 +49,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Dashboard.route -> {
+        currentRoute == AppDestination.Dashboard.route -> {
             BackHandler {
                 currentRoute = AppDestination.Login.route
             }
@@ -62,7 +65,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Academic.route -> {
+        currentRoute == AppDestination.Academic.route -> {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
@@ -135,7 +138,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Finance.route -> {
+        currentRoute == AppDestination.Finance.route -> {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
@@ -148,7 +151,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Services.route -> {
+        currentRoute == AppDestination.Services.route -> {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
@@ -160,11 +163,53 @@ fun AppNavGraph() {
                 },
                 onBackClick = {
                     currentRoute = AppDestination.Dashboard.route
+                },
+                onLibraryClick = { tab ->
+                    currentRoute = AppDestination.Library.createRoute(tab.name)
+                },
+                onTORClick = {
+                    currentRoute = AppDestination.TOR.route
                 }
             )
         }
 
-        AppDestination.Schedule.route -> {
+        currentRoute.startsWith("library/") -> {
+            val tabName = currentRoute.substringAfter("library/")
+            val initialTab = LibraryTab.entries.find { it.name == tabName } ?: LibraryTab.Available
+            
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+            LibraryScreen(
+                initialTab = initialTab,
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.TOR.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Services.route
+            }
+            TORScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "services",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Services.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.Schedule.route -> {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
@@ -175,7 +220,7 @@ fun AppNavGraph() {
             )
         }
 
-        AppDestination.Profile.route -> {
+        currentRoute == AppDestination.Profile.route -> {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }

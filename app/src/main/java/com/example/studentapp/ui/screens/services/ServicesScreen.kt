@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.components.StudentBottomNavBar
 import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
+import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.services.components.DocumentRequestsSection
 import com.example.studentapp.ui.screens.services.components.DocumentTypeGrid
 import com.example.studentapp.ui.screens.services.components.LibraryServicesSection
@@ -41,7 +42,9 @@ fun ServicesScreen(
     navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
     selectedNavItemId: String = "services",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onLibraryClick: (LibraryTab) -> Unit = {},
+    onTORClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -83,13 +86,30 @@ fun ServicesScreen(
 
             // Document Type Quick Actions
             item {
-                DocumentTypeGrid(documentTypes = sampleDocumentTypes)
+                DocumentTypeGrid(
+                    documentTypes = sampleDocumentTypes,
+                    onDocumentTypeClick = { docType ->
+                        if (docType.label == "TOR") {
+                            onTORClick()
+                        }
+                    }
+                )
             }
 
             // Library Services
             item {
                 Spacer(modifier = Modifier.height(24.dp))
-                LibraryServicesSection(libraryLinks = sampleLibraryLinks)
+                LibraryServicesSection(
+                    libraryLinks = sampleLibraryLinks,
+                    onBorrowBookClick = { onLibraryClick(LibraryTab.Available) },
+                    onReturnClick = { onLibraryClick(LibraryTab.Return) },
+                    onLinkClick = { link ->
+                        when (link.title) {
+                            "Availability Tracker" -> onLibraryClick(LibraryTab.Available)
+                            "Borrowing History" -> onLibraryClick(LibraryTab.History)
+                        }
+                    }
+                )
             }
 
             // Student Affairs

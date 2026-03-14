@@ -1,6 +1,7 @@
 package com.example.studentapp.ui.screens.services.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,8 @@ import com.example.studentapp.ui.theme.DarkGreen
 fun LibraryServicesSection(
     libraryLinks: List<LibraryLink>,
     onBorrowBookClick: () -> Unit = {},
-    onReturnClick: () -> Unit = {}
+    onReturnClick: () -> Unit = {},
+    onLinkClick: (LibraryLink) -> Unit = {}
 ) {
     Column {
         Text(
@@ -107,16 +109,24 @@ fun LibraryServicesSection(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             libraryLinks.forEach { link ->
-                LibraryLinkItem(link)
+                LibraryLinkItem(
+                    link = link,
+                    onClick = { onLinkClick(link) }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun LibraryLinkItem(link: LibraryLink) {
+private fun LibraryLinkItem(
+    link: LibraryLink,
+    onClick: () -> Unit = {}
+) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(8.dp),
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
