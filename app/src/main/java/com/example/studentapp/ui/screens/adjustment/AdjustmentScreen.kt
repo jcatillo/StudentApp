@@ -12,6 +12,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.screens.adjustment.components.AdjustmentCourseCard
 import com.example.studentapp.ui.screens.adjustment.components.AdjustmentLoadCard
 import com.example.studentapp.ui.screens.adjustment.components.AdjustmentSaveButton
@@ -24,6 +26,9 @@ import com.example.studentapp.ui.screens.adjustment.models.AdjustmentCourseItem
 @Composable
 @Preview
 fun AdjustmentScreen(
+    navigationItems: List<StudentBottomNavItem> = emptyList(),
+    selectedNavItemId: String = "",
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
     onChangeScheduleClick: () -> Unit = {}
@@ -54,6 +59,13 @@ fun AdjustmentScreen(
                 title = "Course Adjustment",
                 semesterLabel = "SPRING 2024",
                 onBackClick = onBackClick
+            )
+        },
+        bottomBar = {
+            StudentBottomNavBar(
+                items = navigationItems,
+                selectedItemId = selectedNavItemId,
+                onItemSelected = onBottomNavSelected
             )
         }
     ) { innerPadding ->

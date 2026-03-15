@@ -177,6 +177,11 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Academic.route
             }
             GradesScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Academic.route
                 }
@@ -188,6 +193,11 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Academic.route
             }
             EvaluationScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Academic.route
                 }
@@ -199,6 +209,11 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Academic.route
             }
             StudyLoadScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Academic.route
                 }
@@ -210,6 +225,11 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Enrollment.route
             }
             AdjustmentScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Enrollment.route
                 },
@@ -224,6 +244,11 @@ fun AppNavGraph() {
                 currentRoute = AppDestination.Adjustment.route
             }
             ChangeScheduleScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
                 onBackClick = {
                     currentRoute = AppDestination.Adjustment.route
                 },

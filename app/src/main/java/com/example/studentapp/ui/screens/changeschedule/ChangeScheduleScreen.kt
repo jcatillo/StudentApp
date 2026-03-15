@@ -7,12 +7,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.screens.changeschedule.components.*
 import com.example.studentapp.ui.screens.changeschedule.models.*
 
 @Composable
 @Preview
 fun ChangeScheduleScreen(
+    navigationItems: List<StudentBottomNavItem> = emptyList(),
+    selectedNavItemId: String = "",
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
     onConfirmClick: () -> Unit = {}
 ) {
@@ -51,6 +56,13 @@ fun ChangeScheduleScreen(
 
         topBar = {
             ChangeScheduleTopBar(onBack = onBackClick)
+        },
+        bottomBar = {
+            StudentBottomNavBar(
+                items = navigationItems,
+                selectedItemId = selectedNavItemId,
+                onItemSelected = onBottomNavSelected
+            )
         },
 
         containerColor = ChangeScheduleColors.Background
