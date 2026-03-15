@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +30,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 
 @Composable
 fun EnrollmentSectionHeader(
@@ -47,11 +47,11 @@ fun EnrollmentSectionHeader(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = EnrollmentScreenColors.Highlight
+            tint = MaterialTheme.colorScheme.secondary
         )
         Text(
             text = title.uppercase(),
-            color = EnrollmentScreenColors.Primary,
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             letterSpacing = (-0.1).sp
@@ -73,7 +73,7 @@ fun EnrollmentTextField(
     ) {
         Text(
             text = label,
-            color = EnrollmentScreenColors.Slate900,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -81,12 +81,12 @@ fun EnrollmentTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = EnrollmentScreenColors.CardLight,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = RoundedCornerShape(12.dp)
                 )
                 .border(
                     width = 1.dp,
-                    color = EnrollmentScreenColors.Slate300,
+                    color = MaterialTheme.colorScheme.outline,
                     shape = RoundedCornerShape(12.dp)
                 )
         ) {
@@ -98,10 +98,10 @@ fun EnrollmentTextField(
                     .padding(horizontal = 16.dp, vertical = 14.dp),
                 singleLine = true,
                 textStyle = TextStyle(
-                    color = EnrollmentScreenColors.Slate900,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp
                 ),
-                cursorBrush = SolidColor(EnrollmentScreenColors.Highlight),
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.secondary),
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier.fillMaxWidth(),
@@ -110,7 +110,7 @@ fun EnrollmentTextField(
                         if (value.isEmpty()) {
                             Text(
                                 text = placeholder,
-                                color = EnrollmentScreenColors.Slate400,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 14.sp
                             )
                         }
@@ -138,7 +138,7 @@ fun EnrollmentSelectField(
     ) {
         Text(
             text = label,
-            color = EnrollmentScreenColors.Slate900,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -148,12 +148,12 @@ fun EnrollmentSelectField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = EnrollmentScreenColors.CardLight,
+                        color = MaterialTheme.colorScheme.surface,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .border(
                         width = 1.dp,
-                        color = EnrollmentScreenColors.Slate300,
+                        color = MaterialTheme.colorScheme.outline,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .clickable { expanded = true }
@@ -163,13 +163,13 @@ fun EnrollmentSelectField(
             ) {
                 Text(
                     text = value,
-                    color = EnrollmentScreenColors.Slate900,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp
                 )
                 Icon(
                     imageVector = Icons.Outlined.ArrowDropDown,
                     contentDescription = null,
-                    tint = EnrollmentScreenColors.Slate500
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -202,7 +202,7 @@ fun EnrollmentPrimaryButton(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.Highlight,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick)
@@ -215,14 +215,14 @@ fun EnrollmentPrimaryButton(
         ) {
             Text(
                 text = text,
-                color = EnrollmentScreenColors.Primary,
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = EnrollmentScreenColors.Primary
+                tint = MaterialTheme.colorScheme.onSecondary
             )
         }
     }

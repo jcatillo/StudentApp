@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +26,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.programs.ProgramsScreenColors
 
 @Composable
 fun ProgramsSearchBar(
@@ -40,15 +40,15 @@ fun ProgramsSearchBar(
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             .background(
-                color = ProgramsScreenColors.Slate100,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
                 width = 1.dp,
                 color = if (isFocused) {
-                    ProgramsScreenColors.Primary
+                    MaterialTheme.colorScheme.primary
                 } else {
-                    ProgramsScreenColors.Slate200
+                    MaterialTheme.colorScheme.outlineVariant
                 },
                 shape = RoundedCornerShape(12.dp)
             )
@@ -62,13 +62,13 @@ fun ProgramsSearchBar(
                 .onFocusChanged { isFocused = it.hasFocus },
             singleLine = true,
             textStyle = TextStyle(
-                color = ProgramsScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp
             ),
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Sentences
             ),
-            cursorBrush = SolidColor(ProgramsScreenColors.Primary),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.fillMaxWidth(),
@@ -77,7 +77,7 @@ fun ProgramsSearchBar(
                     if (value.isEmpty()) {
                         Text(
                             text = "Search programs...",
-                            color = ProgramsScreenColors.Slate500,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 14.sp
                         )
                     }
@@ -90,9 +90,9 @@ fun ProgramsSearchBar(
             imageVector = Icons.Outlined.Search,
             contentDescription = "Search",
             tint = if (isFocused) {
-                ProgramsScreenColors.Primary
+                MaterialTheme.colorScheme.primary
             } else {
-                ProgramsScreenColors.Primary.copy(alpha = 0.60f)
+                MaterialTheme.colorScheme.onSurfaceVariant
             },
             modifier = Modifier
                 .align(Alignment.CenterStart)

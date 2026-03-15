@@ -46,7 +46,7 @@ fun buildDashboardUiState(): DashboardUiState {
         studentId = "2024-08912-CS",
         stats = listOf(
             DashboardStat(
-                value = "$1,240.00",
+                value = "₱1,240.00",
                 label = "Current Balance",
                 icon = Icons.Filled.AccountBalanceWallet,
                 isHighlighted = true

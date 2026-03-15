@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -57,7 +58,7 @@ fun ProgramsScreen(
     BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
-            .background(ProgramsScreenColors.BackgroundLight),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.TopCenter
     ) {
         val useCenteredShell = maxWidth > 420.dp
@@ -72,11 +73,11 @@ fun ProgramsScreen(
 
         Surface(
             modifier = shellModifier,
-            color = ProgramsScreenColors.BackgroundLight,
+            color = MaterialTheme.colorScheme.background,
             shadowElevation = if (useCenteredShell) 18.dp else 0.dp
         ) {
             Scaffold(
-                containerColor = ProgramsScreenColors.BackgroundLight,
+                containerColor = MaterialTheme.colorScheme.background,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 topBar = {
                     ProgramsHeaderSection(

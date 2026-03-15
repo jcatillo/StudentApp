@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.academic.AcademicScreenColors
+import com.example.studentapp.ui.theme.DarkGreen
 
 @Composable
 fun AcademicHeroCard(
@@ -30,7 +31,7 @@ fun AcademicHeroCard(
             .fillMaxWidth()
             .height(160.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(AcademicScreenColors.Primary)
+            .background(DarkGreen)
     ) {
         Box(
             modifier = Modifier
@@ -38,8 +39,8 @@ fun AcademicHeroCard(
                 .background(
                     Brush.linearGradient(
                         colors = listOf(
-                            AcademicScreenColors.Primary,
-                            AcademicScreenColors.Primary.copy(alpha = 0.40f)
+                            DarkGreen,
+                            DarkGreen.copy(alpha = 0.40f)
                         )
                     )
                 )
@@ -52,7 +53,7 @@ fun AcademicHeroCard(
         ) {
             Text(
                 text = "Welcome back",
-                color = AcademicScreenColors.Accent,
+                color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.8.sp
@@ -68,7 +69,7 @@ fun AcademicHeroCard(
             Text(
                 text = programSummary,
                 modifier = Modifier.padding(top = 4.dp),
-                color = Color(0xE2E8F0E6),
+                color = Color.White.copy(alpha = 0.8f),
                 fontSize = 14.sp,
                 lineHeight = 20.sp
             )

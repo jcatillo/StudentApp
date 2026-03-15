@@ -12,12 +12,12 @@ import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.ContactMail
 import androidx.compose.material.icons.outlined.ContactPhone
 import androidx.compose.material.icons.outlined.Payments
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 
 @Composable
 fun EnrollmentPersonalInfoStepContent(
@@ -132,7 +132,7 @@ fun EnrollmentPersonalInfoStepContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                color = EnrollmentScreenColors.MutedText,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }

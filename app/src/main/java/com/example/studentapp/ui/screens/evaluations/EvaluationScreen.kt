@@ -14,6 +14,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -61,13 +62,13 @@ fun EvaluationScreen(
     }
 
     Scaffold(
-        containerColor = EvaluationScreenColors.Background,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         text = "Faculty & Course Evaluation",
-                        color = EvaluationScreenColors.TextPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -76,12 +77,12 @@ fun EvaluationScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = "Back",
-                            tint = EvaluationScreenColors.TextPrimary
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = EvaluationScreenColors.Background
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
@@ -96,7 +97,7 @@ fun EvaluationScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EvaluationScreenColors.Background)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)

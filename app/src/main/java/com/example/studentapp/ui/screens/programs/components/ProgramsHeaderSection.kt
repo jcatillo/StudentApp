@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.programs.ProgramsScreenColors
 import com.example.studentapp.ui.screens.programs.models.ProgramsTab
 
 @Composable
@@ -31,7 +31,7 @@ fun ProgramsHeaderSection(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = ProgramsScreenColors.White.copy(alpha = 0.90f),
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp
     ) {
         Column {
@@ -51,7 +51,7 @@ fun ProgramsHeaderSection(
 
                 Text(
                     text = "Programs & Prospectus",
-                    color = ProgramsScreenColors.Primary,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = (-0.2).sp
@@ -69,7 +69,7 @@ fun ProgramsHeaderSection(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            HorizontalDivider(color = ProgramsScreenColors.Primary.copy(alpha = 0.10f))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }

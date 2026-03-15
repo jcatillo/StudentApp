@@ -24,7 +24,7 @@ val sampleTransactions =
                 Transaction(
                         "Tuition Fee - Semester 1",
                         "Sep 12, 2023",
-                        "-$1,200.00",
+                        "-₱1,200.00",
                         true,
                         Icons.Default.School,
                         Color(0xFFD1FAE5),
@@ -33,7 +33,7 @@ val sampleTransactions =
                 Transaction(
                         "Library Late Return Fee",
                         "Aug 28, 2023",
-                        "-$15.00",
+                        "-₱15.00",
                         false,
                         Icons.Default.MenuBook,
                         Color(0xFFFEF3C7),

@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.Brush
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +28,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.grades.GradesScreenColors
 import com.example.studentapp.ui.screens.grades.models.GradesSubjectItem
 import com.example.studentapp.ui.screens.grades.models.SubjectIconType
 
@@ -39,7 +39,7 @@ fun SubjectGradeCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = GradesScreenColors.CardBackground),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(
@@ -57,7 +57,7 @@ fun SubjectGradeCard(
                     modifier = Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(14.dp))
-                        .background(GradesScreenColors.Background),
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -68,7 +68,7 @@ fun SubjectGradeCard(
                             SubjectIconType.DESIGN -> Icons.Outlined.Brush
                         },
                         contentDescription = null,
-                        tint = GradesScreenColors.PrimaryGreen,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -78,13 +78,13 @@ fun SubjectGradeCard(
                 Column {
                     Text(
                         text = item.title,
-                        color = GradesScreenColors.TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = item.codeCredits,
-                        color = GradesScreenColors.TextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
                     )
 
@@ -99,13 +99,13 @@ fun SubjectGradeCard(
             ) {
                 Text(
                     text = item.gradePoint,
-                    color = GradesScreenColors.GradeGold,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontSize = 34.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "GRADE POINT",
-                    color = GradesScreenColors.LabelText,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold
                 )

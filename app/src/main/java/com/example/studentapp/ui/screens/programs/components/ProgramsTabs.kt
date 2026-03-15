@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.programs.ProgramsScreenColors
 import com.example.studentapp.ui.screens.programs.models.ProgramsTab
 
 @Composable
@@ -57,9 +57,9 @@ fun ProgramsTabItem(
         Text(
             text = tab.label,
             color = if (isSelected) {
-                ProgramsScreenColors.Primary
+                MaterialTheme.colorScheme.primary
             } else {
-                ProgramsScreenColors.Slate500
+                MaterialTheme.colorScheme.onSurfaceVariant
             },
             fontSize = 14.sp,
             fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium
@@ -71,7 +71,7 @@ fun ProgramsTabItem(
                 .width(48.dp)
                 .background(
                     color = if (isSelected) {
-                        ProgramsScreenColors.Primary
+                        MaterialTheme.colorScheme.primary
                     } else {
                         Color.Transparent
                     },

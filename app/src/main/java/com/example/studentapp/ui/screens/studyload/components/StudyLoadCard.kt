@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +29,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.studyload.StudyLoadScreenColors
 import com.example.studentapp.ui.screens.studyload.models.StudyLoadItem
 
 @Composable
@@ -39,7 +39,7 @@ fun StudyLoadSubjectCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = StudyLoadScreenColors.CardBackground),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(
@@ -56,7 +56,7 @@ fun StudyLoadSubjectCard(
                             text = item.title,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = StudyLoadScreenColors.TextDark
+                            color = MaterialTheme.colorScheme.onSurface
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))
@@ -69,7 +69,7 @@ fun StudyLoadSubjectCard(
                     Text(
                         text = item.code,
                         fontSize = 13.sp,
-                        color = StudyLoadScreenColors.TextMuted
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -77,13 +77,13 @@ fun StudyLoadSubjectCard(
                     Text(
                         text = "Units",
                         fontSize = 13.sp,
-                        color = StudyLoadScreenColors.TextMuted
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = item.units.toString(),
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Medium,
-                        color = StudyLoadScreenColors.TextDark
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -94,14 +94,14 @@ fun StudyLoadSubjectCard(
                 Icon(
                     imageVector = Icons.Outlined.AccessTime,
                     contentDescription = null,
-                    tint = StudyLoadScreenColors.TextMuted,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(15.dp)
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = item.schedule,
                     fontSize = 13.sp,
-                    color = StudyLoadScreenColors.TextDark
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -118,21 +118,21 @@ fun StudyLoadSubjectCard(
                     Icon(
                         imageVector = Icons.Outlined.LocationOn,
                         contentDescription = null,
-                        tint = androidx.compose.ui.graphics.Color(0xFFD94A7A),
+                        tint = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier.size(15.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = item.room,
                         fontSize = 13.sp,
-                        color = StudyLoadScreenColors.TextDark
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
                 Text(
                     text = item.instructor,
                     fontSize = 13.sp,
-                    color = StudyLoadScreenColors.TextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -142,15 +142,15 @@ fun StudyLoadSubjectCard(
 @Composable
 private fun StatusBadge(status: String) {
     val bgColor = if (status.equals("Confirmed", true)) {
-        StudyLoadScreenColors.GreenBadge
+        MaterialTheme.colorScheme.primaryContainer
     } else {
-        StudyLoadScreenColors.YellowBadge
+        MaterialTheme.colorScheme.secondaryContainer
     }
 
     val textColor = if (status.equals("Confirmed", true)) {
-        androidx.compose.ui.graphics.Color(0xFF4A8A4D)
+        MaterialTheme.colorScheme.onPrimaryContainer
     } else {
-        androidx.compose.ui.graphics.Color.White
+        MaterialTheme.colorScheme.onSecondaryContainer
     }
 
     Box(
@@ -184,8 +184,8 @@ fun StudyLoadSummaryCard(
             .background(
                 brush = Brush.linearGradient(
                     colors = listOf(
-                        StudyLoadScreenColors.PrimaryGreen,
-                        androidx.compose.ui.graphics.Color(0xFF6D9954)
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.secondary
                     )
                 )
             )

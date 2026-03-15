@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.evaluations.EvaluationScreenColors
 
 @Composable
 fun EvaluationPendingSectionHeader(
@@ -30,7 +30,7 @@ fun EvaluationPendingSectionHeader(
             text = title,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            color = EvaluationScreenColors.TextPrimary
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -39,10 +39,10 @@ fun EvaluationPendingSectionHeader(
             text = remainingText,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
-            color = EvaluationScreenColors.Yellow,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(EvaluationScreenColors.YellowSoft.copy(alpha = 0.35f))
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .padding(horizontal = 12.dp, vertical = 6.dp)
         )
     }

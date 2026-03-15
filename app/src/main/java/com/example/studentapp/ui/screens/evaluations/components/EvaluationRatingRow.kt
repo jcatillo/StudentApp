@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.evaluations.EvaluationScreenColors
 
 @Composable
 fun EvaluationRatingRow(
@@ -29,7 +29,7 @@ fun EvaluationRatingRow(
             text = label,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            color = EvaluationScreenColors.LightGreenText
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -41,9 +41,9 @@ fun EvaluationRatingRow(
                     imageVector = Icons.Filled.Star,
                     contentDescription = "Star $starNumber",
                     tint = if (starNumber <= rating) {
-                        EvaluationScreenColors.StarFilled
+                        MaterialTheme.colorScheme.secondary
                     } else {
-                        EvaluationScreenColors.StarEmpty
+                        MaterialTheme.colorScheme.outlineVariant
                     },
                     modifier = Modifier
                         .size(24.dp)

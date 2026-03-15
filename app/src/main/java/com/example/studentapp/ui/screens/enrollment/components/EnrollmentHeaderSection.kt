@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import com.example.studentapp.ui.screens.enrollment.models.EnrollmentStep
 
 @Composable
@@ -38,7 +38,7 @@ fun EnrollmentHeaderSection(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = EnrollmentScreenColors.BackgroundLight
+        color = MaterialTheme.colorScheme.background
     ) {
         Column {
             Row(
@@ -59,14 +59,14 @@ fun EnrollmentHeaderSection(
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Back",
-                        tint = EnrollmentScreenColors.Primary
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
 
                 Text(
                     text = step.title,
                     modifier = Modifier.weight(1f),
-                    color = EnrollmentScreenColors.Primary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = (-0.2).sp,
@@ -89,7 +89,7 @@ fun EnrollmentProgressSection(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(EnrollmentScreenColors.BackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Row(
@@ -99,14 +99,14 @@ fun EnrollmentProgressSection(
         ) {
             Text(
                 text = step.progressLabel.uppercase(),
-                color = EnrollmentScreenColors.Highlight,
+                color = MaterialTheme.colorScheme.secondary,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.2.sp
             )
             Text(
                 text = step.progressPercentageLabel.uppercase(),
-                color = EnrollmentScreenColors.MutedText,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.2.sp
@@ -136,14 +136,14 @@ fun EnrollmentProgressBar(
             .fillMaxWidth()
             .height(6.dp)
             .clip(CircleShape)
-            .background(EnrollmentScreenColors.Slate100)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(animatedProgress.value)
                 .height(6.dp)
                 .clip(CircleShape)
-                .background(EnrollmentScreenColors.Highlight)
+                .background(MaterialTheme.colorScheme.secondary)
         )
     }
 }

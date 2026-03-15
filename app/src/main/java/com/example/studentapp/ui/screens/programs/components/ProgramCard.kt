@@ -13,17 +13,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.programs.ProgramsScreenColors
 import com.example.studentapp.ui.screens.programs.models.ProgramBadgeVariant
 import com.example.studentapp.ui.screens.programs.models.ProgramEntry
 
@@ -37,8 +36,8 @@ fun ProgramCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = ProgramsScreenColors.White,
-        border = BorderStroke(1.dp, ProgramsScreenColors.Slate200),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         shadowElevation = 1.dp
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
@@ -50,7 +49,7 @@ fun ProgramCard(
                 Text(
                     text = entry.title,
                     modifier = Modifier.weight(1f),
-                    color = ProgramsScreenColors.Primary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 24.sp
@@ -71,12 +70,12 @@ fun ProgramCard(
                 Icon(
                     imageVector = Icons.Outlined.Schedule,
                     contentDescription = null,
-                    tint = ProgramsScreenColors.Secondary
+                    tint = MaterialTheme.colorScheme.secondary
                 )
 
                 Text(
                     text = entry.scheduleLine,
-                    color = ProgramsScreenColors.Secondary,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -85,7 +84,7 @@ fun ProgramCard(
             Text(
                 text = entry.description,
                 modifier = Modifier.padding(top = 12.dp),
-                color = ProgramsScreenColors.Slate600,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp,
                 lineHeight = 22.sp
             )
@@ -119,19 +118,19 @@ fun ProgramStatusBadge(
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = if (variant == ProgramBadgeVariant.Accent) {
-        ProgramsScreenColors.Accent.copy(alpha = 0.10f)
+        MaterialTheme.colorScheme.secondaryContainer
     } else {
-        ProgramsScreenColors.Primary.copy(alpha = 0.10f)
+        MaterialTheme.colorScheme.primaryContainer
     }
     val borderColor = if (variant == ProgramBadgeVariant.Accent) {
-        ProgramsScreenColors.Accent.copy(alpha = 0.20f)
+        MaterialTheme.colorScheme.secondary
     } else {
-        ProgramsScreenColors.Primary.copy(alpha = 0.20f)
+        MaterialTheme.colorScheme.primary
     }
     val textColor = if (variant == ProgramBadgeVariant.Accent) {
-        ProgramsScreenColors.Accent
+        MaterialTheme.colorScheme.onSecondaryContainer
     } else {
-        ProgramsScreenColors.Primary
+        MaterialTheme.colorScheme.onPrimaryContainer
     }
 
     Surface(

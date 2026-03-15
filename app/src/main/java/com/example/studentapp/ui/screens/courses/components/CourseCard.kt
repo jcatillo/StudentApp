@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.courses.CoursesScreenColors
 import com.example.studentapp.ui.screens.courses.models.CourseEntry
 import com.example.studentapp.ui.screens.courses.models.CourseStatus
 import androidx.compose.ui.text.font.FontWeight
@@ -34,11 +34,7 @@ fun CourseCard(
     course: CourseEntry,
     modifier: Modifier = Modifier
 ) {
-    val cardBackground = if (course.status == CourseStatus.Enrolled) {
-        CoursesScreenColors.White
-    } else {
-        CoursesScreenColors.White
-    }
+    val cardBackground = MaterialTheme.colorScheme.surface
 
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -48,7 +44,7 @@ fun CourseCard(
             RoundedCornerShape(16.dp)
         },
         color = cardBackground,
-        border = BorderStroke(1.dp, CoursesScreenColors.Slate200),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         shadowElevation = 1.dp
     ) {
         Column(
@@ -75,14 +71,14 @@ fun CourseCard(
                 Column {
                     Text(
                         text = course.code,
-                        color = CoursesScreenColors.PrimaryLight,
+                        color = MaterialTheme.colorScheme.secondary,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
                     )
                     Text(
                         text = course.title,
-                        color = CoursesScreenColors.TextMain,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = if (course.status == CourseStatus.Enrolled) 16.sp else 18.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -107,12 +103,12 @@ fun CourseTrailingBadge(
         Box(
             modifier = modifier
                 .clip(RoundedCornerShape(4.dp))
-                .background(CoursesScreenColors.Primary.copy(alpha = 0.10f))
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
             Text(
                 text = "Completed",
-                color = CoursesScreenColors.Primary,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -125,12 +121,12 @@ fun CourseTrailingBadge(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(CoursesScreenColors.Primary.copy(alpha = 0.10f))
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
         Text(
             text = badgeText,
-            color = CoursesScreenColors.Primary,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -152,9 +148,9 @@ fun CourseMetadataSection(
             icon = Icons.Outlined.Person,
             text = course.instructor,
             iconTint = if (course.status == CourseStatus.Enrolled) {
-                CoursesScreenColors.PrimaryLight
+                MaterialTheme.colorScheme.secondary
             } else {
-                CoursesScreenColors.Slate500
+                MaterialTheme.colorScheme.onSurfaceVariant
             }
         )
 
@@ -163,12 +159,12 @@ fun CourseMetadataSection(
                 CourseMetadataRow(
                     icon = Icons.Outlined.CalendarToday,
                     text = course.schedule.orEmpty(),
-                    iconTint = CoursesScreenColors.PrimaryLight
+                    iconTint = MaterialTheme.colorScheme.secondary
                 )
                 CourseMetadataRow(
                     icon = Icons.Outlined.LocationOn,
                     text = course.location.orEmpty(),
-                    iconTint = CoursesScreenColors.PrimaryLight
+                    iconTint = MaterialTheme.colorScheme.secondary
                 )
             }
 
@@ -176,8 +172,8 @@ fun CourseMetadataSection(
                 CourseMetadataRow(
                     icon = Icons.Outlined.CheckCircle,
                     text = course.grade.orEmpty(),
-                    iconTint = CoursesScreenColors.Slate500,
-                    textColor = CoursesScreenColors.TextMain,
+                    iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textColor = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -186,13 +182,13 @@ fun CourseMetadataSection(
                 CourseMetadataRow(
                     icon = Icons.Outlined.CalendarToday,
                     text = course.schedule.orEmpty(),
-                    iconTint = CoursesScreenColors.Slate500
+                    iconTint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 CourseMetadataRow(
                     icon = Icons.Outlined.LocationOn,
                     text = course.waitlistStatus.orEmpty(),
-                    iconTint = CoursesScreenColors.Accent,
-                    textColor = CoursesScreenColors.Accent,
+                    iconTint = MaterialTheme.colorScheme.secondary,
+                    textColor = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -205,7 +201,7 @@ fun CourseMetadataRow(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     text: String,
     iconTint: androidx.compose.ui.graphics.Color,
-    textColor: androidx.compose.ui.graphics.Color = CoursesScreenColors.Slate600,
+    textColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
     fontWeight: FontWeight = FontWeight.Normal,
     modifier: Modifier = Modifier
 ) {
@@ -238,14 +234,14 @@ fun CourseProgressBar(
         modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
-            .background(CoursesScreenColors.Slate100)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(vertical = 3.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(progress)
                 .clip(CircleShape)
-                .background(CoursesScreenColors.Accent)
+                .background(MaterialTheme.colorScheme.secondary)
                 .padding(vertical = 3.dp)
         )
     }

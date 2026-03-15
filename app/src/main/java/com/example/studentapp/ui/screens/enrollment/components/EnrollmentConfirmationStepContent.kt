@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import com.example.studentapp.ui.screens.enrollment.models.EnrollmentConfirmationCourse
 import com.example.studentapp.ui.screens.enrollment.models.EnrollmentConfirmationCourseIcon
 
@@ -68,7 +68,7 @@ fun EnrollmentConfirmationStepContent(
         item {
             Text(
                 text = "Enrolled Courses",
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.5.sp
@@ -111,19 +111,19 @@ fun EnrollmentConfirmationHeader(
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                     contentDescription = "Back",
-                    tint = EnrollmentScreenColors.Slate900
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
             Text(
                 text = buildAnnotatedString {
                     append("STEP 04: ")
-                    withStyle(SpanStyle(color = EnrollmentScreenColors.Highlight)) {
+                    withStyle(SpanStyle(color = MaterialTheme.colorScheme.secondary)) {
                         append("CONF")
                     }
                 },
                 modifier = Modifier.weight(1f),
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -139,13 +139,13 @@ fun EnrollmentConfirmationHeader(
         ) {
             Text(
                 text = "Enrollment Progress",
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
                 text = "4/4",
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp
             )
         }
@@ -155,7 +155,7 @@ fun EnrollmentConfirmationHeader(
                 .fillMaxWidth()
                 .height(8.dp)
                 .background(
-                    color = EnrollmentScreenColors.Slate100,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = CircleShape
                 )
         ) {
@@ -164,7 +164,7 @@ fun EnrollmentConfirmationHeader(
                     .fillMaxWidth()
                     .height(8.dp)
                     .background(
-                        color = EnrollmentScreenColors.Highlight,
+                        color = MaterialTheme.colorScheme.secondary,
                         shape = CircleShape
                     )
             )
@@ -185,7 +185,7 @@ fun EnrollmentConfirmationSuccessSection(
             modifier = Modifier
                 .size(96.dp)
                 .background(
-                    color = EnrollmentScreenColors.Primary.copy(alpha = 0.10f),
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -193,14 +193,14 @@ fun EnrollmentConfirmationSuccessSection(
             Icon(
                 imageVector = Icons.Filled.CheckCircle,
                 contentDescription = null,
-                tint = EnrollmentScreenColors.Primary,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(56.dp)
             )
         }
 
         Text(
             text = "ENROLLMENT SUCCESSFUL",
-            color = EnrollmentScreenColors.Slate900,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -208,7 +208,7 @@ fun EnrollmentConfirmationSuccessSection(
 
         Text(
             text = "Congratulations! You have been successfully enrolled for the Fall 2024 semester.",
-            color = EnrollmentScreenColors.Slate500,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp,
             lineHeight = 22.sp,
             textAlign = TextAlign.Center
@@ -225,12 +225,12 @@ fun EnrollmentConfirmationCourseItem(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.BackgroundSurface.copy(alpha = 0.50f),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.50f),
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.Slate100,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(16.dp),
@@ -241,7 +241,7 @@ fun EnrollmentConfirmationCourseItem(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = EnrollmentScreenColors.Primary.copy(alpha = 0.10f),
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     shape = RoundedCornerShape(10.dp)
                 ),
             contentAlignment = Alignment.Center
@@ -249,20 +249,20 @@ fun EnrollmentConfirmationCourseItem(
             Icon(
                 imageVector = confirmationIcon(course.iconType),
                 contentDescription = null,
-                tint = EnrollmentScreenColors.Primary
+                tint = MaterialTheme.colorScheme.primary
             )
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
                 text = course.title,
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = course.subtitle,
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
@@ -313,12 +313,12 @@ fun EnrollmentSecondaryButton(
     Box(
         modifier = modifier
             .background(
-                color = EnrollmentScreenColors.CardLight,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.Primary.copy(alpha = 0.20f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.20f),
                 shape = RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick)
@@ -327,7 +327,7 @@ fun EnrollmentSecondaryButton(
     ) {
         Text(
             text = text,
-            color = EnrollmentScreenColors.Primary,
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )

@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import com.example.studentapp.ui.screens.enrollment.models.EnrollableCourse
 
 @Composable
@@ -33,14 +33,14 @@ fun EnrollmentCourseStepContent(
         item {
             Text(
                 text = "Select Courses",
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = "Fall Semester 2024 • Year 3",
                 modifier = Modifier.padding(top = 4.dp),
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
         }

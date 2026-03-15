@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +24,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.courses.CoursesScreenColors
 
 @Composable
 fun CoursesSearchBar(
@@ -38,12 +38,12 @@ fun CoursesSearchBar(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .background(
-                color = CoursesScreenColors.White,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                color = CoursesScreenColors.Slate200,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
@@ -56,10 +56,10 @@ fun CoursesSearchBar(
                 .onFocusChanged { isFocused = it.hasFocus },
             singleLine = true,
             textStyle = TextStyle(
-                color = CoursesScreenColors.TextMain,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp
             ),
-            cursorBrush = SolidColor(CoursesScreenColors.Primary),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.fillMaxWidth(),
@@ -68,7 +68,7 @@ fun CoursesSearchBar(
                     if (value.isEmpty()) {
                         Text(
                             text = "Search course name or code",
-                            color = CoursesScreenColors.Slate400,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 16.sp
                         )
                     }
@@ -81,9 +81,9 @@ fun CoursesSearchBar(
             imageVector = Icons.Outlined.Search,
             contentDescription = "Search",
             tint = if (isFocused) {
-                CoursesScreenColors.Primary
+                MaterialTheme.colorScheme.primary
             } else {
-                CoursesScreenColors.PrimaryLight
+                MaterialTheme.colorScheme.onSurfaceVariant
             },
             modifier = Modifier
                 .align(Alignment.CenterStart)
