@@ -25,6 +25,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -94,13 +94,13 @@ fun StudyLoadScreen(
     )
 
     Scaffold(
-        containerColor = StudyLoadScreenColors.Background,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         text = "Study Load",
-                        color = StudyLoadScreenColors.TextDark,
+                        color = MaterialTheme.colorScheme.onBackground,
                         fontWeight = FontWeight.SemiBold
                     )
                 },
@@ -109,12 +109,12 @@ fun StudyLoadScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = "Back",
-                            tint = StudyLoadScreenColors.TextDark
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = StudyLoadScreenColors.Background
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
@@ -123,7 +123,7 @@ fun StudyLoadScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(StudyLoadScreenColors.Background)
+                        .background(MaterialTheme.colorScheme.background)
                         .padding(horizontal = 16.dp, vertical = 10.dp)
                 ) {
                     Column {
@@ -134,7 +134,7 @@ fun StudyLoadScreen(
                                 .height(56.dp),
                             shape = RoundedCornerShape(18.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.Transparent
+                                containerColor = androidx.compose.ui.graphics.Color.Transparent
                             ),
                             contentPadding = PaddingValues()
                         ) {
@@ -145,8 +145,8 @@ fun StudyLoadScreen(
                                     .background(
                                         brush = Brush.horizontalGradient(
                                             listOf(
-                                                StudyLoadScreenColors.DownloadButtonStart,
-                                                StudyLoadScreenColors.DownloadButtonEnd
+                                                MaterialTheme.colorScheme.secondary,
+                                                MaterialTheme.colorScheme.primary
                                             )
                                         )
                                     ),
@@ -159,12 +159,12 @@ fun StudyLoadScreen(
                                     Icon(
                                         imageVector = Icons.Outlined.FileDownload,
                                         contentDescription = null,
-                                        tint = Color.White
+                                        tint = MaterialTheme.colorScheme.onSecondary
                                     )
                                     Spacer(modifier = Modifier.padding(horizontal = 4.dp))
                                     Text(
                                         text = "Download Study Load PDF",
-                                        color = Color.White,
+                                        color = MaterialTheme.colorScheme.onSecondary,
                                         fontWeight = FontWeight.SemiBold
                                     )
                                 }
@@ -176,14 +176,14 @@ fun StudyLoadScreen(
                         Card(
                             shape = RoundedCornerShape(16.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = StudyLoadScreenColors.InfoBox
+                                containerColor = MaterialTheme.colorScheme.primaryContainer
                             ),
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
                                 text = "Your study load is officially confirmed. You can download this for your records.",
                                 modifier = Modifier.padding(14.dp),
-                                color = StudyLoadScreenColors.InfoText,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                                 fontSize = 13.sp
                             )
                         }
@@ -201,7 +201,7 @@ fun StudyLoadScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(StudyLoadScreenColors.Background)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
@@ -220,7 +220,7 @@ fun StudyLoadScreen(
                     text = "Current Semester Load",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = StudyLoadScreenColors.TextDark
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 

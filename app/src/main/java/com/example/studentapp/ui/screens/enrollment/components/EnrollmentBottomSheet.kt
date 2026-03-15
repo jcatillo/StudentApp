@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import java.util.Locale
 
 @Composable
@@ -36,7 +36,7 @@ fun EnrollmentBottomSheet(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = EnrollmentScreenColors.CardLight,
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 10.dp
     ) {
         Column(
@@ -53,7 +53,7 @@ fun EnrollmentBottomSheet(
                 Column {
                     Text(
                         text = "SELECTED CREDITS",
-                        color = EnrollmentScreenColors.Slate500,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.1.sp
@@ -61,13 +61,13 @@ fun EnrollmentBottomSheet(
                     Row(verticalAlignment = Alignment.Bottom) {
                         Text(
                             text = selectedCredits.toString(),
-                            color = EnrollmentScreenColors.Slate900,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = " / $maxCredits max",
-                            color = EnrollmentScreenColors.Slate400,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 14.sp,
                             modifier = Modifier.padding(start = 4.dp, bottom = 2.dp)
                         )
@@ -77,14 +77,14 @@ fun EnrollmentBottomSheet(
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
                         text = "EST. TUITION",
-                        color = EnrollmentScreenColors.Slate500,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.1.sp
                     )
                     Text(
                         text = formatPhilippinePeso(estimatedTuition),
-                        color = EnrollmentScreenColors.Primary,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -95,7 +95,7 @@ fun EnrollmentBottomSheet(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
-                    .background(EnrollmentScreenColors.Highlight)
+                    .background(MaterialTheme.colorScheme.secondary)
                     .clickable(onClick = onNextClick)
                     .padding(vertical = 16.dp),
                 contentAlignment = Alignment.Center
@@ -106,14 +106,14 @@ fun EnrollmentBottomSheet(
                 ) {
                     Text(
                         text = "Proceed to Next Step",
-                        color = EnrollmentScreenColors.Slate900,
+                        color = MaterialTheme.colorScheme.onSecondary,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
                         contentDescription = null,
-                        tint = EnrollmentScreenColors.Slate900
+                        tint = MaterialTheme.colorScheme.onSecondary
                     )
                 }
             }

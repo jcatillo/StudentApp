@@ -1,5 +1,6 @@
 package com.example.studentapp.ui.screens.academic
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -8,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -44,12 +46,12 @@ fun AcademicScreen(
     onBackClick: () -> Unit,
     onViewAllClick: () -> Unit,
     onContactSupportClick: () -> Unit,
-    onCoursesClick: () -> Unit,
-    onEnrollmentClick: () -> Unit,
-    onProgramsClick: () -> Unit,
-    onGradesClick: () -> Unit,
-    onEvaluationClick: () -> Unit,
-    onStudyLoadClick: () -> Unit,
+    onCoursesClick: () -> Unit = {},
+    onEnrollmentClick: () -> Unit = {},
+    onProgramsClick: () -> Unit = {},
+    onGradesClick: () -> Unit = {},
+    onEvaluationClick: () -> Unit = {},
+    onStudyLoadClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     AcademicServicesScreen(
@@ -91,7 +93,7 @@ fun AcademicServicesScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = AcademicScreenColors.BackgroundLight,
+        containerColor = MaterialTheme.colorScheme.background,
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             AcademicHeaderSection(onBackClick = onBackClick)
@@ -181,13 +183,7 @@ fun AcademicScreenPreview() {
             onBottomNavSelected = {},
             onBackClick = {},
             onViewAllClick = {},
-            onContactSupportClick = {},
-            onCoursesClick = {},
-            onEnrollmentClick = {},
-            onProgramsClick = {},
-            onGradesClick = {},
-            onEvaluationClick = {},
-            onStudyLoadClick = {}
+            onContactSupportClick = {}
         )
     }
 }

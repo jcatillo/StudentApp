@@ -18,6 +18,7 @@ import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +27,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.evaluations.EvaluationScreenColors
 import com.example.studentapp.ui.screens.evaluations.models.EvaluationCourseIconType
 import com.example.studentapp.ui.screens.evaluations.models.EvaluationCourseItem
 
@@ -39,7 +39,7 @@ fun EvaluationCourseCard(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = EvaluationScreenColors.CardBackground),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(
@@ -54,7 +54,7 @@ fun EvaluationCourseCard(
                     modifier = Modifier
                         .size(42.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(EvaluationScreenColors.SoftGray),
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -64,7 +64,7 @@ fun EvaluationCourseCard(
                             Icons.Outlined.Assessment
                         },
                         contentDescription = null,
-                        tint = EvaluationScreenColors.PrimaryGreen,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -76,12 +76,12 @@ fun EvaluationCourseCard(
                         text = item.codeTitle,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
-                        color = EvaluationScreenColors.TextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = item.instructor,
                         fontSize = 13.sp,
-                        color = EvaluationScreenColors.TextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -89,7 +89,7 @@ fun EvaluationCourseCard(
             Icon(
                 imageVector = Icons.Outlined.ChevronRight,
                 contentDescription = null,
-                tint = EvaluationScreenColors.IconGray
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

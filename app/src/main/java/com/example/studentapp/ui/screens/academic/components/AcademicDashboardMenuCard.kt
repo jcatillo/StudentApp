@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.academic.AcademicScreenColors
 import com.example.studentapp.ui.screens.academic.models.AcademicDashboardMenuItem
 
 @Composable
@@ -61,13 +61,13 @@ fun AcademicDashboardMenuCard(
                 onClick = onClick
             ),
         shape = RoundedCornerShape(16.dp),
-        color = AcademicScreenColors.CardLight,
+        color = MaterialTheme.colorScheme.surfaceVariant,
         border = BorderStroke(
             width = 1.dp,
             color = if (isPressed) {
-                AcademicScreenColors.Primary.copy(alpha = 0.30f)
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.30f)
             } else {
-                AcademicScreenColors.BorderLight
+                MaterialTheme.colorScheme.outlineVariant
             }
         )
     ) {
@@ -84,9 +84,9 @@ fun AcademicDashboardMenuCard(
                     .clip(CircleShape)
                     .background(
                         if (isPressed) {
-                            AcademicScreenColors.Primary.copy(alpha = 0.10f)
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.10f)
                         } else {
-                            AcademicScreenColors.Primary.copy(alpha = 0.05f)
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.05f)
                         }
                     ),
                 contentAlignment = Alignment.Center
@@ -94,7 +94,7 @@ fun AcademicDashboardMenuCard(
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.label,
-                    tint = AcademicScreenColors.Accent,
+                    tint = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.size(30.dp)
                 )
             }
@@ -102,7 +102,7 @@ fun AcademicDashboardMenuCard(
             Text(
                 text = item.label,
                 modifier = Modifier.padding(top = 16.dp),
-                color = AcademicScreenColors.Slate700,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center

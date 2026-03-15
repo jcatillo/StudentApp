@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,8 +56,8 @@ fun CoursesScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .background(CoursesScreenColors.BackgroundLight),
-        containerColor = CoursesScreenColors.BackgroundLight,
+            .background(MaterialTheme.colorScheme.background),
+        containerColor = MaterialTheme.colorScheme.background,
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             CoursesHeaderSection(
@@ -103,7 +104,7 @@ fun CoursesContent(
             Text(
                 text = semesterTitle,
                 modifier = Modifier.padding(bottom = 16.dp),
-                color = CoursesScreenColors.Primary,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = (-0.27).sp

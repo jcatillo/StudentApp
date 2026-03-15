@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Payments
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import com.example.studentapp.ui.screens.enrollment.models.EnrollableCourse
 import java.util.Locale
 
@@ -51,14 +51,14 @@ fun EnrollmentPaymentStepContent(
         item {
             Text(
                 text = "Review & Payment",
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = "Confirm your enrollment details before final submission.",
                 modifier = Modifier.padding(top = 4.dp),
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
         }
@@ -113,7 +113,7 @@ fun EnrollmentPaymentStepContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                color = EnrollmentScreenColors.MutedText,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
@@ -130,12 +130,12 @@ fun EnrollmentPaymentSummaryCard(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.CardLight,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(16.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.BorderLight,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(20.dp),
@@ -145,14 +145,14 @@ fun EnrollmentPaymentSummaryCard(
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
                 text = "SELECTED CREDITS",
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.1.sp
             )
             Text(
                 text = selectedCredits.toString(),
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -164,14 +164,14 @@ fun EnrollmentPaymentSummaryCard(
         ) {
             Text(
                 text = "EST. TUITION",
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.1.sp
             )
             Text(
                 text = formatPhilippinePeso(estimatedTuition),
-                color = EnrollmentScreenColors.Primary,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -188,12 +188,12 @@ fun EnrollmentPaymentCourseItem(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.CardLight,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.BorderLight,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(16.dp),
@@ -203,20 +203,20 @@ fun EnrollmentPaymentCourseItem(
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
                 text = course.title,
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = "${course.code} \u2022 ${course.instructorSchedule}",
-                color = EnrollmentScreenColors.Slate500,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
 
         Text(
             text = "${course.units} Units",
-            color = EnrollmentScreenColors.Primary,
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
@@ -232,12 +232,12 @@ fun EnrollmentReviewDetailsCard(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.CardLight,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(16.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.BorderLight,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(20.dp),
@@ -247,13 +247,13 @@ fun EnrollmentReviewDetailsCard(
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
                     text = label,
-                    color = EnrollmentScreenColors.Slate500,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
                     text = value,
-                    color = EnrollmentScreenColors.Slate900,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp
                 )
             }

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.academic.AcademicScreenColors
 
 @Composable
 fun AcademicHeaderSection(
@@ -27,7 +27,7 @@ fun AcademicHeaderSection(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = AcademicScreenColors.BackgroundLight,
+        color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp
     ) {
         Column {
@@ -47,7 +47,7 @@ fun AcademicHeaderSection(
                 Text(
                     text = "Academic Services",
                     modifier = Modifier.weight(1f),
-                    color = AcademicScreenColors.Primary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = (-0.2).sp,
@@ -61,7 +61,7 @@ fun AcademicHeaderSection(
                 )
             }
 
-            HorizontalDivider(color = AcademicScreenColors.BorderLight)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,13 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.programs.ProgramsScreenColors
 
 @Composable
 fun ProgramsPrimaryActionButton(
@@ -40,9 +39,9 @@ fun ProgramsPrimaryActionButton(
             .clip(RoundedCornerShape(12.dp))
             .background(
                 if (isPressed) {
-                    ProgramsScreenColors.Secondary
+                    MaterialTheme.colorScheme.secondary
                 } else {
-                    ProgramsScreenColors.Primary
+                    MaterialTheme.colorScheme.primary
                 }
             )
             .clickable(
@@ -57,13 +56,13 @@ fun ProgramsPrimaryActionButton(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = Color.White
+            tint = MaterialTheme.colorScheme.onPrimary
         )
 
         Text(
             text = text,
             modifier = Modifier.padding(start = 8.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Center
@@ -85,9 +84,9 @@ fun ProgramsSecondaryActionButton(
             .clip(RoundedCornerShape(12.dp))
             .background(
                 if (isPressed) {
-                    ProgramsScreenColors.Accent.copy(alpha = 0.20f)
+                    MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.95f)
                 } else {
-                    ProgramsScreenColors.Accent.copy(alpha = 0.10f)
+                    MaterialTheme.colorScheme.secondaryContainer
                 }
             )
             .clickable(
@@ -100,7 +99,7 @@ fun ProgramsSecondaryActionButton(
     ) {
         Text(
             text = text,
-            color = ProgramsScreenColors.Accent,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )

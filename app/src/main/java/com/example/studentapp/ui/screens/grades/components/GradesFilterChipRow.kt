@@ -9,12 +9,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.studentapp.ui.screens.grades.GradesScreenColors
 import com.example.studentapp.ui.screens.grades.models.GradeSemesterFilter
 
 @Composable
@@ -37,12 +37,12 @@ fun GradesFilterChipRow(
                     )
                 },
                 shape = RoundedCornerShape(50),
-                border = BorderStroke(1.dp, GradesScreenColors.ChipBorder),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                 colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = GradesScreenColors.ChipSelected,
-                    selectedLabelColor = androidx.compose.ui.graphics.Color.White,
-                    containerColor = GradesScreenColors.ChipUnselected,
-                    labelColor = GradesScreenColors.TextSecondary
+                    selectedContainerColor = MaterialTheme.colorScheme.primary,
+                    selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    labelColor = MaterialTheme.colorScheme.onSurfaceVariant
                 ),
                 modifier = Modifier.padding(vertical = 2.dp)
             )

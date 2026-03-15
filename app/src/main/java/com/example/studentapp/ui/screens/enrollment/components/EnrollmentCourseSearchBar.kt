@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +19,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 
 @Composable
 fun EnrollmentCourseSearchBar(
@@ -30,12 +30,12 @@ fun EnrollmentCourseSearchBar(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = EnrollmentScreenColors.BackgroundSurface,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(12.dp)
             )
             .border(
                 width = 1.dp,
-                color = EnrollmentScreenColors.Slate200,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(12.dp)
             )
     ) {
@@ -47,10 +47,10 @@ fun EnrollmentCourseSearchBar(
                 .padding(start = 40.dp, top = 14.dp, end = 16.dp, bottom = 14.dp),
             singleLine = true,
             textStyle = TextStyle(
-                color = EnrollmentScreenColors.Slate900,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp
             ),
-            cursorBrush = SolidColor(EnrollmentScreenColors.Primary),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.fillMaxWidth(),
@@ -59,7 +59,7 @@ fun EnrollmentCourseSearchBar(
                     if (value.isEmpty()) {
                         Text(
                             text = "Search subjects or codes...",
-                            color = EnrollmentScreenColors.Slate400,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 14.sp
                         )
                     }
@@ -71,7 +71,7 @@ fun EnrollmentCourseSearchBar(
         Icon(
             imageVector = Icons.Outlined.Search,
             contentDescription = "Search",
-            tint = EnrollmentScreenColors.Slate400,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 12.dp)

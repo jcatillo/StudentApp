@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.enrollment.EnrollmentScreenColors
 import com.example.studentapp.ui.screens.enrollment.models.EnrollableCourse
 
 @Composable
@@ -42,14 +42,14 @@ fun EnrollmentCourseCard(
 ) {
     val isInteractive = !course.isLocked
     val borderColor = when {
-        course.isLocked -> EnrollmentScreenColors.Slate100
-        isSelected -> EnrollmentScreenColors.Highlight
-        else -> EnrollmentScreenColors.Slate100
+        course.isLocked -> MaterialTheme.colorScheme.surfaceVariant
+        isSelected -> MaterialTheme.colorScheme.secondary
+        else -> MaterialTheme.colorScheme.surfaceVariant
     }
     val backgroundColor = when {
-        course.isLocked -> EnrollmentScreenColors.BackgroundSurface.copy(alpha = 0.5f)
-        isSelected -> EnrollmentScreenColors.CardLight
-        else -> EnrollmentScreenColors.CardLight
+        course.isLocked -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        isSelected -> MaterialTheme.colorScheme.surface
+        else -> MaterialTheme.colorScheme.surface
     }
     val alpha = if (course.isLocked) 0.60f else 1f
     val cardShape = RoundedCornerShape(12.dp)
@@ -105,9 +105,9 @@ fun EnrollmentCourseCard(
                         .clip(RoundedCornerShape(6.dp))
                         .background(
                             if (course.isLocked) {
-                                EnrollmentScreenColors.Slate100
+                                MaterialTheme.colorScheme.surfaceVariant
                             } else {
-                                EnrollmentScreenColors.Primary.copy(alpha = 0.10f)
+                                MaterialTheme.colorScheme.primaryContainer
                             }
                         )
                         .padding(horizontal = 8.dp, vertical = 2.dp)
@@ -115,9 +115,9 @@ fun EnrollmentCourseCard(
                     Text(
                         text = course.code,
                         color = if (course.isLocked) {
-                            EnrollmentScreenColors.Slate400
+                            MaterialTheme.colorScheme.onSurfaceVariant
                         } else {
-                            EnrollmentScreenColors.Primary
+                            MaterialTheme.colorScheme.primary
                         },
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
@@ -127,7 +127,7 @@ fun EnrollmentCourseCard(
 
                 Text(
                     text = course.title,
-                    color = EnrollmentScreenColors.Slate900,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -135,9 +135,9 @@ fun EnrollmentCourseCard(
                 Text(
                     text = course.lockReason ?: course.instructorSchedule,
                     color = if (course.isLocked) {
-                        EnrollmentScreenColors.Red600
+                        MaterialTheme.colorScheme.error
                     } else {
-                        EnrollmentScreenColors.Slate500
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     },
                     fontSize = 12.sp
                 )
@@ -150,9 +150,9 @@ fun EnrollmentCourseCard(
                 Text(
                     text = "${course.units} Units",
                     color = if (course.isLocked) {
-                        EnrollmentScreenColors.Slate400
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     } else {
-                        EnrollmentScreenColors.Slate900
+                        MaterialTheme.colorScheme.onSurface
                     },
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -180,9 +180,9 @@ fun EnrollmentCourseStatusIcon(
         else -> Icons.Outlined.AddCircle
     }
     val tint = when {
-        isLocked -> EnrollmentScreenColors.Slate400
-        isSelected -> EnrollmentScreenColors.Highlight
-        else -> EnrollmentScreenColors.Slate300
+        isLocked -> MaterialTheme.colorScheme.onSurfaceVariant
+        isSelected -> MaterialTheme.colorScheme.secondary
+        else -> MaterialTheme.colorScheme.outline
     }
 
     Icon(
