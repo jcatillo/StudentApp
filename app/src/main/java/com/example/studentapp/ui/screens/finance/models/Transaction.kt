@@ -42,7 +42,7 @@ val sampleTransactions =
                 Transaction(
                         "Athletics Membership",
                         "Aug 15, 2023",
-                        "-$50.00",
+                        "-₱50.00",
                         true,
                         Icons.Default.SportsSoccer,
                         Color(0xFFDBEAFE),
@@ -51,7 +51,7 @@ val sampleTransactions =
                 Transaction(
                         "Dormitory Rent - August",
                         "Aug 01, 2023",
-                        "-$800.00",
+                        "-₱800.00",
                         true,
                         Icons.Default.HomeWork,
                         Color(0xFFE5E7EB),
