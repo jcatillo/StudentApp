@@ -46,21 +46,21 @@ fun buildDashboardUiState(): DashboardUiState {
         studentId = "2024-08912-CS",
         stats = listOf(
             DashboardStat(
-                value = "₱1,240.00",
+                value = "₱2,450.00",
                 label = "Current Balance",
                 icon = Icons.Filled.AccountBalanceWallet,
                 isHighlighted = true
             ),
-            DashboardStat(
-                value = "3.85",
-                label = "Cumulative GPA",
-                icon = Icons.Filled.Star
-            ),
-            DashboardStat(
-                value = "4 New",
-                label = "Notifications",
-                icon = Icons.Filled.Notifications
-            )
+//            DashboardStat(
+//                value = "3.85",
+//                label = "Cumulative GPA",
+//                icon = Icons.Filled.Star
+//            ),
+//            DashboardStat(
+//                value = "4 New",
+//                label = "Notifications",
+//                icon = Icons.Filled.Notifications
+//            )
         ),
         courses = listOf(
             CourseSnapshot(

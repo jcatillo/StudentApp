@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studentapp.ui.screens.academic.AcademicScreenColors
 
 @Composable
 fun AcademicSupportSection(
@@ -24,8 +24,8 @@ fun AcademicSupportSection(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-        color = AcademicScreenColors.Primary.copy(alpha = 0.05f),
-        border = BorderStroke(1.dp, AcademicScreenColors.Primary.copy(alpha = 0.10f))
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.10f))
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
@@ -35,14 +35,14 @@ fun AcademicSupportSection(
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "Need Assistance?",
-                    color = AcademicScreenColors.Slate900,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = "Contact the academic office for enrollment support or technical issues with your student account.",
                     modifier = Modifier.padding(top = 8.dp),
-                    color = AcademicScreenColors.Slate600,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
                     lineHeight = 22.sp,
                     textAlign = TextAlign.Center

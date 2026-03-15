@@ -51,7 +51,7 @@ fun ProgramsHeaderSection(
 
                 Text(
                     text = "Programs & Prospectus",
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = (-0.2).sp
