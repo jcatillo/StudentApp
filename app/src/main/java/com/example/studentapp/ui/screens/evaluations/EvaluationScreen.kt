@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.screens.evaluations.components.EvaluationCourseCard
 import com.example.studentapp.ui.screens.evaluations.components.EvaluationPendingSectionHeader
 import com.example.studentapp.ui.screens.evaluations.components.EvaluationReviewCard
@@ -32,6 +34,9 @@ import com.example.studentapp.ui.screens.evaluations.models.EvaluationCourseItem
 @Composable
 @Preview
 fun EvaluationScreen(
+    navigationItems: List<StudentBottomNavItem> = emptyList(),
+    selectedNavItemId: String = "",
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
     onSubmitClick: () -> Unit = {}
 ) {
@@ -78,6 +83,13 @@ fun EvaluationScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = EvaluationScreenColors.Background
                 )
+            )
+        },
+        bottomBar = {
+            StudentBottomNavBar(
+                items = navigationItems,
+                selectedItemId = selectedNavItemId,
+                onItemSelected = onBottomNavSelected
             )
         }
     ) { innerPadding ->

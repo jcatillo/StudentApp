@@ -28,6 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.studentapp.ui.components.StudentBottomNavBar
+import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.screens.grades.components.GradesFilterChipRow
 import com.example.studentapp.ui.screens.grades.components.GradesHeaderSummaryCard
 import com.example.studentapp.ui.screens.grades.components.SubjectGradeCard
@@ -39,6 +41,9 @@ import com.example.studentapp.ui.screens.grades.models.SubjectStatus
 @Composable
 @Preview
 fun GradesScreen(
+    navigationItems: List<StudentBottomNavItem> = emptyList(),
+    selectedNavItemId: String = "",
+    onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
     onBackClick: () -> Unit = {},
     onMoreClick: () -> Unit = {},
     onDownloadClick: () -> Unit = {}
@@ -116,6 +121,13 @@ fun GradesScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = GradesScreenColors.Background
                 )
+            )
+        },
+        bottomBar = {
+            StudentBottomNavBar(
+                items = navigationItems,
+                selectedItemId = selectedNavItemId,
+                onItemSelected = onBottomNavSelected
             )
         },
         floatingActionButton = {

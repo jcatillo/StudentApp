@@ -14,12 +14,16 @@ import com.example.studentapp.ui.components.StudentBottomNavItem
 import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.academic.AcademicScreen
 import com.example.studentapp.ui.screens.academic.models.toUiState
+import com.example.studentapp.ui.screens.adjustment.AdjustmentScreen
+import com.example.studentapp.ui.screens.changeschedule.ChangeScheduleScreen
 import com.example.studentapp.ui.screens.coe.COEScreen
 import com.example.studentapp.ui.screens.courses.CoursesScreen
 import com.example.studentapp.ui.screens.dashboard.DashboardScreen
 import com.example.studentapp.ui.screens.enrollment.EnrollmentScreen
+import com.example.studentapp.ui.screens.evaluations.EvaluationScreen
 import com.example.studentapp.ui.screens.finance.FinanceScreen
 import com.example.studentapp.ui.screens.goodmoral.GoodMoralScreen
+import com.example.studentapp.ui.screens.grades.GradesScreen
 import com.example.studentapp.ui.screens.library.LibraryScreen
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 import com.example.studentapp.ui.screens.login.LoginScreen
@@ -29,6 +33,7 @@ import com.example.studentapp.ui.screens.programs.ProgramsScreen
 import com.example.studentapp.ui.screens.profile.models.toUiState as toProfileUiState
 import com.example.studentapp.ui.screens.schedule.ScheduleScreen
 import com.example.studentapp.ui.screens.services.ServicesScreen
+import com.example.studentapp.ui.screens.studyload.StudyLoadScreen
 import com.example.studentapp.ui.screens.tor.TORScreen
 
 @Composable
@@ -95,6 +100,15 @@ fun AppNavGraph() {
                 },
                 onProgramsClick = {
                     currentRoute = AppDestination.Programs.route
+                },
+                onGradesClick = {
+                    currentRoute = AppDestination.Grades.route
+                },
+                onEvaluationClick = {
+                    currentRoute = AppDestination.Evaluation.route
+                },
+                onStudyLoadClick = {
+                    currentRoute = AppDestination.StudyLoad.route
                 }
             )
         }
@@ -153,7 +167,93 @@ fun AppNavGraph() {
                     currentRoute = AppDestination.Dashboard.route
                 },
                 onAdjustmentClick = {
+                    currentRoute = AppDestination.Adjustment.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.Grades.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            GradesScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
                     currentRoute = AppDestination.Academic.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.Evaluation.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            EvaluationScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Academic.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.StudyLoad.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Academic.route
+            }
+            StudyLoadScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Academic.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.Adjustment.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Enrollment.route
+            }
+            AdjustmentScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Enrollment.route
+                },
+                onChangeScheduleClick = {
+                    currentRoute = AppDestination.ChangeSchedule.route
+                }
+            )
+        }
+
+        currentRoute == AppDestination.ChangeSchedule.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Adjustment.route
+            }
+            ChangeScheduleScreen(
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "academic",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Adjustment.route
+                },
+                onConfirmClick = {
+                    currentRoute = AppDestination.Adjustment.route
                 }
             )
         }

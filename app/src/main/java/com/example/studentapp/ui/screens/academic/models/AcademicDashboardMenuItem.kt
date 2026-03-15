@@ -20,6 +20,9 @@ data class AcademicDashboardMenuItem(
 const val ACADEMIC_MENU_PROGRAMS = "programs"
 const val ACADEMIC_MENU_COURSES = "courses"
 const val ACADEMIC_MENU_ENROLLMENT = "enrollment"
+const val ACADEMIC_MENU_GRADES = "grades"
+const val ACADEMIC_MENU_EVALUATION = "eval"
+const val ACADEMIC_MENU_STUDY_LOAD = "studyload"
 
 fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
     return listOf(
@@ -40,17 +43,17 @@ fun buildAcademicDashboardMenuItems(): List<AcademicDashboardMenuItem> {
             icon = Icons.Outlined.PersonAddAlt1
         ),
         AcademicDashboardMenuItem(
-            id = "grades",
+            id = ACADEMIC_MENU_GRADES,
             label = "Grades",
             icon = Icons.Outlined.BarChart
         ),
         AcademicDashboardMenuItem(
-            id = "com/example/studentapp/ui/screens/evaluations",
+            id = ACADEMIC_MENU_EVALUATION,
             label = "Evaluations",
             icon = Icons.Outlined.AssignmentTurnedIn
         ),
         AcademicDashboardMenuItem(
-            id = "study_load",
+            id = ACADEMIC_MENU_STUDY_LOAD,
             label = "Study Load",
             icon = Icons.Outlined.Schedule
         )
