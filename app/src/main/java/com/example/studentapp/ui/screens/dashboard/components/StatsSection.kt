@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,25 +26,42 @@ import com.example.studentapp.ui.theme.Gold
 
 @Composable
 fun StatsSection(stats: List<DashboardStat>) {
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(end = 8.dp)
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(stats) { stat ->
-            StatCard(stat = stat)
+        // Highlighted stats (like Balance) take full width
+        stats.filter { it.isHighlighted }.forEach { stat ->
+            StatCard(stat = stat, modifier = Modifier.fillMaxWidth())
+        }
+
+        // Regular stats stay in a row
+        val regularStats = stats.filter { !it.isHighlighted }
+        if (regularStats.isNotEmpty()) {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(end = 8.dp)
+            ) {
+                items(regularStats) { stat ->
+                    StatCard(stat = stat, modifier = Modifier.width(160.dp))
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun StatCard(stat: DashboardStat) {
+private fun StatCard(
+    stat: DashboardStat,
+    modifier: Modifier = Modifier
+) {
     val containerColor = if (stat.isHighlighted) DarkGreen else MaterialTheme.colorScheme.surface
     val borderColor = if (stat.isHighlighted) DarkGreen else MaterialTheme.colorScheme.outlineVariant
     val valueColor = if (stat.isHighlighted) Color.White else MaterialTheme.colorScheme.onSurface
     val labelColor = if (stat.isHighlighted) Color.White.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
 
     Card(
-        modifier = Modifier.width(160.dp),
+        modifier = modifier,
         shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         border = BorderStroke(1.dp, borderColor),
