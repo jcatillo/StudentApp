@@ -12,7 +12,10 @@ import com.example.studentapp.ui.screens.changeschedule.models.*
 
 @Composable
 @Preview
-fun ChangeScheduleScreen() {
+fun ChangeScheduleScreen(
+    onBackClick: () -> Unit = {},
+    onConfirmClick: () -> Unit = {}
+) {
 
     var sections by remember {
 
@@ -47,7 +50,7 @@ fun ChangeScheduleScreen() {
     Scaffold(
 
         topBar = {
-            ChangeScheduleTopBar {}
+            ChangeScheduleTopBar(onBack = onBackClick)
         },
 
         containerColor = ChangeScheduleColors.Background
@@ -89,8 +92,7 @@ fun ChangeScheduleScreen() {
             }
 
             item {
-
-                ConfirmScheduleButton {}
+                ConfirmScheduleButton(onClick = onConfirmClick)
 
             }
 

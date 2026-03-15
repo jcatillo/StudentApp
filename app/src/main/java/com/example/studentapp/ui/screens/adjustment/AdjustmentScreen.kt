@@ -25,7 +25,8 @@ import com.example.studentapp.ui.screens.adjustment.models.AdjustmentCourseItem
 @Preview
 fun AdjustmentScreen(
     onBackClick: () -> Unit = {},
-    onSaveClick: () -> Unit = {}
+    onSaveClick: () -> Unit = {},
+    onChangeScheduleClick: () -> Unit = {}
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
@@ -80,7 +81,7 @@ fun AdjustmentScreen(
             items(enrolledCourses) { course ->
                 AdjustmentCourseCard(
                     item = course,
-                    onChangeScheduleClick = {},
+                    onChangeScheduleClick = onChangeScheduleClick,
                     onRemoveClick = {}
                 )
             }
@@ -107,9 +108,4 @@ fun AdjustmentScreen(
             }
         }
     }
-}
-
-@Composable
-fun AdjustmentSectionHeader(title: String, addMode: Boolean) {
-    TODO("Not yet implemented")
 }

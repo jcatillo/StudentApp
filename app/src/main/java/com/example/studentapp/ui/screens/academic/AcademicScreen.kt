@@ -25,7 +25,10 @@ import com.example.studentapp.ui.screens.academic.components.AcademicHeroCard
 import com.example.studentapp.ui.screens.academic.components.AcademicSupportSection
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_COURSES
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_ENROLLMENT
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_EVALUATION
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_GRADES
 import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_PROGRAMS
+import com.example.studentapp.ui.screens.academic.models.ACADEMIC_MENU_STUDY_LOAD
 import com.example.studentapp.ui.screens.academic.models.AcademicDashboardMenuItem
 import com.example.studentapp.ui.screens.academic.models.AcademicUiState
 import com.example.studentapp.ui.screens.academic.models.buildAcademicDashboardMenuItems
@@ -44,6 +47,9 @@ fun AcademicScreen(
     onCoursesClick: () -> Unit,
     onEnrollmentClick: () -> Unit,
     onProgramsClick: () -> Unit,
+    onGradesClick: () -> Unit,
+    onEvaluationClick: () -> Unit,
+    onStudyLoadClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     AcademicServicesScreen(
@@ -57,6 +63,9 @@ fun AcademicScreen(
         onCoursesClick = onCoursesClick,
         onEnrollmentClick = onEnrollmentClick,
         onProgramsClick = onProgramsClick,
+        onGradesClick = onGradesClick,
+        onEvaluationClick = onEvaluationClick,
+        onStudyLoadClick = onStudyLoadClick,
         modifier = modifier
     )
 }
@@ -73,6 +82,9 @@ fun AcademicServicesScreen(
     onCoursesClick: () -> Unit,
     onEnrollmentClick: () -> Unit,
     onProgramsClick: () -> Unit,
+    onGradesClick: () -> Unit,
+    onEvaluationClick: () -> Unit,
+    onStudyLoadClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val dashboardItems = remember { buildAcademicDashboardMenuItems() }
@@ -108,6 +120,9 @@ fun AcademicServicesScreen(
                     ACADEMIC_MENU_PROGRAMS -> onProgramsClick()
                     ACADEMIC_MENU_COURSES -> onCoursesClick()
                     ACADEMIC_MENU_ENROLLMENT -> onEnrollmentClick()
+                    ACADEMIC_MENU_GRADES -> onGradesClick()
+                    ACADEMIC_MENU_EVALUATION -> onEvaluationClick()
+                    ACADEMIC_MENU_STUDY_LOAD -> onStudyLoadClick()
                 }
             }
         )
@@ -169,7 +184,10 @@ fun AcademicScreenPreview() {
             onContactSupportClick = {},
             onCoursesClick = {},
             onEnrollmentClick = {},
-            onProgramsClick = {}
+            onProgramsClick = {},
+            onGradesClick = {},
+            onEvaluationClick = {},
+            onStudyLoadClick = {}
         )
     }
 }
