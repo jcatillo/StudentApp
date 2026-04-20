@@ -12,6 +12,11 @@ import { BorrowBookUseCase } from "@/application/use-cases/book/borrow-book.use-
 import { ReturnBookUseCase } from "@/application/use-cases/book/return-book.use-case";
 import { BookController } from "@/presentation/controllers/book.controller";
 
+// --- 1. Import Document Classes ---
+import { DocumentRequestPgRepository } from "@/infrastructure/db/repositories/document-request.pg.repository";
+import { CreateDocumentRequestUseCase } from "@/application/use-cases/document/create-request.use-case";
+import { DocumentController } from "@/presentation/controllers/document.controller";
+
 // --- Student Wiring ---
 const studentRepo = new StudentPgRepository(db);
 
@@ -37,4 +42,15 @@ const returnBookUseCase = new ReturnBookUseCase(bookRepo, borrowRecordRepo);
 export const bookController = new BookController(
   borrowBookUseCase,
   returnBookUseCase
+);
+
+// --- Document Request Wiring ---
+// 2. Instantiate Repository (The Engine)
+const documentRepo = new DocumentRequestPgRepository(db);
+
+// 3. Instantiate Use Case (The Brain)
+const createDocumentRequestUseCase = new CreateDocumentRequestUseCase(documentRepo);
+
+export const documentController = new DocumentController(
+  createDocumentRequestUseCase
 );
