@@ -12,10 +12,14 @@ import { BorrowBookUseCase } from "@/application/use-cases/book/borrow-book.use-
 import { ReturnBookUseCase } from "@/application/use-cases/book/return-book.use-case";
 import { BookController } from "@/presentation/controllers/book.controller";
 
-// --- 1. Import Document Classes ---
 import { DocumentRequestPgRepository } from "@/infrastructure/db/repositories/document-request.pg.repository";
 import { CreateDocumentRequestUseCase } from "@/application/use-cases/document/create-request.use-case";
 import { DocumentController } from "@/presentation/controllers/document.controller";
+
+import { TransactionPgRepository } from '@/infrastructure/db/repositories/transaction.pg.repository';
+import { GetStudentBalanceUseCase } from '@/application/use-cases/finance/get-balance.use-case';
+import { ProcessTransactionUseCase } from '@/application/use-cases/finance/process-transaction.use-case';
+import { FinanceController } from '@/presentation/controllers/finance.controller';
 
 // --- Student Wiring ---
 const studentRepo = new StudentPgRepository(db);
@@ -45,12 +49,21 @@ export const bookController = new BookController(
 );
 
 // --- Document Request Wiring ---
-// 2. Instantiate Repository (The Engine)
 const documentRepo = new DocumentRequestPgRepository(db);
 
-// 3. Instantiate Use Case (The Brain)
 const createDocumentRequestUseCase = new CreateDocumentRequestUseCase(documentRepo);
 
 export const documentController = new DocumentController(
   createDocumentRequestUseCase
+);
+
+const transactionRepository = new TransactionPgRepository(db);
+
+const getBalanceUseCase = new GetStudentBalanceUseCase(transactionRepository);
+const processTransactionUseCase = new ProcessTransactionUseCase(transactionRepository);
+
+export const financeController = new FinanceController(
+  getBalanceUseCase,
+  processTransactionUseCase,
+  transactionRepository
 );
