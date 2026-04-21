@@ -29,6 +29,10 @@ import {
 } from '@/application/use-cases/program/program.use-cases';
 import { ProgramController } from '@/presentation/controllers/program.controller';
 
+import { SubjectRegistrationPgRepository } from '@/infrastructure/db/repositories/subject-registration.pg.repository';
+import { GetStudentSubjectsUseCase } from '@/application/use-cases/registration/get-student-subjects.use-case';
+import { SubjectRegistrationController } from '@/presentation/controllers/subject-registration.controller';
+
 // --- Student Wiring ---
 const studentRepo = new StudentPgRepository(db);
 
@@ -88,3 +92,9 @@ export const programController = new ProgramController(
   viewProgramUseCase,
   getProspectusUseCase
 );
+
+// --- Subject Registration Wiring ---
+const registrationRepo = new SubjectRegistrationPgRepository(db);
+const getStudentSubjectsUseCase = new GetStudentSubjectsUseCase(registrationRepo);
+
+export const registrationController = new SubjectRegistrationController(getStudentSubjectsUseCase);
