@@ -21,6 +21,14 @@ import { GetStudentBalanceUseCase } from '@/application/use-cases/finance/get-ba
 import { ProcessTransactionUseCase } from '@/application/use-cases/finance/process-transaction.use-case';
 import { FinanceController } from '@/presentation/controllers/finance.controller';
 
+import { ProgramPgRepository } from '@/infrastructure/db/repositories/program.pg.repository';
+import { 
+  GetProgramsUseCase, 
+  ViewProgramDetailsUseCase, 
+  GetProspectusLinkUseCase 
+} from '@/application/use-cases/program/program.use-cases';
+import { ProgramController } from '@/presentation/controllers/program.controller';
+
 // --- Student Wiring ---
 const studentRepo = new StudentPgRepository(db);
 
@@ -66,4 +74,17 @@ export const financeController = new FinanceController(
   getBalanceUseCase,
   processTransactionUseCase,
   transactionRepository
+);
+
+// --- Program Wiring ---
+const programRepo = new ProgramPgRepository(db);
+
+const getProgramsUseCase = new GetProgramsUseCase(programRepo);
+const viewProgramUseCase = new ViewProgramDetailsUseCase(programRepo);
+const getProspectusUseCase = new GetProspectusLinkUseCase(programRepo);
+
+export const programController = new ProgramController(
+  getProgramsUseCase,
+  viewProgramUseCase,
+  getProspectusUseCase
 );

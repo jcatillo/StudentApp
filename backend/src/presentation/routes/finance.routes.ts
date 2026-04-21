@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { financeController } from '@/container'; // Import from container here!
+import { financeController } from '@/container'; 
 
-export const financeRouter = Router(); // Export a finished router instance
+export const financeRouter = Router();
 
 financeRouter.get('/balance/:studentId', financeController.getStudentBalance);
 financeRouter.get('/history/:studentId', financeController.getTransactionHistory);
