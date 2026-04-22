@@ -62,51 +62,10 @@ export const openApiSpec = {
         },
       },
     },
-    "/api/v1/students": {
-      post: {
-        tags: ["Students"],
-        summary: "Create a student",
-        security: [{ BearerAuth: [] }],
-        requestBody: {
-          required: true,
-          content: {
-            "application/json": {
-              schema: { $ref: "#/components/schemas/CreateStudentRequest" },
-            },
-          },
-        },
-        responses: {
-          "201": {
-            description: "Student created",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
-              },
-            },
-          },
-          "400": {
-            description: "Validation error",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-          "409": {
-            description: "Conflict error",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-        },
-      },
-    },
     "/api/v1/students/{id}": {
       get: {
         tags: ["Students"],
-        summary: "Get a student by id",
+        summary: "Get a student profile by id",
         parameters: [
           {
             name: "id",
@@ -117,10 +76,10 @@ export const openApiSpec = {
         ],
         responses: {
           "200": {
-            description: "Student found",
+            description: "Student profile found",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
+                schema: { $ref: "#/components/schemas/StudentProfileResponse" },
               },
             },
           },
@@ -134,9 +93,9 @@ export const openApiSpec = {
           },
         },
       },
-      patch: {
+      put: {
         tags: ["Students"],
-        summary: "Update a student",
+        summary: "Update a student profile",
         security: [{ BearerAuth: [] }],
         parameters: [
           {
@@ -150,16 +109,16 @@ export const openApiSpec = {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/UpdateStudentRequest" },
+              schema: { $ref: "#/components/schemas/UpdateStudentProfileRequest" },
             },
           },
         },
         responses: {
           "200": {
-            description: "Student updated",
+            description: "Student profile updated",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
+                schema: { $ref: "#/components/schemas/StudentProfileResponse" },
               },
             },
           },
@@ -168,37 +127,6 @@ export const openApiSpec = {
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-          "404": {
-            description: "Student not found",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-        },
-      },
-      delete: {
-        tags: ["Students"],
-        summary: "Delete a student",
-        security: [{ BearerAuth: [] }],
-        parameters: [
-          {
-            name: "id",
-            in: "path",
-            required: true,
-            schema: { type: "string" },
-          },
-        ],
-        responses: {
-          "200": {
-            description: "Student deleted",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/NoDataResponse" },
               },
             },
           },
@@ -223,23 +151,51 @@ export const openApiSpec = {
       },
     },
     schemas: {
-      Student: {
+      StudentProfile: {
         type: "object",
         properties: {
           id: { type: "string" },
-          studentId: { type: "string" },
           fullName: { type: "string" },
-          email: { type: "string", format: "email" },
+          emailAddress: { type: "string", format: "email" },
+          phoneNumber: { type: "string" },
+          accountLabel: { type: "string" },
+          programSummary: { type: "string" },
+          twoFactorStatus: {
+            type: "string",
+            enum: ["Disabled", "PendingVerification", "Enabled"],
+          },
+          emergencyContactName: { type: "string" },
+          emergencyContactRelationship: { type: "string" },
+          emergencyContactPhoneNumber: { type: "string" },
+          emailNotifications: { type: "boolean" },
+          smsNotifications: { type: "boolean" },
+          systemAlerts: { type: "boolean" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time" },
         },
-        required: ["id", "studentId", "fullName", "email", "createdAt", "updatedAt"],
+        required: [
+          "id",
+          "fullName",
+          "emailAddress",
+          "phoneNumber",
+          "accountLabel",
+          "programSummary",
+          "twoFactorStatus",
+          "emergencyContactName",
+          "emergencyContactRelationship",
+          "emergencyContactPhoneNumber",
+          "emailNotifications",
+          "smsNotifications",
+          "systemAlerts",
+          "createdAt",
+          "updatedAt",
+        ],
       },
-      StudentResponse: {
+      StudentProfileResponse: {
         type: "object",
         properties: {
           success: { type: "boolean" },
-          data: { $ref: "#/components/schemas/Student" },
+          data: { $ref: "#/components/schemas/StudentProfile" },
         },
         required: ["success", "data"],
       },
@@ -270,20 +226,24 @@ export const openApiSpec = {
         },
         required: ["studentId", "password", "keepLoggedIn"],
       },
-      CreateStudentRequest: {
-        type: "object",
-        properties: {
-          studentId: { type: "string", minLength: 1 },
-          fullName: { type: "string", minLength: 1 },
-          email: { type: "string", format: "email" },
-        },
-        required: ["studentId", "fullName", "email"],
-      },
-      UpdateStudentRequest: {
+      UpdateStudentProfileRequest: {
         type: "object",
         properties: {
           fullName: { type: "string", minLength: 1 },
-          email: { type: "string", format: "email" },
+          emailAddress: { type: "string", format: "email" },
+          phoneNumber: { type: "string", minLength: 1 },
+          accountLabel: { type: "string", minLength: 1 },
+          programSummary: { type: "string", minLength: 1 },
+          twoFactorStatus: {
+            type: "string",
+            enum: ["Disabled", "PendingVerification", "Enabled"],
+          },
+          emergencyContactName: { type: "string", minLength: 1 },
+          emergencyContactRelationship: { type: "string", minLength: 1 },
+          emergencyContactPhoneNumber: { type: "string", minLength: 1 },
+          emailNotifications: { type: "boolean" },
+          smsNotifications: { type: "boolean" },
+          systemAlerts: { type: "boolean" },
         },
       },
       ErrorResponse: {
@@ -300,14 +260,6 @@ export const openApiSpec = {
           },
         },
         required: ["success", "error"],
-      },
-      NoDataResponse: {
-        type: "object",
-        properties: {
-          success: { type: "boolean" },
-          data: { type: "null" },
-        },
-        required: ["success", "data"],
       },
     },
   },
