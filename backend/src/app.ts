@@ -8,10 +8,12 @@ import { bookRouter } from "@/presentation/routes/book.routes";
 import { documentRouter } from "@/presentation/routes/document.routes";
 import { financeRouter } from "@/presentation/routes/finance.routes";
 import { programRouter } from '@/presentation/routes/program.routes';
+import { globalRateLimiter } from "@/presentation/middleware/rate-limit.middleware";
 
 export const app = express();
 
 app.use(express.json());
+app.use(globalRateLimiter);
 
 app.use("/api", docsRouter);
 app.use("/api/v1/auth", authRouter);
