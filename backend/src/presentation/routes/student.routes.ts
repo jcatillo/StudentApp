@@ -7,6 +7,7 @@ import { validate } from "@/presentation/middleware/validate.middleware";
 
 export const studentRouter = Router();
 
+studentRouter.get("/", studentProfileController.listStudents);
 studentRouter.get("/:id", studentProfileController.getStudentProfile);
 studentRouter.put(
   "/:id",

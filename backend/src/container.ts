@@ -3,6 +3,7 @@ import { GetStudentProfileUseCase } from "@/application/use-cases/student-profil
 import { UpdateStudentProfileUseCase } from "@/application/use-cases/student-profile/update-student-profile.use-case";
 import { BorrowBookUseCase } from "@/application/use-cases/book/borrow-book.use-case";
 import { ReturnBookUseCase } from "@/application/use-cases/book/return-book.use-case";
+import { GetBorrowHistoryUseCase } from "@/application/use-cases/book/get-borrow-history.use-case";
 import { CreateDocumentRequestUseCase } from "@/application/use-cases/document/create-request.use-case";
 import { GetStudentBalanceUseCase } from "@/application/use-cases/finance/get-balance.use-case";
 import { ProcessTransactionUseCase } from "@/application/use-cases/finance/process-transaction.use-case";
@@ -40,6 +41,7 @@ const updateStudentProfileUseCase = new UpdateStudentProfileUseCase(studentProfi
 
 const borrowBookUseCase = new BorrowBookUseCase(bookRepo, borrowRecordRepo);
 const returnBookUseCase = new ReturnBookUseCase(bookRepo, borrowRecordRepo);
+const getBorrowHistoryUseCase = new GetBorrowHistoryUseCase(borrowRecordRepo);
 
 const createDocumentRequestUseCase = new CreateDocumentRequestUseCase(documentRepo);
 
@@ -56,11 +58,13 @@ export const authController = new AuthController(loginUseCase);
 export const studentProfileController = new StudentProfileController(
   getStudentProfileUseCase,
   updateStudentProfileUseCase,
+  studentRepo,
 );
 
 export const bookController = new BookController(
   borrowBookUseCase,
   returnBookUseCase,
+  getBorrowHistoryUseCase,
 );
 
 export const documentController = new DocumentController(createDocumentRequestUseCase);

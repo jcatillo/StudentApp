@@ -3,11 +3,23 @@ import type { NextFunction, Request, Response } from "express";
 import type { GetStudentProfileUseCase } from "@/application/use-cases/student-profile/get-student-profile.use-case";
 import type { UpdateStudentProfileUseCase } from "@/application/use-cases/student-profile/update-student-profile.use-case";
 
+import type { StudentRepository } from "@/application/repositories/student.repository";
+
 export class StudentProfileController {
   constructor(
     private readonly getStudentProfileUseCase: GetStudentProfileUseCase,
     private readonly updateStudentProfileUseCase: UpdateStudentProfileUseCase,
+    private readonly studentRepo: StudentRepository,
   ) {}
+
+  listStudents = async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const students = await this.studentRepo.findAll();
+      res.status(200).json({ success: true, data: students });
+    } catch (err) {
+      next(err);
+    }
+  };
 
   private getIdOrFail(req: Request): string {
     const { id } = req.params;
