@@ -8,6 +8,7 @@ import { CreateDocumentRequestUseCase } from "@/application/use-cases/document/c
 import { GetStudentBalanceUseCase } from "@/application/use-cases/finance/get-balance.use-case";
 import { ProcessTransactionUseCase } from "@/application/use-cases/finance/process-transaction.use-case";
 import { GetProgramsUseCase, ViewProgramDetailsUseCase, GetProspectusLinkUseCase } from "@/application/use-cases/program/program.use-cases";
+import { GetStudentSubjectsUseCase } from "@/application/use-cases/registration/get-student-subjects.use-case";
 
 import { db } from "@/infrastructure/db/client";
 import { StudentProfilePgRepository } from "@/infrastructure/db/repositories/student-profile.pg.repository";
@@ -17,6 +18,7 @@ import { BorrowRecordPgRepository } from "@/infrastructure/db/repositories/borro
 import { DocumentRequestPgRepository } from "@/infrastructure/db/repositories/document-request.pg.repository";
 import { TransactionPgRepository } from "@/infrastructure/db/repositories/transaction.pg.repository";
 import { ProgramPgRepository } from "@/infrastructure/db/repositories/program.pg.repository";
+import { SubjectRegistrationPgRepository } from "@/infrastructure/db/repositories/subject-registration.pg.repository";
 
 import { AuthController } from "@/presentation/controllers/auth.controller";
 import { StudentProfileController } from "@/presentation/controllers/student-profile.controller";
@@ -24,6 +26,7 @@ import { BookController } from "@/presentation/controllers/book.controller";
 import { DocumentController } from "@/presentation/controllers/document.controller";
 import { FinanceController } from "@/presentation/controllers/finance.controller";
 import { ProgramController } from "@/presentation/controllers/program.controller";
+import { SubjectRegistrationController } from "@/presentation/controllers/subject-registration.controller";
 
 // --- Repositories ---
 const studentRepo = new StudentPgRepository(db);
@@ -33,6 +36,7 @@ const borrowRecordRepo = new BorrowRecordPgRepository(db);
 const documentRepo = new DocumentRequestPgRepository(db);
 const transactionRepo = new TransactionPgRepository(db);
 const programRepo = new ProgramPgRepository(db);
+const registrationRepo = new SubjectRegistrationPgRepository(db);
 
 // --- Use Cases ---
 const loginUseCase = new LoginUseCase(studentRepo);
@@ -51,6 +55,8 @@ const processTransactionUseCase = new ProcessTransactionUseCase(transactionRepo)
 const getProgramsUseCase = new GetProgramsUseCase(programRepo);
 const viewProgramUseCase = new ViewProgramDetailsUseCase(programRepo);
 const getProspectusUseCase = new GetProspectusLinkUseCase(programRepo);
+
+const getStudentSubjectsUseCase = new GetStudentSubjectsUseCase(registrationRepo);
 
 // --- Controllers ---
 export const authController = new AuthController(loginUseCase);
@@ -79,4 +85,8 @@ export const programController = new ProgramController(
   getProgramsUseCase,
   viewProgramUseCase,
   getProspectusUseCase
+);
+
+export const subjectRegistrationController = new SubjectRegistrationController(
+  getStudentSubjectsUseCase
 );

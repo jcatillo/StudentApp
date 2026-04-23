@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { UpdateStudentProfileDto } from "@/application/dtos/student-profile.dto";
-import { studentProfileController } from "@/container";
+import { studentProfileController, subjectRegistrationController } from "@/container";
 import { authMiddleware } from "@/presentation/middleware/auth.middleware";
 import { validate } from "@/presentation/middleware/validate.middleware";
 
@@ -15,3 +15,8 @@ studentRouter.put(
   validate(UpdateStudentProfileDto),
   studentProfileController.updateStudentProfile,
 );
+
+// Subject Registration Routes
+studentRouter.get("/:id/subjects/enrolled", subjectRegistrationController.getEnrolledSubjects);
+studentRouter.get("/:id/subjects/completed", subjectRegistrationController.getCompletedSubjects);
+studentRouter.get("/:id/subjects/waitlisted", subjectRegistrationController.getWaitlistedSubjects);
