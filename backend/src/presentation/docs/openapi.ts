@@ -13,29 +13,33 @@ export const openApiSpec = {
   ],
   tags: [
     {
+      name: "Auth",
+      description: "Authentication endpoints",
+    },
+    {
       name: "Students",
       description: "Student management endpoints",
     },
   ],
   paths: {
-    "/api/v1/students": {
+    "/api/v1/auth/login": {
       post: {
-        tags: ["Students"],
-        summary: "Create a student",
+        tags: ["Auth"],
+        summary: "Authenticate student credentials",
         requestBody: {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/CreateStudentRequest" },
+              schema: { $ref: "#/components/schemas/LoginRequest" },
             },
           },
         },
         responses: {
-          "201": {
-            description: "Student created",
+          "200": {
+            description: "Authentication successful",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
+                schema: { $ref: "#/components/schemas/LoginResponse" },
               },
             },
           },
@@ -47,8 +51,8 @@ export const openApiSpec = {
               },
             },
           },
-          "409": {
-            description: "Conflict error",
+          "401": {
+            description: "Invalid credentials",
             content: {
               "application/json": {
                 schema: { $ref: "#/components/schemas/ErrorResponse" },
@@ -61,7 +65,7 @@ export const openApiSpec = {
     "/api/v1/students/{id}": {
       get: {
         tags: ["Students"],
-        summary: "Get a student by id",
+        summary: "Get a student profile by id",
         parameters: [
           {
             name: "id",
@@ -72,10 +76,10 @@ export const openApiSpec = {
         ],
         responses: {
           "200": {
-            description: "Student found",
+            description: "Student profile found",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
+                schema: { $ref: "#/components/schemas/StudentProfileResponse" },
               },
             },
           },
@@ -89,9 +93,10 @@ export const openApiSpec = {
           },
         },
       },
-      patch: {
+      put: {
         tags: ["Students"],
-        summary: "Update a student",
+        summary: "Update a student profile",
+        security: [{ BearerAuth: [] }],
         parameters: [
           {
             name: "id",
@@ -104,16 +109,16 @@ export const openApiSpec = {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/UpdateStudentRequest" },
+              schema: { $ref: "#/components/schemas/UpdateStudentProfileRequest" },
             },
           },
         },
         responses: {
           "200": {
-            description: "Student updated",
+            description: "Student profile updated",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/StudentResponse" },
+                schema: { $ref: "#/components/schemas/StudentProfileResponse" },
               },
             },
           },
@@ -124,31 +129,6 @@ export const openApiSpec = {
                 schema: { $ref: "#/components/schemas/ErrorResponse" },
               },
             },
-          },
-          "404": {
-            description: "Student not found",
-            content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
-            },
-          },
-        },
-      },
-      delete: {
-        tags: ["Students"],
-        summary: "Delete a student",
-        parameters: [
-          {
-            name: "id",
-            in: "path",
-            required: true,
-            schema: { type: "string" },
-          },
-        ],
-        responses: {
-          "204": {
-            description: "Student deleted",
           },
           "404": {
             description: "Student not found",
@@ -163,41 +143,107 @@ export const openApiSpec = {
     },
   },
   components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
     schemas: {
-      Student: {
+      StudentProfile: {
         type: "object",
         properties: {
           id: { type: "string" },
-          studentId: { type: "string" },
           fullName: { type: "string" },
-          email: { type: "string", format: "email" },
+          emailAddress: { type: "string", format: "email" },
+          phoneNumber: { type: "string" },
+          accountLabel: { type: "string" },
+          programSummary: { type: "string" },
+          twoFactorStatus: {
+            type: "string",
+            enum: ["Disabled", "PendingVerification", "Enabled"],
+          },
+          emergencyContactName: { type: "string" },
+          emergencyContactRelationship: { type: "string" },
+          emergencyContactPhoneNumber: { type: "string" },
+          emailNotifications: { type: "boolean" },
+          smsNotifications: { type: "boolean" },
+          systemAlerts: { type: "boolean" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time" },
         },
-        required: ["id", "studentId", "fullName", "email", "createdAt", "updatedAt"],
+        required: [
+          "id",
+          "fullName",
+          "emailAddress",
+          "phoneNumber",
+          "accountLabel",
+          "programSummary",
+          "twoFactorStatus",
+          "emergencyContactName",
+          "emergencyContactRelationship",
+          "emergencyContactPhoneNumber",
+          "emailNotifications",
+          "smsNotifications",
+          "systemAlerts",
+          "createdAt",
+          "updatedAt",
+        ],
       },
-      StudentResponse: {
+      StudentProfileResponse: {
         type: "object",
         properties: {
           success: { type: "boolean" },
-          data: { $ref: "#/components/schemas/Student" },
+          data: { $ref: "#/components/schemas/StudentProfile" },
         },
         required: ["success", "data"],
       },
-      CreateStudentRequest: {
+      LoginData: {
+        type: "object",
+        properties: {
+          accessToken: { type: "string" },
+          tokenType: { type: "string", enum: ["Bearer"] },
+          expiresIn: { type: "string" },
+          refreshToken: { type: "string" },
+        },
+        required: ["accessToken", "tokenType", "expiresIn"],
+      },
+      LoginResponse: {
+        type: "object",
+        properties: {
+          success: { type: "boolean" },
+          data: { $ref: "#/components/schemas/LoginData" },
+        },
+        required: ["success", "data"],
+      },
+      LoginRequest: {
         type: "object",
         properties: {
           studentId: { type: "string", minLength: 1 },
-          fullName: { type: "string", minLength: 1 },
-          email: { type: "string", format: "email" },
+          password: { type: "string", minLength: 1 },
+          keepLoggedIn: { type: "boolean", default: false },
         },
-        required: ["studentId", "fullName", "email"],
+        required: ["studentId", "password", "keepLoggedIn"],
       },
-      UpdateStudentRequest: {
+      UpdateStudentProfileRequest: {
         type: "object",
         properties: {
           fullName: { type: "string", minLength: 1 },
-          email: { type: "string", format: "email" },
+          emailAddress: { type: "string", format: "email" },
+          phoneNumber: { type: "string", minLength: 1 },
+          accountLabel: { type: "string", minLength: 1 },
+          programSummary: { type: "string", minLength: 1 },
+          twoFactorStatus: {
+            type: "string",
+            enum: ["Disabled", "PendingVerification", "Enabled"],
+          },
+          emergencyContactName: { type: "string", minLength: 1 },
+          emergencyContactRelationship: { type: "string", minLength: 1 },
+          emergencyContactPhoneNumber: { type: "string", minLength: 1 },
+          emailNotifications: { type: "boolean" },
+          smsNotifications: { type: "boolean" },
+          systemAlerts: { type: "boolean" },
         },
       },
       ErrorResponse: {
