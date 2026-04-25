@@ -23,14 +23,13 @@ export class CoursePgRepository implements CourseRepository {
       .limit(limit)
       .offset(offset);
 
-    const [totalResult] = await this.db
-      .select({ value: count() })
-      .from(courses)
-      .where(whereClause);
+    const [totalResult] = await this.db.select({ value: count() }).from(courses).where(whereClause);
+
+    const total = totalResult?.value ? Number(totalResult.value) : 0;
 
     return {
       data: data.map(this.mapToEntity),
-      total: Number(totalResult.value),
+      total,
     };
   }
 
@@ -46,24 +45,28 @@ export class CoursePgRepository implements CourseRepository {
   }
 
   private mapToEntity(row: any): Course {
-    return {
+    const course: Course = {
       id: row.id,
       code: row.code,
       title: row.title,
-      semesterTitle: row.semesterTitle || undefined,
-      instructor: row.instructor || undefined,
-      units: row.units || undefined,
-      schedule: row.schedule || undefined,
-      location: row.location || undefined,
-      grade: row.grade || undefined,
-      waitlistStatus: row.waitlistStatus || undefined,
-      progress: row.progress ? Number(row.progress) : undefined,
-      status: row.status as CourseStatus | undefined,
-      tuition: row.tuition ? Number(row.tuition) : undefined,
-      isLocked: row.isLocked ?? undefined,
-      lockReason: row.lockReason || undefined,
-      programId: row.programId || undefined,
       createdAt: row.createdAt,
     };
+
+    if (row.semesterTitle) course.semesterTitle = row.semesterTitle;
+    if (row.instructor) course.instructor = row.instructor;
+    if (row.units !== null && row.units !== undefined) course.units = row.units;
+    if (row.schedule) course.schedule = row.schedule;
+    if (row.location) course.location = row.location;
+    if (row.grade) course.grade = row.grade;
+    if (row.waitlistStatus) course.waitlistStatus = row.waitlistStatus;
+    if (row.progress !== null && row.progress !== undefined) course.progress = Number(row.progress);
+    if (row.status) course.status = row.status as CourseStatus;
+    if (row.tuition !== null && row.tuition !== undefined) course.tuition = Number(row.tuition);
+    if (row.isLocked !== null && row.isLocked !== undefined) course.isLocked = row.isLocked;
+    if (row.lockReason) course.lockReason = row.lockReason;
+    if (row.programId) course.programId = row.programId;
+
+    return course;
   }
 }
+
