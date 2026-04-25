@@ -1,8 +1,12 @@
 import { LoginUseCase } from "@/application/use-cases/auth/login.use-case";
 import { GetStudentProfileUseCase } from "@/application/use-cases/student-profile/get-student-profile.use-case";
+import { GetStudentProfilesUseCase } from "@/application/use-cases/student-profile/get-student-profiles.use-case";
 import { UpdateStudentProfileUseCase } from "@/application/use-cases/student-profile/update-student-profile.use-case";
 import { GetLibraryBooksUseCase } from "@/application/use-cases/library-book/get-library-books.use-case";
 import { UpdateLibraryBookUseCase } from "@/application/use-cases/library-book/update-library-book.use-case";
+import { BorrowBookUseCase } from "@/application/use-cases/library-book/borrow-book.use-case";
+import { ReturnBookUseCase } from "@/application/use-cases/library-book/return-book.use-case";
+import { GetBorrowHistoryUseCase } from "@/application/use-cases/library-book/get-borrow-history.use-case";
 import { GetDocumentRequestsUseCase } from "@/application/use-cases/document-request/get-document-requests.use-case";
 import { GetDocumentRequestUseCase } from "@/application/use-cases/document-request/get-document-request.use-case";
 import { CreateDocumentRequestUseCase } from "@/application/use-cases/document-request/create-document-request.use-case";
@@ -24,6 +28,7 @@ import { GetStudentSubjectsUseCase } from "@/application/use-cases/registration/
 import { CreateSubjectUseCase } from "@/application/use-cases/subject/create-subject.use-case";
 
 import { db } from "@/infrastructure/db/client";
+import { BorrowRecordPgRepository } from "@/infrastructure/db/repositories/borrow-record.pg.repository";
 import { StudentProfilePgRepository } from "@/infrastructure/db/repositories/student-profile.pg.repository";
 import { StudentPgRepository } from "@/infrastructure/db/repositories/student.pg.repository";
 import { LibraryBookPgRepository } from "@/infrastructure/db/repositories/library-book.pg.repository";
@@ -57,6 +62,7 @@ import { SubjectController } from "@/presentation/controllers/subject.controller
 const studentRepo = new StudentPgRepository(db);
 const studentProfileRepo = new StudentProfilePgRepository(db);
 const libraryBookRepo = new LibraryBookPgRepository(db);
+const borrowRecordRepo = new BorrowRecordPgRepository(db);
 const documentRequestRepo = new DocumentRequestPgRepository(db);
 const complaintRepo = new ComplaintPgRepository(db);
 const transactionRepo = new TransactionPgRepository(db);
@@ -71,10 +77,14 @@ const subjectRepo = new SubjectPgRepository(db);
 // --- Use Cases ---
 const loginUseCase = new LoginUseCase(studentRepo);
 const getStudentProfileUseCase = new GetStudentProfileUseCase(studentProfileRepo);
+const getStudentProfilesUseCase = new GetStudentProfilesUseCase(studentProfileRepo);
 const updateStudentProfileUseCase = new UpdateStudentProfileUseCase(studentProfileRepo);
 
 const getLibraryBooksUseCase = new GetLibraryBooksUseCase(libraryBookRepo);
 const updateLibraryBookUseCase = new UpdateLibraryBookUseCase(libraryBookRepo);
+const borrowBookUseCase = new BorrowBookUseCase(libraryBookRepo, borrowRecordRepo);
+const returnBookUseCase = new ReturnBookUseCase(libraryBookRepo, borrowRecordRepo);
+const getBorrowHistoryUseCase = new GetBorrowHistoryUseCase(borrowRecordRepo);
 
 const getDocumentRequestsUseCase = new GetDocumentRequestsUseCase(documentRequestRepo, studentRepo);
 const getDocumentRequestUseCase = new GetDocumentRequestUseCase(documentRequestRepo);
@@ -110,12 +120,16 @@ export const authController = new AuthController(loginUseCase);
 
 export const studentProfileController = new StudentProfileController(
   getStudentProfileUseCase,
+  getStudentProfilesUseCase,
   updateStudentProfileUseCase,
 );
 
 export const libraryBookController = new LibraryBookController(
   getLibraryBooksUseCase,
   updateLibraryBookUseCase,
+  borrowBookUseCase,
+  returnBookUseCase,
+  getBorrowHistoryUseCase,
 );
 
 export const documentRequestController = new DocumentRequestController(

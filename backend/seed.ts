@@ -4,6 +4,7 @@ import { db } from "./src/infrastructure/db/client.js";
 import { students } from "./src/infrastructure/db/schema/student.schema.js";
 import { studentProfiles } from "./src/infrastructure/db/schema/student-profile.schema.js";
 import { subjects, sections, subjectRegistrations } from "./src/infrastructure/db/schema/subject-registration.schema.js";
+import { transactions } from "./src/infrastructure/db/schema/transaction.schema.js";
 
 async function seed() {
   const passwordHash = await bcrypt.hash("password123", 10);
@@ -75,8 +76,45 @@ async function seed() {
   for (const reg of registrationList) {
     await db.insert(subjectRegistrations).values(reg).onConflictDoNothing();
   }
+
+  // 6. Seed Transactions
+  const transactionList = [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      studentId,
+      title: "Enrollment Fee",
+      type: "FEE",
+      amount: "1500.00",
+      method: "SYSTEM",
+      status: "COMPLETED",
+      referenceId: "REF-001",
+      description: "Initial enrollment fee",
+      isPaid: true,
+      date: new Date()
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      studentId,
+      title: "Tuition Downpayment",
+      type: "PAYMENT",
+      amount: "500.00",
+      method: "GCash",
+      status: "COMPLETED",
+      referenceId: "REF-002",
+      description: "Partial tuition payment",
+      isPaid: true,
+      date: new Date()
+    }
+  ] as any[];
+
+  for (const txn of transactionList) {
+    await db.insert(transactions).values(txn).onConflictDoUpdate({
+      target: transactions.id,
+      set: { title: txn.title }
+    });
+  }
     
-  console.log("Seeded student S1001, subjects, and registrations.");
+  console.log("Seeded student S1001, subjects, registrations, and transactions.");
   process.exit(0);
 }
 
