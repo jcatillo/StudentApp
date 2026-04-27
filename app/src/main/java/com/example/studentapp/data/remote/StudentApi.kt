@@ -32,6 +32,6 @@ interface StudentApi {
     ): Response<PagedResponse<LibraryBookDto>>
 
     companion object {
-        const val BASE_URL = "http://10.0.2.2:3000/" // Default for Android Emulator to host machine
+        const val BASE_URL = "http://10.0.2.2:3000" // No trailing slash
     }
 }
