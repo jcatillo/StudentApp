@@ -55,6 +55,7 @@ fun AppNavGraph() {
     val authenticateStudent = remember { AuthenticateStudentUseCase(NetworkModule.repository) }
     val getProfileOverview = remember { GetProfileOverviewUseCase(NetworkModule.repository) }
     val getAcademicOverview = remember { GetAcademicOverviewUseCase() }
+    val getLibraryBooks = remember { GetLibraryBooksUseCase(NetworkModule.repository) }
     val primaryBottomNavItems = remember { buildPrimaryBottomNavItems() }
 
     // Fetch profile when student ID is set
@@ -383,6 +384,7 @@ fun AppNavGraph() {
             }
             LibraryScreen(
                 initialTab = initialTab,
+                getLibraryBooks = { tab -> getLibraryBooks(tab) },
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "services",
                 onBottomNavSelected = { item ->

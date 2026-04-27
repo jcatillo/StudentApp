@@ -6,9 +6,12 @@ import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.library.components.LibraryContent
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 
+import com.example.studentapp.domain.model.LibraryBook
+
 @Composable
 fun LibraryScreen(
     initialTab: LibraryTab = LibraryTab.Available,
+    getLibraryBooks: suspend (LibraryTab) -> List<LibraryBook>,
     navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
     selectedNavItemId: String = "services",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
@@ -18,6 +21,7 @@ fun LibraryScreen(
 ) {
     LibraryContent(
         initialTab = initialTab,
+        getLibraryBooks = getLibraryBooks,
         navigationItems = navigationItems,
         selectedNavItemId = selectedNavItemId,
         onBottomNavSelected = onBottomNavSelected,

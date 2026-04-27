@@ -28,6 +28,7 @@ import com.example.studentapp.ui.screens.library.models.sampleLibraryFilters
 @Composable
 fun LibraryContent(
     initialTab: LibraryTab = LibraryTab.Available,
+    getLibraryBooks: suspend (LibraryTab) -> List<LibraryBook>,
     navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
     selectedNavItemId: String = "services",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
@@ -37,18 +38,27 @@ fun LibraryContent(
 ) {
     var selectedTab by rememberSaveable { mutableStateOf(initialTab) }
     var query by rememberSaveable { mutableStateOf("") }
+    var books by remember { mutableStateOf<List<LibraryBook>>(emptyList()) }
+    var isLoading by remember { mutableStateOf(false) }
 
-    // Update selectedTab if initialTab changes (e.g. on navigation)
+    // Update selectedTab if initialTab changes
     LaunchedEffect(initialTab) {
         selectedTab = initialTab
     }
 
-    val filteredBooks = remember(selectedTab, query) {
-        filterLibraryBooks(
-            books = sampleLibraryBooks,
-            selectedTab = selectedTab,
-            query = query
-        )
+    // Fetch books when selectedTab changes
+    LaunchedEffect(selectedTab) {
+        isLoading = true
+        books = getLibraryBooks(selectedTab)
+        isLoading = false
+    }
+
+    val filteredBooks = remember(books, query) {
+        books.filter { book ->
+            query.isBlank() ||
+                book.title.contains(query, ignoreCase = true) ||
+                book.author.contains(query, ignoreCase = true)
+        }
     }
 
     val filters = remember { sampleLibraryFilters }
