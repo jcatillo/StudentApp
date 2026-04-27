@@ -1,0 +1,39 @@
+package com.example.studentapp.di
+
+import com.example.studentapp.data.remote.StudentApi
+import com.example.studentapp.data.repository.StudentRepositoryImpl
+import com.example.studentapp.domain.repository.StudentRepository
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+
+object NetworkModule {
+    private val json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
+
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
+    private val api: StudentApi by lazy {
+        Retrofit.Builder()
+            .baseUrl(StudentApi.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
+            .create(StudentApi::class.java)
+    }
+
+    val repository: StudentRepository by lazy {
+        StudentRepositoryImpl(api)
+    }
+}
