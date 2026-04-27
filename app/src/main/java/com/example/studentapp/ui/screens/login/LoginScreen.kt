@@ -52,9 +52,13 @@ import com.example.studentapp.domain.usecase.AuthenticationResult
 import com.example.studentapp.ui.theme.DarkGreen
 import com.example.studentapp.ui.theme.Gold
 
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+
 @Composable
 fun LoginScreen(
-    authenticate: (String, String) -> AuthenticationResult,
+    authenticate: suspend (String, String) -> AuthenticationResult,
     onLoginSuccess: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -63,6 +67,9 @@ fun LoginScreen(
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var keepLoggedIn by rememberSaveable { mutableStateOf(false) }
     var errorMessage by rememberSaveable { mutableStateOf<String?>(null) }
+    var isLoading by rememberSaveable { mutableStateOf(false) }
+    
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = modifier
@@ -84,6 +91,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(horizontal = 32.dp, vertical = 48.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // ... (Box, Icons, Text unchanged)
                 Box(
                     modifier = Modifier
                         .size(48.dp)
@@ -128,6 +136,7 @@ fun LoginScreen(
                             studentId = it
                             errorMessage = null
                         },
+                        enabled = !isLoading,
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = {
                             Text(
@@ -172,6 +181,7 @@ fun LoginScreen(
                             password = it
                             errorMessage = null
                         },
+                        enabled = !isLoading,
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = {
                             Text(
@@ -229,6 +239,7 @@ fun LoginScreen(
                     Checkbox(
                         checked = keepLoggedIn,
                         onCheckedChange = { keepLoggedIn = it },
+                        enabled = !isLoading,
                         colors = CheckboxDefaults.colors(checkedColor = DarkGreen)
                     )
 
@@ -254,42 +265,57 @@ fun LoginScreen(
 
                 Button(
                     onClick = {
-                        val result = authenticate(studentId, password)
-
-                        if (result.isSuccess) {
-                            errorMessage = null
-                            onLoginSuccess()
-                        } else {
-                            errorMessage = result.errorMessage
+                        isLoading = true
+                        errorMessage = null
+                        scope.launch {
+                            try {
+                                val result = authenticate(studentId, password)
+                                if (result.isSuccess) {
+                                    onLoginSuccess()
+                                } else {
+                                    errorMessage = result.errorMessage
+                                }
+                            } finally {
+                                isLoading = false
+                            }
                         }
                     },
+                    enabled = !isLoading,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Gold)
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "Sign In",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            color = DarkGreen,
+                            strokeWidth = 2.dp
                         )
+                    } else {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "Sign In",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            )
 
-                        Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
-                        Icon(
-                            imageVector = Icons.Default.ArrowForward,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "Use any student ID and a password with at least 6 characters.",
+                    text = "Use your assigned student ID and password.",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -312,7 +338,7 @@ fun LoginScreen(
                 }
             }
         }
-
+        // ... (rest of the file unchanged)
         Spacer(modifier = Modifier.height(32.dp))
 
         Row(

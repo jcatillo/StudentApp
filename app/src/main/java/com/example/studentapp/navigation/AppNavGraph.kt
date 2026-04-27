@@ -36,21 +36,46 @@ import com.example.studentapp.ui.screens.services.ServicesScreen
 import com.example.studentapp.ui.screens.studyload.StudyLoadScreen
 import com.example.studentapp.ui.screens.tor.TORScreen
 
+import com.example.studentapp.di.NetworkModule
+
+import androidx.compose.runtime.LaunchedEffect
+import com.example.studentapp.domain.model.ProfileOverview
+import com.example.studentapp.ui.screens.dashboard.models.buildDashboardUiState
+
 @Composable
 fun AppNavGraph() {
     var currentRoute by rememberSaveable {
         mutableStateOf(AppDestination.Login.route)
     }
 
-    val authenticateStudent = remember { AuthenticateStudentUseCase() }
-    val academicOverview = remember { GetAcademicOverviewUseCase().invoke().toUiState() }
-    val profileOverview = remember { GetProfileOverviewUseCase().invoke().toProfileUiState() }
+    var loggedInStudentId by rememberSaveable { mutableStateOf<String?>(null) }
+    var studentProfile by remember { mutableStateOf<ProfileOverview?>(null) }
+    var isProfileLoading by remember { mutableStateOf(false) }
+
+    val authenticateStudent = remember { AuthenticateStudentUseCase(NetworkModule.repository) }
+    val getProfileOverview = remember { GetProfileOverviewUseCase(NetworkModule.repository) }
+    val getAcademicOverview = remember { GetAcademicOverviewUseCase() }
     val primaryBottomNavItems = remember { buildPrimaryBottomNavItems() }
+
+    // Fetch profile when student ID is set
+    LaunchedEffect(loggedInStudentId) {
+        loggedInStudentId?.let { id ->
+            isProfileLoading = true
+            studentProfile = getProfileOverview(id)
+            isProfileLoading = false
+        }
+    }
 
     when {
         currentRoute == AppDestination.Login.route -> {
             LoginScreen(
-                authenticate = authenticateStudent::invoke,
+                authenticate = { id, pw -> 
+                    val result = authenticateStudent(id, pw)
+                    if (result.isSuccess) {
+                        loggedInStudentId = id
+                    }
+                    result
+                },
                 onLoginSuccess = {
                     currentRoute = AppDestination.Dashboard.route
                 }
@@ -60,8 +85,19 @@ fun AppNavGraph() {
         currentRoute == AppDestination.Dashboard.route -> {
             BackHandler {
                 currentRoute = AppDestination.Login.route
+                loggedInStudentId = null
+                studentProfile = null
             }
+            
+            val dashboardState = studentProfile?.let { profile ->
+                buildDashboardUiState().copy(
+                    studentName = profile.fullName,
+                    studentId = profile.accountId
+                )
+            } ?: buildDashboardUiState()
+
             DashboardScreen(
+                state = dashboardState,
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "home",
                 onBottomNavSelected = { item ->
@@ -77,6 +113,10 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
+
+            val academicOverview = studentProfile?.let { profile ->
+                getAcademicOverview(profile.fullName, profile.programSummary).toUiState()
+            } ?: getAcademicOverview("Loading...", "...").toUiState()
 
             val goToDashboard = {
                 currentRoute = AppDestination.Dashboard.route
@@ -109,6 +149,38 @@ fun AppNavGraph() {
                 },
                 onStudyLoadClick = {
                     currentRoute = AppDestination.StudyLoad.route
+                }
+            )
+        }
+        
+        // ... (keep other routes mostly as they were, but maybe pass profile to ProfileScreen)
+        currentRoute == AppDestination.Profile.route -> {
+            BackHandler {
+                currentRoute = AppDestination.Dashboard.route
+            }
+            
+            val profileUiState = studentProfile?.toProfileUiState() 
+                ?: getProfileOverview.invoke("").let { null }?.toProfileUiState() // fallback or loading
+
+            ProfileScreen(
+                state = profileUiState ?: com.example.studentapp.ui.screens.profile.models.ProfileUiState(
+                    accountId = "Loading...",
+                    fullName = "Loading...",
+                    emailAddress = "",
+                    phoneNumber = "",
+                    accountLabel = "",
+                    programSummary = "",
+                    emergencyContact = com.example.studentapp.domain.model.EmergencyContactInfo("", "", ""),
+                    twoFactorStatus = com.example.studentapp.domain.model.TwoFactorStatus.Disabled,
+                    notificationPreferences = com.example.studentapp.domain.model.NotificationPreferences(false, false, false)
+                ),
+                navigationItems = primaryBottomNavItems,
+                selectedNavItemId = "profile",
+                onBottomNavSelected = { item ->
+                    currentRoute = resolvePrimaryRoute(item, currentRoute)
+                },
+                onBackClick = {
+                    currentRoute = AppDestination.Dashboard.route
                 }
             )
         }
