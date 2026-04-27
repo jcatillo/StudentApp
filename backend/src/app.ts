@@ -22,6 +22,10 @@ export const app = express();
 app.use(express.json());
 app.use(globalRateLimiter);
 
+app.get("/ping", (req, res) => {
+  res.json({ message: "pong", timestamp: new Date().toISOString() });
+});
+
 app.use("/api", docsRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/students", studentProfileRouter);
