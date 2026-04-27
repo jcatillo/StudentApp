@@ -42,6 +42,11 @@ import androidx.compose.runtime.LaunchedEffect
 import com.example.studentapp.domain.model.ProfileOverview
 import com.example.studentapp.ui.screens.dashboard.models.buildDashboardUiState
 
+import com.example.studentapp.domain.usecase.GetLibraryBooksUseCase
+import com.example.studentapp.ui.screens.profile.models.ProfileUiState
+import com.example.studentapp.ui.screens.profile.models.EmergencyContactUiState
+import com.example.studentapp.ui.screens.profile.models.NotificationSettingsUiState
+
 @Composable
 fun AppNavGraph() {
     var currentRoute by rememberSaveable {
@@ -55,7 +60,7 @@ fun AppNavGraph() {
     val authenticateStudent = remember { AuthenticateStudentUseCase(NetworkModule.repository) }
     val getProfileOverview = remember { GetProfileOverviewUseCase(NetworkModule.repository) }
     val getAcademicOverview = remember { GetAcademicOverviewUseCase() }
-    val getLibraryBooks = remember { GetLibraryBooksUseCase(NetworkModule.repository) }
+    val getLibraryBooksUseCase = remember { GetLibraryBooksUseCase(NetworkModule.repository) }
     val primaryBottomNavItems = remember { buildPrimaryBottomNavItems() }
 
     // Fetch profile when student ID is set
@@ -161,19 +166,20 @@ fun AppNavGraph() {
             }
             
             val profileUiState = studentProfile?.toProfileUiState() 
-                ?: getProfileOverview.invoke("").let { null }?.toProfileUiState() // fallback or loading
 
             ProfileScreen(
-                state = profileUiState ?: com.example.studentapp.ui.screens.profile.models.ProfileUiState(
+                state = profileUiState ?: ProfileUiState(
                     accountId = "Loading...",
                     fullName = "Loading...",
                     emailAddress = "",
                     phoneNumber = "",
                     accountLabel = "",
                     programSummary = "",
-                    emergencyContact = com.example.studentapp.domain.model.EmergencyContactInfo("", "", ""),
+                    avatarInitials = "??",
+                    emergencyContact = EmergencyContactUiState("", "", ""),
                     twoFactorStatus = com.example.studentapp.domain.model.TwoFactorStatus.Disabled,
-                    notificationPreferences = com.example.studentapp.domain.model.NotificationPreferences(false, false, false)
+                    notificationSettings = NotificationSettingsUiState(false, false, false),
+                    qrPayload = ""
                 ),
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "profile",
@@ -384,7 +390,7 @@ fun AppNavGraph() {
             }
             LibraryScreen(
                 initialTab = initialTab,
-                getLibraryBooks = { tab -> getLibraryBooks(tab) },
+                getLibraryBooks = { tab -> getLibraryBooksUseCase(tab) },
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "services",
                 onBottomNavSelected = { item ->
@@ -478,8 +484,23 @@ fun AppNavGraph() {
             BackHandler {
                 currentRoute = AppDestination.Dashboard.route
             }
+            
+            val profileUiState = studentProfile?.toProfileUiState() 
+
             ProfileScreen(
-                state = profileOverview,
+                state = profileUiState ?: ProfileUiState(
+                    accountId = "Loading...",
+                    fullName = "Loading...",
+                    emailAddress = "",
+                    phoneNumber = "",
+                    accountLabel = "",
+                    programSummary = "",
+                    avatarInitials = "??",
+                    emergencyContact = EmergencyContactUiState("", "", ""),
+                    twoFactorStatus = com.example.studentapp.domain.model.TwoFactorStatus.Disabled,
+                    notificationSettings = NotificationSettingsUiState(false, false, false),
+                    qrPayload = ""
+                ),
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "profile",
                 onBottomNavSelected = { item ->

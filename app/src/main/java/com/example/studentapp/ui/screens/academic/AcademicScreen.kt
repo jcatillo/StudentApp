@@ -177,7 +177,7 @@ fun AcademicServicesContent(
 fun AcademicScreenPreview() {
     StudentAppTheme(dynamicColor = false) {
         AcademicScreen(
-            state = GetAcademicOverviewUseCase().invoke().toUiState(),
+            state = GetAcademicOverviewUseCase().invoke("James Anderson", "Computer Science").toUiState(),
             navigationItems = buildPrimaryBottomNavItems(),
             selectedNavItemId = "academic",
             onBottomNavSelected = {},

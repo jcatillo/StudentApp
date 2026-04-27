@@ -1,8 +1,8 @@
 package com.example.studentapp.domain.usecase
 
-import com.example.studentapp.domain.model.LibraryBook
-import com.example.studentapp.domain.model.LibraryTab
-import com.example.studentapp.domain.model.StockStatus
+import com.example.studentapp.ui.screens.library.models.LibraryBook
+import com.example.studentapp.ui.screens.library.models.LibraryTab
+import com.example.studentapp.ui.screens.library.models.StockStatus
 import com.example.studentapp.domain.repository.StudentRepository
 
 class GetLibraryBooksUseCase(

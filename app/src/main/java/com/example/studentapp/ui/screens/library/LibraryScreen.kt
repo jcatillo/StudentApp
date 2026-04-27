@@ -6,7 +6,7 @@ import com.example.studentapp.ui.components.buildPrimaryBottomNavItems
 import com.example.studentapp.ui.screens.library.components.LibraryContent
 import com.example.studentapp.ui.screens.library.models.LibraryTab
 
-import com.example.studentapp.domain.model.LibraryBook
+import com.example.studentapp.ui.screens.library.models.LibraryBook
 
 @Composable
 fun LibraryScreen(

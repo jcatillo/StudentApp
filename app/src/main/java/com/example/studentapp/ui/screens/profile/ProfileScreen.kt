@@ -146,8 +146,27 @@ fun ProfileScreen(
 @Composable
 private fun ProfileScreenPreview() {
     StudentAppTheme(dynamicColor = false) {
+        val mockProfile = com.example.studentapp.domain.model.ProfileOverview(
+            accountId = "2024-0001",
+            fullName = "James Anderson",
+            emailAddress = "j.anderson@university.edu",
+            phoneNumber = "+1 (555) 123-4567",
+            accountLabel = "Active Student",
+            programSummary = "BS Computer Science",
+            emergencyContact = com.example.studentapp.domain.model.EmergencyContactInfo(
+                name = "Sarah Anderson",
+                relationship = "Mother",
+                phoneNumber = "+1 (555) 987-6543"
+            ),
+            twoFactorStatus = com.example.studentapp.domain.model.TwoFactorStatus.Enabled,
+            notificationPreferences = com.example.studentapp.domain.model.NotificationPreferences(
+                emailNotifications = true,
+                smsNotifications = false,
+                systemAlerts = true
+            )
+        )
         ProfileScreen(
-            state = GetProfileOverviewUseCase().invoke().toUiState(),
+            state = mockProfile.toUiState(),
             navigationItems = buildPrimaryBottomNavItems(),
             selectedNavItemId = "profile",
             onBottomNavSelected = {},
