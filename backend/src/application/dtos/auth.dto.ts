@@ -19,4 +19,5 @@ export type LoginResponse = {
   tokenType: "Bearer";
   expiresIn: string;
   refreshToken?: string;
+  id: string;
 };

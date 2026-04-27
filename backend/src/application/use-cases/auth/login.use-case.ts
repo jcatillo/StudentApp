@@ -37,6 +37,7 @@ export class LoginUseCase {
         tokenType: "Bearer",
         expiresIn: env.JWT_EXPIRES_IN,
         refreshToken,
+        id: authRecord.id,
       };
     }
 
@@ -44,6 +45,7 @@ export class LoginUseCase {
       accessToken,
       tokenType: "Bearer",
       expiresIn: env.JWT_EXPIRES_IN,
+      id: authRecord.id,
     };
   }
 }
