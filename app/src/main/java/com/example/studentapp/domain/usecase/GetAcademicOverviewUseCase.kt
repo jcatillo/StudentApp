@@ -5,11 +5,11 @@ import com.example.studentapp.domain.model.AcademicService
 import com.example.studentapp.domain.model.SupportMessage
 
 class GetAcademicOverviewUseCase {
-    operator fun invoke(): AcademicOverview {
+    operator fun invoke(studentName: String, programName: String): AcademicOverview {
         return AcademicOverview(
-            studentName = "James Anderson",
-            programName = "Computer Science",
-            yearLevel = "Year 3",
+            studentName = studentName,
+            programName = programName,
+            yearLevel = "Year 3", // Still hardcoded as it's not in StudentProfile entity
             services = listOf(
                 AcademicService(
                     code = "PR",

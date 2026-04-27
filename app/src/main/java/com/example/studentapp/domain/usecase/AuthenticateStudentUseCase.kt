@@ -1,46 +1,54 @@
 package com.example.studentapp.domain.usecase
 
+import com.example.studentapp.data.remote.dto.LoginRequestDto
+import com.example.studentapp.domain.repository.StudentRepository
+
 data class AuthenticationResult(
     val isSuccess: Boolean,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val accessToken: String? = null
 )
 
-class AuthenticateStudentUseCase {
-    operator fun invoke(studentId: String, password: String): AuthenticationResult {
+class AuthenticateStudentUseCase(
+    private val repository: StudentRepository
+) {
+    suspend operator fun invoke(studentId: String, password: String): AuthenticationResult {
         val normalizedStudentId = studentId.trim()
 
-        return when {
-            normalizedStudentId.isEmpty() -> {
-                AuthenticationResult(
-                    isSuccess = false,
-                    errorMessage = "Enter your student ID."
-                )
-            }
+        if (normalizedStudentId.isEmpty()) {
+            return AuthenticationResult(isSuccess = false, errorMessage = "Enter your student ID.")
+        }
 
-            password.isBlank() -> {
-                AuthenticationResult(
-                    isSuccess = false,
-                    errorMessage = "Enter your password."
-                )
-            }
+        if (password.isBlank()) {
+            return AuthenticationResult(isSuccess = false, errorMessage = "Enter your password.")
+        }
 
-            normalizedStudentId.length < 6 -> {
-                AuthenticationResult(
-                    isSuccess = false,
-                    errorMessage = "Use a valid student ID."
+        return try {
+            val response = repository.login(
+                LoginRequestDto(
+                    studentId = normalizedStudentId,
+                    password = password
                 )
-            }
+            )
 
-            password.length < 6 -> {
+            if (response.isSuccessful && response.body() != null) {
                 AuthenticationResult(
-                    isSuccess = false,
-                    errorMessage = "Password must be at least 6 characters."
+                    isSuccess = true,
+                    accessToken = response.body()?.accessToken
                 )
+            } else {
+                val errorMsg = when (response.code()) {
+                    401 -> "Invalid student ID or password."
+                    404 -> "Student not found."
+                    else -> "An error occurred: ${response.message()}"
+                }
+                AuthenticationResult(isSuccess = false, errorMessage = errorMsg)
             }
-
-            else -> {
-                AuthenticationResult(isSuccess = true)
-            }
+        } catch (e: Exception) {
+            AuthenticationResult(
+                isSuccess = false,
+                errorMessage = "Could not connect to server. Please check your internet connection."
+            )
         }
     }
 }
