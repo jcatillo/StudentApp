@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class DashboardUiState(
     val studentName: String,
     val studentId: String,
+    val idStatus: String,
     val stats: List<DashboardStat>,
     val courses: List<CourseSnapshot>,
     val requestStatus: ServiceRequestStatus
@@ -44,6 +45,7 @@ fun buildDashboardUiState(): DashboardUiState {
     return DashboardUiState(
         studentName = "Alex Harrison",
         studentId = "2024-08912-CS",
+        idStatus = "Active",
         stats = listOf(
             DashboardStat(
                 value = "₱2,450.00",

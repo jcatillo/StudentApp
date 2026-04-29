@@ -32,13 +32,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studentapp.ui.theme.DarkGreen
+import com.example.studentapp.ui.theme.ErrorRed
+import com.example.studentapp.ui.theme.ErrorRedSoft
 import com.example.studentapp.ui.theme.Gold
+import com.example.studentapp.ui.theme.SuccessGreen
+import com.example.studentapp.ui.theme.SuccessGreenSoft
+import com.example.studentapp.ui.theme.WarningYellow
+import com.example.studentapp.ui.theme.WarningYellowSoft
 
 @Composable
 fun CampusDigitalIdCard(
     studentName: String,
-    studentId: String
+    studentId: String,
+    status: String = "Active"
 ) {
+    val (statusColor, statusBg) = when (status.lowercase()) {
+        "active", "finished", "completed", "done" -> SuccessGreen to SuccessGreenSoft
+        "processing", "under maintenance", "pending", "ongoing" -> WarningYellow to WarningYellowSoft
+        "not processed", "not active", "inactive", "cancelled", "failed" -> ErrorRed to ErrorRedSoft
+        else -> WarningYellow to WarningYellowSoft
+    }
+
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -64,11 +78,11 @@ fun CampusDigitalIdCard(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Gold.copy(alpha = 0.2f)
+                    color = statusBg
                 ) {
                     Text(
-                        text = "Active",
-                        color = Gold,
+                        text = status,
+                        color = statusColor,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
