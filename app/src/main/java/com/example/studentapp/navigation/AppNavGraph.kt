@@ -222,7 +222,7 @@ fun AppNavGraph() {
 
         currentRoute == AppDestination.Adjustment.route -> {
             BackHandler {
-                currentRoute = AppDestination.Enrollment.route
+                currentRoute = AppDestination.Dashboard.route
             }
             AdjustmentScreen(
                 navigationItems = primaryBottomNavItems,
@@ -231,7 +231,7 @@ fun AppNavGraph() {
                     currentRoute = resolvePrimaryRoute(item, currentRoute)
                 },
                 onBackClick = {
-                    currentRoute = AppDestination.Enrollment.route
+                    currentRoute = AppDestination.Dashboard.route
                 },
                 onChangeScheduleClick = {
                     currentRoute = AppDestination.ChangeSchedule.route
