@@ -24,8 +24,8 @@ fun EvaluationSubmitButton(
             .height(54.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.secondary,
-            contentColor = MaterialTheme.colorScheme.onSecondary
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
         Text(
