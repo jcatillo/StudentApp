@@ -34,7 +34,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -134,40 +133,23 @@ fun StudyLoadScreen(
                                 .height(56.dp),
                             shape = RoundedCornerShape(18.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = androidx.compose.ui.graphics.Color.Transparent
-                            ),
-                            contentPadding = PaddingValues()
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            )
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clip(RoundedCornerShape(18.dp))
-                                    .background(
-                                        brush = Brush.horizontalGradient(
-                                            listOf(
-                                                MaterialTheme.colorScheme.secondary,
-                                                MaterialTheme.colorScheme.primary
-                                            )
-                                        )
-                                    ),
-                                contentAlignment = Alignment.Center
+                            androidx.compose.foundation.layout.Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
                             ) {
-                                androidx.compose.foundation.layout.Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.FileDownload,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onSecondary
-                                    )
-                                    Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-                                    Text(
-                                        text = "Download Study Load PDF",
-                                        color = MaterialTheme.colorScheme.onSecondary,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                }
+                                Icon(
+                                    imageVector = Icons.Outlined.FileDownload,
+                                    contentDescription = null
+                                )
+                                Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+                                Text(
+                                    text = "Download Study Load PDF",
+                                    fontWeight = FontWeight.SemiBold
+                                )
                             }
                         }
 

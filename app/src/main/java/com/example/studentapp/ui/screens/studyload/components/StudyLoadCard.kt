@@ -25,7 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -118,7 +118,7 @@ fun StudyLoadSubjectCard(
                     Icon(
                         imageVector = Icons.Outlined.LocationOn,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.secondary,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(15.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
@@ -141,16 +141,18 @@ fun StudyLoadSubjectCard(
 
 @Composable
 private fun StatusBadge(status: String) {
-    val bgColor = if (status.equals("Confirmed", true)) {
-        MaterialTheme.colorScheme.primaryContainer
+    val isEnrolled = status.equals("Enrolled", true)
+    
+    val bgColor = if (isEnrolled) {
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
     } else {
-        MaterialTheme.colorScheme.secondaryContainer
+        MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f)
     }
-
-    val textColor = if (status.equals("Confirmed", true)) {
-        MaterialTheme.colorScheme.onPrimaryContainer
+    
+    val textColor = if (isEnrolled) {
+        MaterialTheme.colorScheme.primary
     } else {
-        MaterialTheme.colorScheme.onSecondaryContainer
+        MaterialTheme.colorScheme.secondary
     }
 
     Box(
@@ -161,9 +163,9 @@ private fun StatusBadge(status: String) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = status,
-            fontSize = 11.sp,
-            fontWeight = FontWeight.Medium,
+            text = status.uppercase(),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
             color = textColor
         )
     }
@@ -181,14 +183,7 @@ fun StudyLoadSummaryCard(
             .fillMaxWidth()
             .height(150.dp)
             .clip(RoundedCornerShape(24.dp))
-            .background(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.secondary
-                    )
-                )
-            )
+            .background(MaterialTheme.colorScheme.primary)
             .padding(20.dp)
     ) {
         Box(
@@ -196,12 +191,12 @@ fun StudyLoadSummaryCard(
                 .align(Alignment.TopEnd)
                 .size(42.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(androidx.compose.ui.graphics.Color.White.copy(alpha = 0.12f)),
+                .background(Color.White.copy(alpha = 0.12f)),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = "↓",
-                color = androidx.compose.ui.graphics.Color.White,
+                color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -212,13 +207,13 @@ fun StudyLoadSummaryCard(
         ) {
             Text(
                 text = "Total Units",
-                color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f),
+                color = Color.White.copy(alpha = 0.9f),
                 fontSize = 14.sp
             )
 
             Text(
                 text = totalUnits.toString(),
-                color = androidx.compose.ui.graphics.Color.White,
+                color = Color.White,
                 fontSize = 42.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 42.sp
@@ -230,12 +225,12 @@ fun StudyLoadSummaryCard(
                 Column {
                     Text(
                         text = "Semester",
-                        color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.85f),
+                        color = Color.White.copy(alpha = 0.85f),
                         fontSize = 13.sp
                     )
                     Text(
                         text = semester,
-                        color = androidx.compose.ui.graphics.Color.White,
+                        color = Color.White,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -247,7 +242,7 @@ fun StudyLoadSummaryCard(
                     modifier = Modifier
                         .width(1.dp)
                         .height(32.dp)
-                        .background(androidx.compose.ui.graphics.Color.White.copy(alpha = 0.35f))
+                        .background(Color.White.copy(alpha = 0.35f))
                 )
 
                 Spacer(modifier = Modifier.width(24.dp))
@@ -255,12 +250,12 @@ fun StudyLoadSummaryCard(
                 Column {
                     Text(
                         text = "Courses",
-                        color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.85f),
+                        color = Color.White.copy(alpha = 0.85f),
                         fontSize = 13.sp
                     )
                     Text(
                         text = "$courseCount subjects",
-                        color = androidx.compose.ui.graphics.Color.White,
+                        color = Color.White,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -273,7 +268,7 @@ fun StudyLoadSummaryCard(
                 .align(Alignment.BottomEnd)
                 .size(100.dp)
                 .clip(CircleShape)
-                .background(androidx.compose.ui.graphics.Color.White.copy(alpha = 0.10f))
+                .background(Color.White.copy(alpha = 0.10f))
         )
     }
 }
