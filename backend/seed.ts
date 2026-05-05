@@ -3,81 +3,215 @@ import * as bcrypt from "bcryptjs";
 import { db } from "./src/infrastructure/db/client.js";
 import { students } from "./src/infrastructure/db/schema/student.schema.js";
 import { studentProfiles } from "./src/infrastructure/db/schema/student-profile.schema.js";
-import { subjects, sections, subjectRegistrations } from "./src/infrastructure/db/schema/subject-registration.schema.js";
+import { courses } from "./src/infrastructure/db/schema/course.schema.js";
+import { gradeRecords } from "./src/infrastructure/db/schema/grade-record.schema.js";
 import { transactions } from "./src/infrastructure/db/schema/transaction.schema.js";
+import { documentRequests } from "./src/infrastructure/db/schema/document-request.schema.ts";
+import { complaints } from "./src/infrastructure/db/schema/complaint.schema.js";
+import { programs as programsTable } from "./src/infrastructure/db/schema/program.schema.js";
 
 async function seed() {
   const passwordHash = await bcrypt.hash("password123", 10);
   const studentId = "user_123";
   
+  console.log("Seeding student...");
   // 1. Seed the Student Auth record
   await db.insert(students).values({
     id: studentId,
-    studentId: "S1001",
-    fullName: "John Doe",
-    email: "john@example.com",
+    studentId: "STU-2024-1",
+    fullName: "Christian Osorno",
+    email: "christian@example.com",
     passwordHash: passwordHash
   }).onConflictDoUpdate({
-    target: students.studentId,
-    set: { passwordHash, id: studentId }
+    target: students.id,
+    set: { 
+      studentId: "STU-2024-1",
+      passwordHash, 
+      fullName: "Christian Osorno",
+      email: "christian@example.com"
+    }
   });
 
   // 2. Seed the Student Profile record
   await db.insert(studentProfiles).values({
     id: studentId,
-    fullName: "John Doe",
-    emailAddress: "john@example.com",
-    phoneNumber: "09123456789",
-    accountLabel: "Standard Student",
-    programSummary: "BS Computer Science",
+    fullName: "Christian Osorno",
+    emailAddress: "christian@example.com",
+    phoneNumber: "0917-555-0123",
+    accountLabel: "Computer Science Student",
+    programSummary: "BS Computer Science • Year 2",
     twoFactorStatus: "Disabled",
-    emergencyContactName: "Jane Doe",
+    emergencyContactName: "Maria Osorno",
     emergencyContactRelationship: "Mother",
-    emergencyContactPhoneNumber: "09987654321",
+    emergencyContactPhoneNumber: "0917-555-0987",
     emailNotifications: true,
-    smsNotifications: true,
+    smsNotifications: false,
     systemAlerts: true
   }).onConflictDoUpdate({
     target: studentProfiles.id,
-    set: { fullName: "John Doe" }
+    set: { 
+        fullName: "Christian Osorno",
+        programSummary: "BS Computer Science • Year 2",
+        accountLabel: "Computer Science Student"
+    }
   });
 
-  // 3. Seed Subjects
-  const subjectList = [
-    { id: 'CS301', title: 'Data Structures and Algorithms', units: 3 },
-    { id: 'CS302', title: 'Database Systems', units: 3 },
-    { id: 'CS101', title: 'Introduction to Programming', units: 3 },
-    { id: 'MATH201', title: 'Calculus I', units: 4 },
-  ];
-
-  for (const subject of subjectList) {
-    await db.insert(subjects).values(subject).onConflictDoNothing();
-  }
-
-  // 4. Seed Sections
-  const sectionList = [
-    { id: 'CS301-A', subjectId: 'CS301', term: 'Spring Semester 2024', instructorName: 'Dr. Smith', timeSlots: 'MW 9:00 AM - 10:30 AM', location: 'Room 401' },
-    { id: 'CS302-B', subjectId: 'CS302', term: 'Spring Semester 2024', instructorName: 'Prof. Jones', timeSlots: 'TTh 1:00 PM - 2:30 PM', location: 'Lab 2' },
-    { id: 'CS101-A', subjectId: 'CS101', term: 'Fall Semester 2023', instructorName: 'Dr. White', timeSlots: 'MWF 10:00 AM - 11:00 AM', location: 'Room 101' },
-    { id: 'MATH201-C', subjectId: 'MATH201', term: 'Spring Semester 2024', instructorName: 'Dr. Brown', timeSlots: 'TTh 3:00 PM - 5:00 PM', location: 'Room 302' },
-  ];
-
-  for (const section of sectionList) {
-    await db.insert(sections).values(section).onConflictDoNothing();
-  }
-
-  // 5. Seed Subject Registrations
-  const registrationList = [
-    { studentId, sectionId: 'CS301-A', status: 'Enrolled', progressPercentage: "45.00" },
-    { studentId, sectionId: 'CS302-B', status: 'Waitlisted', progressPercentage: "0.00" },
-    { studentId, sectionId: 'CS101-A', status: 'Completed', progressPercentage: "100.00" },
+  console.log("Seeding courses...");
+  // 3. Seed Courses
+  const courseList = [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      code: "CS301",
+      title: "Advanced Algorithms",
+      semesterTitle: "Spring Semester 2024",
+      instructor: "Dr. Helena Vance",
+      units: 4,
+      schedule: "Mon/Wed 10:00 AM — 11:30 AM",
+      location: "Engineering Hall, Rm 402",
+      progress: "0.65",
+      status: "Enrolled",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      code: "MATH402",
+      title: "Stochastic Processes",
+      semesterTitle: "Spring Semester 2024",
+      instructor: "Prof. Julian Thorne",
+      units: 3,
+      schedule: "Tue/Thu 01:00 PM — 02:30 PM",
+      location: "Science Building, Rm 105",
+      progress: "0.40",
+      status: "Enrolled",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440005",
+      code: "CS320",
+      title: "Machine Learning Basics",
+      semesterTitle: "Spring Semester 2024",
+      instructor: "Dr. Sarah Jenkins",
+      units: 4,
+      schedule: "Friday 09:00 AM — 12:00 PM",
+      location: "Online Sync",
+      progress: "0.85",
+      status: "Enrolled",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440006",
+      code: "CS201",
+      title: "Data Structures",
+      semesterTitle: "2nd Semester 3rd Year",
+      instructor: "Dr. Alan Turing",
+      units: 3,
+      grade: "1.25",
+      progress: "1.00",
+      status: "Completed",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440007",
+      code: "MATH302",
+      title: "Linear Algebra",
+      semesterTitle: "2nd Semester 3rd Year",
+      instructor: "Prof. Katherine Johnson",
+      units: 3,
+      grade: "1.50",
+      progress: "1.00",
+      status: "Completed",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440008",
+      code: "CS205",
+      title: "Operating Systems",
+      semesterTitle: "2nd Semester 3rd Year",
+      instructor: "Dr. Grace Hopper",
+      units: 3,
+      grade: "1.00",
+      progress: "1.00",
+      status: "Completed",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440009",
+      code: "CS401",
+      title: "Artificial Intelligence",
+      semesterTitle: "2nd Semester 3rd Year",
+      instructor: "Prof. Robert Smith",
+      units: 4,
+      schedule: "Mon/Wed 2:00 PM — 3:30 PM",
+      waitlistStatus: "Waitlisted #15",
+      progress: "0.30",
+      status: "Waitlisted",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440010",
+      code: "MATH501",
+      title: "Advanced Calculus",
+      semesterTitle: "2nd Semester 3rd Year",
+      instructor: "Dr. Elena Gilbert",
+      units: 3,
+      schedule: "Tue/Thu 9:00 AM — 10:30 AM",
+      waitlistStatus: "Waitlisted #3",
+      progress: "0.85",
+      status: "Waitlisted",
+    }
   ] as any[];
 
-  for (const reg of registrationList) {
-    await db.insert(subjectRegistrations).values(reg).onConflictDoNothing();
+  for (const course of courseList) {
+    await db.insert(courses).values(course).onConflictDoUpdate({
+      target: courses.id,
+      set: course
+    });
   }
 
-  // 6. Seed Transactions
+  console.log("Seeding grade records...");
+  // 4. Seed Grade Records
+  const gradeRecordList = [
+    {
+        studentId,
+        title: "Data Structures",
+        codeCredits: "CS201 • 3 Credits",
+        gradePoint: "1.25",
+        status: "COMPLETED",
+        semesterLabel: "2nd Semester 3rd Year"
+    },
+    {
+        studentId,
+        title: "Linear Algebra",
+        codeCredits: "MATH302 • 3 Credits",
+        gradePoint: "1.50",
+        status: "COMPLETED",
+        semesterLabel: "2nd Semester 3rd Year"
+    },
+    {
+        studentId,
+        title: "Operating Systems",
+        codeCredits: "CS205 • 3 Credits",
+        gradePoint: "1.00",
+        status: "COMPLETED",
+        semesterLabel: "2nd Semester 3rd Year"
+    },
+    {
+        studentId,
+        title: "Discrete Mathematics",
+        codeCredits: "MATH101 • 3 Credits",
+        gradePoint: "1.75",
+        status: "COMPLETED",
+        semesterLabel: "1st Semester 3rd Year"
+    },
+    {
+        studentId,
+        title: "Intro to Programming",
+        codeCredits: "CS101 • 3 Credits",
+        gradePoint: "1.25",
+        status: "COMPLETED",
+        semesterLabel: "2nd Semester 2nd Year"
+    }
+  ] as any[];
+
+  for (const grade of gradeRecordList) {
+    await db.insert(gradeRecords).values(grade).onConflictDoNothing();
+  }
+
+  console.log("Seeding transactions...");
+  // 5. Seed Transactions
   const transactionList = [
     {
       id: "550e8400-e29b-41d4-a716-446655440001",
@@ -104,17 +238,139 @@ async function seed() {
       description: "Partial tuition payment",
       isPaid: true,
       date: new Date()
+    },
+    {
+        id: "550e8400-e29b-41d4-a716-446655440011",
+        studentId,
+        title: "Library Fine",
+        type: "FEE",
+        amount: "50.00",
+        method: "SYSTEM",
+        status: "PENDING",
+        referenceId: "REF-003",
+        description: "Late book return",
+        isPaid: false,
+        date: new Date()
     }
   ] as any[];
 
   for (const txn of transactionList) {
     await db.insert(transactions).values(txn).onConflictDoUpdate({
       target: transactions.id,
-      set: { title: txn.title }
+      set: txn
+    });
+  }
+
+  console.log("Seeding document requests...");
+  // 6. Seed Document Requests (Services)
+  const docRequests = [
+    {
+        id: "550e8400-e29b-41d4-a716-446655440012",
+        studentId,
+        type: "TOR",
+        purpose: "Job Application",
+        program: "BS Computer Science",
+        yearLevel: "Year 3",
+        copies: 1,
+        deliveryMethod: "Pickup",
+        reference: "REQ-TOR-001",
+        status: "READY_FOR_PICKUP",
+        submittedAt: new Date()
+    },
+    {
+        id: "550e8400-e29b-41d4-a716-446655440013",
+        studentId,
+        type: "GoodMoral",
+        purpose: "Scholarship",
+        program: "BS Computer Science",
+        yearLevel: "Year 3",
+        copies: 1,
+        deliveryMethod: "Pickup",
+        reference: "REQ-GM-001",
+        status: "PROCESSING",
+        submittedAt: new Date()
+    }
+  ] as any[];
+
+  for (const doc of docRequests) {
+    await db.insert(documentRequests).values(doc).onConflictDoUpdate({
+        target: documentRequests.id,
+        set: doc
     });
   }
     
-  console.log("Seeded student S1001, subjects, registrations, and transactions.");
+  console.log("Seeding complaints...");
+  // 7. Seed Complaints
+  const complaintList = [
+    {
+      studentId,
+      title: "Classroom AC issue in Rm 402",
+      status: "IN_REVIEW"
+    },
+    {
+      studentId,
+      title: "Inquiry about scholarship extension",
+      status: "RESOLVED"
+    }
+  ] as any[];
+
+  for (const comp of complaintList) {
+    await db.insert(complaints).values(comp).onConflictDoNothing();
+  }
+
+  console.log("Seeding programs...");
+  // 8. Seed Programs
+  const programList = [
+    {
+      id: "PROG-CS",
+      title: "BS Computer Science",
+      badgeText: "Enrollment Open",
+      badgeVariant: "Primary",
+      scheduleLine: "4 Years • Full Time",
+      description: "Master software engineering, AI, and cybersecurity with our industry-leading curriculum and hands-on laboratory modules.",
+      category: "Undergraduate",
+      prospectusUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    },
+    {
+      id: "PROG-BBA",
+      title: "BBA Business Admin",
+      badgeText: "Next Intake: Sept 2024",
+      badgeVariant: "Accent",
+      scheduleLine: "4 Years • Global Track",
+      description: "Equip yourself with strategic leadership skills, financial acumen, and entrepreneurial mindset for the modern corporate world.",
+      category: "Undergraduate",
+      prospectusUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    },
+    {
+      id: "PROG-MSDA",
+      title: "MS Data Analytics",
+      badgeText: "Enrollment Open",
+      badgeVariant: "Primary",
+      scheduleLine: "2 Years • Postgraduate",
+      description: "Advanced statistical modeling and machine learning applications for driving data-informed business decisions.",
+      category: "Postgraduate",
+      prospectusUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    },
+    {
+      id: "PROG-ARCH",
+      title: "BS Architecture",
+      badgeText: "Limited Seats",
+      badgeVariant: "Accent",
+      scheduleLine: "5 Years • Studio Based",
+      description: "Explore sustainable design, urban planning, and historic conservation through creative architectural practice.",
+      category: "Undergraduate",
+      prospectusUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+    }
+  ] as any[];
+
+  for (const prog of programList) {
+    await db.insert(programsTable).values(prog).onConflictDoUpdate({
+      target: programsTable.id,
+      set: prog
+    });
+  }
+    
+  console.log("Seeded successfully.");
   process.exit(0);
 }
 
@@ -122,3 +378,4 @@ seed().catch(err => {
   console.error(err);
   process.exit(1);
 });
+
