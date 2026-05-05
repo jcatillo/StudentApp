@@ -8,12 +8,26 @@ import retrofit2.http.Query
 data class GradeRecordResponse(
     @SerializedName("id") val id: String,
     @SerializedName("studentId") val studentId: String,
-    @SerializedName("subjectCode") val subjectCode: String,
-    @SerializedName("subjectTitle") val subjectTitle: String,
-    @SerializedName("grade") val grade: String,
-    @SerializedName("credits") val credits: Int,
+    @SerializedName("title") val title: String,
+    @SerializedName("codeCredits") val codeCredits: String,
+    @SerializedName("gradePoint") val gradePoint: String,
     @SerializedName("status") val status: String,
-    @SerializedName("semester") val semester: String
+    @SerializedName("semesterLabel") val semesterLabel: String?
+)
+
+data class CourseResponse(
+    @SerializedName("id") val id: String,
+    @SerializedName("code") val code: String,
+    @SerializedName("title") val title: String,
+    @SerializedName("semesterTitle") val semesterTitle: String?,
+    @SerializedName("instructor") val instructor: String?,
+    @SerializedName("units") val units: Int?,
+    @SerializedName("schedule") val schedule: String?,
+    @SerializedName("location") val location: String?,
+    @SerializedName("grade") val grade: String?,
+    @SerializedName("waitlistStatus") val waitlistStatus: String?,
+    @SerializedName("progress") val progress: Float?,
+    @SerializedName("status") val status: String?
 )
 
 data class ScheduleEntryResponse(
@@ -41,6 +55,12 @@ data class PaginationMeta(
 )
 
 interface AcademicApi {
+    @GET("courses")
+    suspend fun getCourses(
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 100
+    ): Response<PaginatedResponse<CourseResponse>>
+
     @GET("grade-records")
     suspend fun getGradeRecords(
         @Query("studentId") studentId: String,
