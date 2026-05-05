@@ -47,6 +47,7 @@ export class ProgramPgRepository implements ProgramRepository {
       scheduleLine: row.scheduleLine,
       description: row.description,
       category: row.category,
+      prospectusUrl: row.prospectusUrl,
       createdAt: row.createdAt,
     };
   }

@@ -43,6 +43,13 @@
       "when": 1777025286475,
       "tag": "0005_burly_frightful_four",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777973575745,
+      "tag": "0006_tired_otto_octavius",
+      "breakpoints": true
     }
   ]
 }
