@@ -32,7 +32,8 @@ fun DashboardScreen(
     navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
     selectedNavItemId: String = "home",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
-    onViewScheduleClick: () -> Unit = {}
+    onViewScheduleClick: () -> Unit = {},
+    onNotificationClick: () -> Unit = {}
 ) {
     val state = viewModel.state
 
@@ -42,7 +43,8 @@ fun DashboardScreen(
         topBar = {
             DashboardHeader(
                 studentName = state.studentName,
-                hasUnreadNotifications = true
+                hasUnreadNotifications = true,
+                onNotificationClick = onNotificationClick
             )
         },
         bottomBar = {

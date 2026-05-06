@@ -6,18 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Badge as NotificationBadge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,15 +19,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.studentapp.ui.components.StudentNotificationButton
 
 @Composable
 fun DashboardHeader(
     studentName: String,
-    hasUnreadNotifications: Boolean
+    hasUnreadNotifications: Boolean,
+    onNotificationClick: () -> Unit = {}
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -69,7 +64,10 @@ fun DashboardHeader(
                     }
                 }
 
-                NotificationButton(hasUnreadNotifications = hasUnreadNotifications)
+                StudentNotificationButton(
+                    hasUnreadNotifications = hasUnreadNotifications,
+                    onClick = onNotificationClick
+                )
             }
 
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -100,39 +98,5 @@ private fun AvatarPlaceholder(initials: String) {
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
         )
-    }
-}
-
-@Composable
-private fun NotificationButton(hasUnreadNotifications: Boolean) {
-    Surface(
-        modifier = Modifier.size(44.dp),
-        shape = CircleShape,
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 0.dp,
-        shadowElevation = 0.dp
-    ) {
-        BadgedBox(
-            modifier = Modifier.fillMaxSize(),
-            badge = {
-                if (hasUnreadNotifications) {
-                    NotificationBadge(
-                        containerColor = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.size(10.dp)
-                    )
-                }
-            }
-        ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Notifications,
-                    contentDescription = "Notifications",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
     }
 }
