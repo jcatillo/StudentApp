@@ -40,18 +40,6 @@ fun AppNavGraph() {
 
     val primaryBottomNavItems = remember { buildPrimaryBottomNavItems() }
 
-    // Academic overview placeholder
-    val academicOverview = remember { com.example.studentapp.ui.screens.academic.models.AcademicUiState(
-        studentName = "Student",
-        programSummary = "N/A • Year Level",
-        services = emptyList(),
-        supportCard = com.example.studentapp.ui.screens.academic.models.AcademicSupportUiModel(
-            title = "Academic Support",
-            description = "Get help with your studies",
-            actionLabel = "Contact Support"
-        )
-    ) }
-
     val navigateToNotifications = {
         currentRoute = AppDestination.Notifications.route
     }
@@ -88,7 +76,6 @@ fun AppNavGraph() {
             }
 
             AcademicScreen(
-                state = academicOverview,
                 navigationItems = primaryBottomNavItems,
                 selectedNavItemId = "academic",
                 onBottomNavSelected = { item ->
