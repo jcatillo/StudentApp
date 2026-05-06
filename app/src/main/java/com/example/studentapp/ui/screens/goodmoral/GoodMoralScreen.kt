@@ -35,12 +35,16 @@ fun GoodMoralScreen(
     navigationItems: List<StudentBottomNavItem> = buildPrimaryBottomNavItems(),
     selectedNavItemId: String = "services",
     onBottomNavSelected: (StudentBottomNavItem) -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onNotificationClick: () -> Unit = {}
 ) {
     Scaffold(
-        modifier = Modifier.statusBarsPadding(), // This pushes the TopBar below the notch
+        modifier = Modifier.statusBarsPadding(), 
         topBar = {
-            GoodMoralHeader(onBackClick = onBackClick)
+            GoodMoralHeader(
+                onBackClick = onBackClick,
+                onNotificationClick = onNotificationClick
+            )
         },
         bottomBar = {
             StudentBottomNavBar(
