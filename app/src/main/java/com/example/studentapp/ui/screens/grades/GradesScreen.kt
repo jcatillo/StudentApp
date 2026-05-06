@@ -84,14 +84,6 @@ fun GradesScreen(
                         )
                     }
                 },
-                actions = {
-                    IconButton(onClick = onMoreClick) {
-                        Icon(
-                            imageVector = Icons.Outlined.MoreVert,
-                            contentDescription = "More"
-                        )
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
                 )
