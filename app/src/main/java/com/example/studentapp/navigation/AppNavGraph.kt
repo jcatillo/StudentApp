@@ -213,9 +213,6 @@ fun AppNavGraph() {
                 },
                 onBackClick = {
                     currentRoute = AppDestination.Dashboard.route
-                },
-                onChangeScheduleClick = {
-                    currentRoute = AppDestination.ChangeSchedule.route
                 }
             )
         }
