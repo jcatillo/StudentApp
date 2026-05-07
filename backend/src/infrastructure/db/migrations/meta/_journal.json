@@ -50,6 +50,20 @@
       "when": 1777973575745,
       "tag": "0006_tired_otto_octavius",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1778130869104,
+      "tag": "0007_wide_swordsman",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1778137242140,
+      "tag": "0008_lazy_the_renegades",
+      "breakpoints": true
     }
   ]
 }

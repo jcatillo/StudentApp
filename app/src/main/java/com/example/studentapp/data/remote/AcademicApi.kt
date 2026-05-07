@@ -27,7 +27,9 @@ data class CourseResponse(
     @SerializedName("grade") val grade: String?,
     @SerializedName("waitlistStatus") val waitlistStatus: String?,
     @SerializedName("progress") val progress: Float?,
-    @SerializedName("status") val status: String?
+    @SerializedName("status") val status: String?,
+    @SerializedName("tuition") val tuition: Double?,
+    @SerializedName("remainingSlots") val remainingSlots: Int?
 )
 
 data class ScheduleEntryResponse(

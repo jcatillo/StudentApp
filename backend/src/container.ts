@@ -111,7 +111,7 @@ const getTransactionsUseCase = new GetTransactionsUseCase(transactionRepo, stude
 
 const getEnrollmentsUseCase = new GetEnrollmentsUseCase(enrollmentRepo, studentRepo);
 const createEnrollmentUseCase = new CreateEnrollmentUseCase(enrollmentRepo, courseRepo);
-const updateEnrollmentUseCase = new UpdateEnrollmentUseCase(enrollmentRepo);
+const updateEnrollmentUseCase = new UpdateEnrollmentUseCase(enrollmentRepo, courseRepo);
 const deleteEnrollmentUseCase = new DeleteEnrollmentUseCase(enrollmentRepo);
 
 const getStudentSubjectsUseCase = new GetStudentSubjectsUseCase(registrationRepo);

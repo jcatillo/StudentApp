@@ -107,6 +107,8 @@ async function seed() {
       location: "Engineering Hall, Rm 402",
       progress: "0.65",
       status: "Enrolled",
+      remainingSlots: 15,
+      tuition: "710.00"
     },
     {
       id: "550e8400-e29b-41d4-a716-446655440004",
@@ -119,6 +121,8 @@ async function seed() {
       location: "Science Building, Rm 105",
       progress: "0.40",
       status: "Enrolled",
+      remainingSlots: 8,
+      tuition: "530.00"
     },
     {
       id: "550e8400-e29b-41d4-a716-446655440005",
@@ -131,6 +135,34 @@ async function seed() {
       location: "Online Sync",
       progress: "0.85",
       status: "Enrolled",
+      remainingSlots: 0,
+      tuition: "720.00"
+    },
+    {
+        id: "550e8400-e29b-41d4-a716-446655440014",
+        code: "CS305",
+        title: "Database Management",
+        semesterTitle: "Spring Semester 2024",
+        instructor: "Prof. Michael Chen",
+        units: 3,
+        schedule: "Tue/Thu 2:00 PM — 3:30 PM",
+        location: "Engineering Hall, Rm 301",
+        remainingSlots: 20,
+        tuition: "530.00",
+        status: "Available"
+    },
+    {
+        id: "550e8400-e29b-41d4-a716-446655440015",
+        code: "UI102",
+        title: "User Interface Design",
+        semesterTitle: "Spring Semester 2024",
+        instructor: "Amanda Waller",
+        units: 3,
+        schedule: "Friday 09:00 AM — 12:00 PM",
+        location: "Design Studio A",
+        remainingSlots: 12,
+        tuition: "530.00",
+        status: "Available"
     },
     {
       id: "550e8400-e29b-41d4-a716-446655440006",
