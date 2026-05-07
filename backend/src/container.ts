@@ -15,6 +15,9 @@ import { GetComplaintsUseCase } from "@/application/use-cases/complaint/get-comp
 import { CreateComplaintUseCase } from "@/application/use-cases/complaint/create-complaint.use-case";
 import { GetStudentBalanceUseCase } from "@/application/use-cases/finance/get-balance.use-case";
 import { ProcessTransactionUseCase } from "@/application/use-cases/finance/process-transaction.use-case";
+import { GetAssessmentUseCase } from "@/application/use-cases/finance/get-assessment.use-case";
+import { GetPaymentSlipUseCase } from "@/application/use-cases/finance/get-payment-slip.use-case";
+import { GetTransactionHistoryUseCase } from "@/application/use-cases/finance/get-transaction-history.use-case";
 import { GetProgramsUseCase } from "@/application/use-cases/program/get-programs.use-case";
 import { GetProgramUseCase } from "@/application/use-cases/program/get-program.use-case";
 import { GetCoursesUseCase } from "@/application/use-cases/course/get-courses.use-case";
@@ -96,13 +99,16 @@ const getBorrowHistoryUseCase = new GetBorrowHistoryUseCase(borrowRecordRepo);
 
 const getDocumentRequestsUseCase = new GetDocumentRequestsUseCase(documentRequestRepo, studentRepo);
 const getDocumentRequestUseCase = new GetDocumentRequestUseCase(documentRequestRepo);
-const createDocumentRequestUseCase = new CreateDocumentRequestUseCase(documentRequestRepo);
+const createDocumentRequestUseCase = new CreateDocumentRequestUseCase(documentRequestRepo, transactionRepo);
 
 const getComplaintsUseCase = new GetComplaintsUseCase(complaintRepo, studentRepo);
 const createComplaintUseCase = new CreateComplaintUseCase(complaintRepo);
 
 const getStudentBalanceUseCase = new GetStudentBalanceUseCase(transactionRepo, studentRepo);
 const processTransactionUseCase = new ProcessTransactionUseCase(transactionRepo);
+const getAssessmentUseCase = new GetAssessmentUseCase(studentRepo, studentProfileRepo, enrollmentRepo, courseRepo, transactionRepo);
+const getPaymentSlipUseCase = new GetPaymentSlipUseCase(getAssessmentUseCase, transactionRepo, studentRepo);
+const getTransactionHistoryUseCase = new GetTransactionHistoryUseCase(transactionRepo, studentRepo);
 
 const getProgramsUseCase = new GetProgramsUseCase(programRepo);
 const getProgramUseCase = new GetProgramUseCase(programRepo);
@@ -158,6 +164,9 @@ export const complaintController = new ComplaintController(
 export const financeController = new FinanceController(
   getStudentBalanceUseCase,
   processTransactionUseCase,
+  getAssessmentUseCase,
+  getPaymentSlipUseCase,
+  getTransactionHistoryUseCase,
   transactionRepo
 );
 
