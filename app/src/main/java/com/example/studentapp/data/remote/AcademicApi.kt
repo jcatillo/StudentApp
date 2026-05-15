@@ -123,4 +123,8 @@ interface AcademicApi {
     suspend fun submitEvaluation(
         @retrofit2.http.Body request: CreateEvaluationRequest
     ): Response<ApiResponse<EvaluationResponse>>
+
+    @retrofit2.http.Streaming
+    @GET
+    suspend fun downloadFile(@retrofit2.http.Url url: String): Response<okhttp3.ResponseBody>
 }
