@@ -43,6 +43,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.example.studentapp.ui.components.StudentHeader
 import com.example.studentapp.ui.components.StudentNotificationButton
+import com.example.studentapp.ui.components.StudentSpinner
+import com.example.studentapp.ui.components.StudentToast
+import com.example.studentapp.ui.components.ToastType
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,6 +68,10 @@ fun ServicesScreen(
     val documentRequests = viewModel.documentRequests
     val complaints = viewModel.complaints
     val isLoading = viewModel.isLoading
+
+    var showToast by remember { mutableStateOf(false) }
+    var toastMessage by remember { mutableStateOf("") }
+    var toastType by remember { mutableStateOf(ToastType.INFO) }
 
     Scaffold(
         topBar = {
@@ -82,62 +93,78 @@ fun ServicesScreen(
             )
         }
     ) { paddingValues ->
-        if (isLoading && documentRequests.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(horizontal = 16.dp)
-            ) {
-                // Document Requests
-                item {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    DocumentRequestsSection(requests = documentRequests)
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (isLoading && documentRequests.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
                 }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(horizontal = 16.dp)
+                ) {
+                    // Document Requests
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        DocumentRequestsSection(requests = documentRequests)
+                    }
 
-                // Document Type Quick Actions
-                item {
-                    DocumentTypeGrid(
-                        documentTypes = sampleDocumentTypes,
-                        onDocumentTypeClick = { docType ->
-                            when (docType.label) {
-                                "TOR" -> onTORClick()
-                                "Good Moral" -> onGoodMoralClick()
-                                "COE" -> onCOEClick()
+                    // Document Type Quick Actions
+                    item {
+                        DocumentTypeGrid(
+                            documentTypes = sampleDocumentTypes,
+                            onDocumentTypeClick = { docType ->
+                                when (docType.label) {
+                                    "TOR" -> onTORClick()
+                                    "Good Moral" -> onGoodMoralClick()
+                                    "COE" -> onCOEClick()
+                                    else -> {
+                                        toastMessage = "Requesting ${docType.label}..."
+                                        toastType = ToastType.INFO
+                                        showToast = true
+                                    }
+                                }
                             }
-                        }
-                    )
-                }
+                        )
+                    }
 
-                // Library Services
-                item {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    LibraryServicesSection(
-                        libraryLinks = sampleLibraryLinks,
-                        onBorrowBookClick = { onLibraryClick(LibraryTab.Available) },
-                        onReturnClick = { onLibraryClick(LibraryTab.Return) },
-                        onLinkClick = { link ->
-                            when (link.title) {
-                                "Availability Tracker" -> onLibraryClick(LibraryTab.Available)
-                                "Borrowing History" -> onLibraryClick(LibraryTab.History)
+                    // Library Services
+                    item {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        LibraryServicesSection(
+                            libraryLinks = sampleLibraryLinks,
+                            onBorrowBookClick = { onLibraryClick(LibraryTab.Available) },
+                            onReturnClick = { onLibraryClick(LibraryTab.Return) },
+                            onLinkClick = { link ->
+                                when (link.title) {
+                                    "Availability Tracker" -> onLibraryClick(LibraryTab.Available)
+                                    "Borrowing History" -> onLibraryClick(LibraryTab.History)
+                                }
                             }
-                        }
-                    )
-                }
+                        )
+                    }
 
-                // Student Affairs
-                item {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    StudentAffairsSection(complaints = complaints)
-                }
+                    // Student Affairs
+                    item {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        StudentAffairsSection(complaints = complaints)
+                    }
 
-                item { Spacer(modifier = Modifier.height(24.dp)) }
+                    item { Spacer(modifier = Modifier.height(24.dp)) }
+                }
             }
+
+            StudentToast(
+                message = toastMessage,
+                type = toastType,
+                isVisible = showToast,
+                onDismiss = { showToast = false }
+            )
+
+            // Example: StudentSpinner(message = "Processing request...", isVisible = someLoadingState)
         }
     }
 }
