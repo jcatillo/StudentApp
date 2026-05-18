@@ -18,6 +18,7 @@ import com.example.studentapp.ui.screens.dashboard.components.DashboardHeader
 import com.example.studentapp.ui.screens.dashboard.components.RequestStatusSection
 import com.example.studentapp.ui.screens.dashboard.components.StatsSection
 import com.example.studentapp.ui.screens.dashboard.components.StudyLoadSection
+import com.example.studentapp.ui.screens.dashboard.models.CourseSnapshot
 import com.example.studentapp.ui.screens.dashboard.models.DashboardUiState
 import com.example.studentapp.ui.screens.dashboard.models.buildDashboardUiState
 import com.example.studentapp.ui.theme.Spacing
@@ -36,7 +37,9 @@ fun DashboardScreen(
     onFinanceClick: () -> Unit = {},
     onGradesClick: () -> Unit = {},
     onCoursesClick: () -> Unit = {},
-    onNotificationClick: () -> Unit = {}
+    onNotificationClick: () -> Unit = {},
+    onCourseClick: (CourseSnapshot) -> Unit = {},
+    onRequestStatusClick: () -> Unit = {}
 ) {
     val state = viewModel.state
 
@@ -93,7 +96,7 @@ fun DashboardScreen(
                 StudyLoadSection(
                     courses = state.courses,
                     onViewScheduleClick = onViewScheduleClick,
-                    onCourseClick = { onCourseClick() }
+                    onCourseClick = onCourseClick
                 )
             }
 
