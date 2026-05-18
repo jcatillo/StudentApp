@@ -86,7 +86,13 @@ fun AppNavGraph() {
                 onCoursesClick = {
                     navController.navigate(AppDestination.Courses.route)
                 },
-                onNotificationClick = navigateToNotifications
+                onNotificationClick = navigateToNotifications,
+                onCourseClick = {
+                    navController.navigate(AppDestination.Courses.route)
+                },
+                onRequestStatusClick = {
+                    navController.navigate(AppDestination.Services.route)
+                }
             )
         }
 
