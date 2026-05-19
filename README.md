@@ -50,7 +50,7 @@ A comprehensive, full-stack college management system designed to streamline stu
    ```bash
    npm install
    ```
-3. Create a `.env` file based on `.env.example` and configure your `DATABASE_URL`.
+3. Create a `.env` file based on `.env.example` and configure your `DATABASE_URL` and other secrets.
 4. Run migrations and seed the database:
    ```bash
    npm run db:generate
@@ -64,8 +64,9 @@ A comprehensive, full-stack college management system designed to streamline stu
 
 ### Android Setup
 1. Open the project in **Android Studio**.
-2. Ensure the `BASE_URL` in `NetworkModule.kt` points to your machine's IP address (default is `10.0.2.2` for the emulator).
-3. Build and run the app on an emulator or physical device.
+2. Create an `.env` file in the `app/` directory (refer to the documentation for required keys).
+3. Set `API_BASE_URL` to your backend endpoint (e.g., your local machine's IP or a private production URL).
+4. Build and run the app on an emulator or physical device.
 
 ---
 

@@ -48,4 +48,5 @@ export type UpdateCourseInput = z.infer<typeof UpdateCourseDto>;
 export const GetCoursesQueryDto = z.object({
   programId: z.string().uuid().optional(),
   code: z.string().optional(),
+  status: CourseStatusDto.optional(),
 });

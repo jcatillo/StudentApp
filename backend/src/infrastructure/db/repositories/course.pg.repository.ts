@@ -9,7 +9,7 @@ export class CoursePgRepository implements CourseRepository {
 
   async findAll(
     pagination: { page: number; limit: number },
-    filter?: { programId?: string; code?: string }
+    filter?: { programId?: string; code?: string; status?: string }
   ): Promise<{ data: Course[]; total: number }> {
     const { page, limit } = pagination;
     const offset = (page - 1) * limit;
@@ -17,6 +17,7 @@ export class CoursePgRepository implements CourseRepository {
     const conditions = [];
     if (filter?.programId) conditions.push(eq(courses.programId, filter.programId));
     if (filter?.code) conditions.push(eq(courses.code, filter.code));
+    if (filter?.status) conditions.push(eq(courses.status, filter.status));
 
     const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 

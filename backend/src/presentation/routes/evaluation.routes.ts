@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import { evaluationController } from '@/container';
 
-const router = Router();
+export const evaluationRouter = Router();
 
-router.post('/', evaluationController.submitEvaluation);
-router.get('/student/:studentId', evaluationController.getStudentEvaluations);
-
-export default router;
+evaluationRouter.post('/', evaluationController.submitEvaluation);
+evaluationRouter.get('/student/:studentId', evaluationController.getStudentEvaluations);
