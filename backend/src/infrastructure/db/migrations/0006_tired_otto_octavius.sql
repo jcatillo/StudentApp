@@ -79,42 +79,43 @@ ALTER TABLE "books" DISABLE ROW LEVEL SECURITY;--> statement-breakpoint
 ALTER TABLE "enrollment_subjects" DISABLE ROW LEVEL SECURITY;--> statement-breakpoint
 DROP TABLE "books" CASCADE;--> statement-breakpoint
 DROP TABLE "enrollment_subjects" CASCADE;--> statement-breakpoint
-ALTER TABLE "borrow_records" DROP CONSTRAINT "borrow_records_book_id_books_id_fk";
+ALTER TABLE "borrow_records" DROP CONSTRAINT IF EXISTS "borrow_records_book_id_books_id_fk";
 --> statement-breakpoint
-ALTER TABLE "document_requests" DROP CONSTRAINT "document_requests_student_id_students_id_fk";
+ALTER TABLE "document_requests" DROP CONSTRAINT IF EXISTS "document_requests_student_id_students_id_fk";
 --> statement-breakpoint
-ALTER TABLE "transactions" DROP CONSTRAINT "transactions_student_id_students_id_fk";
+ALTER TABLE "transactions" DROP CONSTRAINT IF EXISTS "transactions_student_id_students_id_fk";
 --> statement-breakpoint
-ALTER TABLE "document_requests" ALTER COLUMN "type" SET DATA TYPE text;--> statement-breakpoint
+ALTER TABLE "document_requests" ALTER COLUMN "document_type" SET DATA TYPE text;--> statement-breakpoint
 DROP TYPE "public"."document_type";--> statement-breakpoint
 CREATE TYPE "public"."document_type" AS ENUM('TOR', 'GoodMoral', 'COE');--> statement-breakpoint
-ALTER TABLE "document_requests" ALTER COLUMN "type" SET DATA TYPE "public"."document_type" USING "type"::"public"."document_type";--> statement-breakpoint
+ALTER TABLE "document_requests" ALTER COLUMN "document_type" SET DATA TYPE "public"."document_type" USING "document_type"::"public"."document_type";--> statement-breakpoint
+ALTER TABLE "document_requests" RENAME COLUMN "document_type" TO "type";--> statement-breakpoint
 ALTER TABLE "enrollments" ALTER COLUMN "status" SET DATA TYPE text;--> statement-breakpoint
 ALTER TABLE "enrollments" ALTER COLUMN "status" SET DEFAULT 'PENDING'::text;--> statement-breakpoint
 DROP TYPE "public"."enrollment_status";--> statement-breakpoint
 CREATE TYPE "public"."enrollment_status" AS ENUM('PENDING', 'APPROVED', 'REJECTED');--> statement-breakpoint
 ALTER TABLE "enrollments" ALTER COLUMN "status" SET DEFAULT 'PENDING'::"public"."enrollment_status";--> statement-breakpoint
 ALTER TABLE "enrollments" ALTER COLUMN "status" SET DATA TYPE "public"."enrollment_status" USING "status"::"public"."enrollment_status";--> statement-breakpoint
-ALTER TABLE "transactions" ALTER COLUMN "type" SET DATA TYPE text;--> statement-breakpoint
+ALTER TABLE "transactions" ALTER COLUMN "transaction_type" SET DATA TYPE text;--> statement-breakpoint
 DROP TYPE "public"."transaction_type";--> statement-breakpoint
 CREATE TYPE "public"."transaction_type" AS ENUM('PAYMENT', 'FEE', 'REFUND');--> statement-breakpoint
-ALTER TABLE "transactions" ALTER COLUMN "type" SET DATA TYPE "public"."transaction_type" USING "type"::"public"."transaction_type";--> statement-breakpoint
+ALTER TABLE "transactions" ALTER COLUMN "transaction_type" SET DATA TYPE "public"."transaction_type" USING "transaction_type"::"public"."transaction_type";--> statement-breakpoint
+ALTER TABLE "transactions" RENAME COLUMN "transaction_type" TO "type";--> statement-breakpoint
 ALTER TABLE "borrow_records" ALTER COLUMN "book_id" SET DATA TYPE varchar(128);--> statement-breakpoint
-ALTER TABLE "document_requests" ALTER COLUMN "id" SET DATA TYPE uuid;--> statement-breakpoint
+ALTER TABLE "document_requests" ALTER COLUMN "id" SET DATA TYPE uuid USING "id"::uuid;--> statement-breakpoint
 ALTER TABLE "document_requests" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();--> statement-breakpoint
 ALTER TABLE "document_requests" ALTER COLUMN "copies" DROP DEFAULT;--> statement-breakpoint
 ALTER TABLE "document_requests" ALTER COLUMN "copies" DROP NOT NULL;--> statement-breakpoint
 ALTER TABLE "document_requests" ALTER COLUMN "updated_at" SET DATA TYPE timestamp;--> statement-breakpoint
 ALTER TABLE "document_requests" ALTER COLUMN "updated_at" SET DEFAULT now();--> statement-breakpoint
 ALTER TABLE "enrollments" ALTER COLUMN "student_id" SET DATA TYPE text;--> statement-breakpoint
-ALTER TABLE "transactions" ALTER COLUMN "id" SET DATA TYPE uuid;--> statement-breakpoint
+ALTER TABLE "transactions" ALTER COLUMN "id" SET DATA TYPE uuid USING "id"::uuid;--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "amount" SET DATA TYPE varchar(50);--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "reference_id" SET DATA TYPE varchar(50);--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "description" DROP NOT NULL;--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "created_at" SET DATA TYPE timestamp;--> statement-breakpoint
 ALTER TABLE "transactions" ALTER COLUMN "created_at" SET DEFAULT now();--> statement-breakpoint
-ALTER TABLE "document_requests" ADD COLUMN "type" "document_type" NOT NULL;--> statement-breakpoint
 ALTER TABLE "document_requests" ADD COLUMN "program" varchar(255);--> statement-breakpoint
 ALTER TABLE "document_requests" ADD COLUMN "year_level" varchar(50);--> statement-breakpoint
 ALTER TABLE "document_requests" ADD COLUMN "delivery_method" "delivery_method";--> statement-breakpoint
@@ -125,7 +126,6 @@ ALTER TABLE "enrollments" ADD COLUMN "total_units" integer NOT NULL;--> statemen
 ALTER TABLE "enrollments" ADD COLUMN "total_tuition" numeric(12, 2) NOT NULL;--> statement-breakpoint
 ALTER TABLE "programs" ADD COLUMN "prospectus_url" text;--> statement-breakpoint
 ALTER TABLE "transactions" ADD COLUMN "title" varchar(255) NOT NULL;--> statement-breakpoint
-ALTER TABLE "transactions" ADD COLUMN "type" "transaction_type" NOT NULL;--> statement-breakpoint
 ALTER TABLE "transactions" ADD COLUMN "method" varchar(100) NOT NULL;--> statement-breakpoint
 ALTER TABLE "transactions" ADD COLUMN "status" "transaction_status" NOT NULL;--> statement-breakpoint
 ALTER TABLE "transactions" ADD COLUMN "date" timestamp DEFAULT now() NOT NULL;--> statement-breakpoint
@@ -140,7 +140,6 @@ ALTER TABLE "borrow_records" ADD CONSTRAINT "borrow_records_book_id_library_book
 ALTER TABLE "document_requests" ADD CONSTRAINT "document_requests_student_id_student_profiles_id_fk" FOREIGN KEY ("student_id") REFERENCES "public"."student_profiles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "enrollments" ADD CONSTRAINT "enrollments_student_id_student_profiles_id_fk" FOREIGN KEY ("student_id") REFERENCES "public"."student_profiles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_student_id_student_profiles_id_fk" FOREIGN KEY ("student_id") REFERENCES "public"."student_profiles"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "document_requests" DROP COLUMN "document_type";--> statement-breakpoint
 ALTER TABLE "document_requests" DROP COLUMN "request_status";--> statement-breakpoint
 ALTER TABLE "document_requests" DROP COLUMN "notes";--> statement-breakpoint
 ALTER TABLE "document_requests" DROP COLUMN "requested_at";--> statement-breakpoint
@@ -155,7 +154,6 @@ ALTER TABLE "enrollments" DROP COLUMN "selected_credits";--> statement-breakpoin
 ALTER TABLE "enrollments" DROP COLUMN "estimated_tuition";--> statement-breakpoint
 ALTER TABLE "enrollments" DROP COLUMN "payment_method";--> statement-breakpoint
 ALTER TABLE "enrollments" DROP COLUMN "is_paid";--> statement-breakpoint
-ALTER TABLE "transactions" DROP COLUMN "transaction_type";--> statement-breakpoint
 ALTER TABLE "transactions" DROP COLUMN "payment_method";--> statement-breakpoint
 ALTER TABLE "transactions" DROP COLUMN "transaction_status";--> statement-breakpoint
 ALTER TABLE "document_requests" ADD CONSTRAINT "document_requests_reference_unique" UNIQUE("reference");--> statement-breakpoint
