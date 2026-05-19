@@ -18,6 +18,8 @@ export class CourseController {
       const { data, total } = await this.getCoursesUseCase.execute({
         ...pagination,
         ...(filter.programId !== undefined && { programId: filter.programId }),
+        ...(filter.code !== undefined && { code: filter.code }),
+        ...(filter.status !== undefined && { status: filter.status }),
       });
 
       ok(res, data, {
