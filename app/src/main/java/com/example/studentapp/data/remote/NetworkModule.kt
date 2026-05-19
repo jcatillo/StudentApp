@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkModule {
-    private val BASE_URL = BuildConfig.API_BASE_URL
+    private val BASE_URL = BuildConfig.API_BASE_URL ?: "https://student-app-phi-lac.vercel.app/api/v1/"
 
     private var authToken: String? = null
 
