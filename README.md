@@ -68,6 +68,9 @@ A comprehensive, full-stack college management system designed to streamline stu
 3. Build and run the app on an emulator or physical device.
 
 ---
+## 📦 OR DOWNLOAD THE APK Release (Android OS only)
+
+[⬇ Download StudentApp v1.0.1 APK](https://github.com/jcatillo/StudentApp/releases/tag/StudentAppv1.0.1)
 
 ## 📁 Project Structure
 
