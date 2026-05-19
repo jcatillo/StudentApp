@@ -15,7 +15,7 @@ import { gradeRecordRouter } from '@/presentation/routes/grade-record.routes';
 import { transactionRouter } from '@/presentation/routes/transaction.routes';
 import { enrollmentRouter } from '@/presentation/routes/enrollment.routes';
 import { subjectRouter } from '@/presentation/routes/subject.routes';
-import evaluationRouter from '@/presentation/routes/evaluation.routes';
+import { evaluationRouter } from '@/presentation/routes/evaluation.routes';
 import { globalRateLimiter } from "@/presentation/middleware/rate-limit.middleware";
 
 export const app = express();
